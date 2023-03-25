@@ -1,15 +1,15 @@
-# Laravel 8 Template With Stisla
+# Laravel 9 Template With Stisla
 
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/c_scale,w_100/v1677141031/logo_srs66z.png)](https://anamapp.my.id)
 
-Free Starter Laravel 8 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
+Free Starter Laravel 9 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1677142211/Screen_Shot_2023-02-23_at_15.26.27_axnj7a.png)](https://anamapp.my.id)
 
 ## Fitur dan komponen
 
--   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/8.x/socialite)
+-   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/9.x/socialite)
 -   Google captcha
 -   Dashboard (widget, log aktivitas terbaru)
 -   Profil
@@ -76,7 +76,7 @@ Beberapa fitur atau komponen yang ada
 
 -   https://demo.getstisla.com/
 -   https://spatie.be/docs/laravel-permission/v5/introduction
--   https://laravel.com/docs/8.x/socialite
+-   https://laravel.com/docs/9.x/socialite
 -   https://unisharp.github.io/laravel-filemanager/
 -   https://laravel-excel.com/
 -   https://github.com/barryvdh/laravel-dompdf
@@ -101,4 +101,4 @@ Rencana nanti bakal kuupdate ke versi laravel terbaru 9 bahkan 10
 
 atau kunjungi https://anamapp.my.id
 
-https://github.com/Anamcoollzz/laravel-8-template
+https://github.com/Anamcoollzz/laravel-9-template

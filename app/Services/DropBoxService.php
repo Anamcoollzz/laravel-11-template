@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 class DropBoxService
 {
     private $code = '';
-    private $clientId = '';
-    private $clientSecret = '';
-    private $accessToken = '';
+    private $clientId = 's83a81s4f27p13d';
+    private $clientSecret = '2rsdn8jsac4k16j';
+    private $accessToken = 'sl.Ba8VjMCUWtpUD1pj7Swm1pcs8-Ip1jJKoTYq_4Tpl4OTm2ve-62AugP7EVaWhmg9qkl37s5gLaaxLKhlWeB19SbLVbm38qJlshN2R9YAQf2yfbR2NHH1S1xPx4diFBUUe1Q8zhs';
     private $refreshToken = '';
 
     public function getAccessToken($code, $clientId, $clientSecret)

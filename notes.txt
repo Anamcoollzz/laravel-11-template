@@ -77,3 +77,19 @@ Terima kasih, bisa distar ataupun difork ya guys. Kalau ada request module atau 
 Rencana nanti bakal kuupdate ke versi laravel terbaru 9 bahkan 10
 
 https://github.com/Anamcoollzz/laravel-8-template
+
+
+curl https://api.dropbox.com/oauth2/token \
+    -d code=uItbxBW-2zUAAAAAAAAAxNWYwvvRcMI8BmEpYEkcsnM \
+    -d grant_type=authorization_code \
+    -d client_id=jhek37pw269jeaq \
+    -d client_secret=xd30u2w64ljwgmg \
+    -d redirect_uri=http://127.0.0.1:8000
+
+https://www.dropbox.com/oauth2/authorize?client_id=s83a81s4f27p13d&token_access_type=offline&response_type=code
+
+curl https://api.dropbox.com/oauth2/token \
+    -d grant_type=refresh_token \
+    -d refresh_token=bd2nLM__4dsAAAAAAAAAAYmJJ6Mxt5fX7xPfj7_lgD4q49HgvwNEcpoYAMVFVn_R \
+    -d client_id=jhek37pw269jeaq \
+    -d client_secret=xd30u2w64ljwgmg

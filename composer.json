@@ -8,36 +8,36 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0.2",
         "alaouy/youtube": "^2.2",
-        "barryvdh/laravel-dompdf": "^0.9.0",
+        "barryvdh/laravel-dompdf": "^2.0",
         "buzz/laravel-google-captcha": "^2.3",
         "cloudinary-labs/cloudinary-laravel": "^1.0",
-        "dompdf/dompdf": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^9.19",
+        "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.5",
-        "laravel/tinker": "^2.5",
+        "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "maatwebsite/excel": "^3.1",
         "rap2hpoutre/laravel-log-viewer": "^2.2",
-        "spatie/laravel-permission": "^4.2",
-        "tymon/jwt-auth": "^1.0.2",
+        "spatie/laravel-permission": "^5.10",
+        "tymon/jwt-auth": "^2.0",
         "unisharp/laravel-filemanager": "^2.5",
         "yajra/laravel-datatables": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3",
-        "wulfheart/pretty_routes": "^0.3.0"
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -60,6 +60,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
@@ -75,8 +78,11 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
