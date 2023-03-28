@@ -8,8 +8,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Repositories\SettingRepository;
-use App\Repositories\UserRepository;
-use App\Services\EmailService;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;

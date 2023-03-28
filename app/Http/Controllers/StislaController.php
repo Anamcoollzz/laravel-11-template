@@ -24,7 +24,7 @@ class StislaController extends Controller
     /**
      * email service
      *
-     * @var FileService
+     * @var EmailService
      */
     protected EmailService $emailService;
 
