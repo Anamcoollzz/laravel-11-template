@@ -3,37 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ActivityLogExport;
-use App\Repositories\ActivityLogRepository;
-use App\Repositories\UserRepository;
-use App\Services\FileService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Barryvdh\DomPDF\Facade as PDF;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ActivityLogController extends Controller
+class ActivityLogController extends StislaController
 {
-    /**
-     * activityLogRepository
-     *
-     * @var ActivityLogRepository
-     */
-    private ActivityLogRepository $activityLogRepository;
-
-    /**
-     * userRepository
-     *
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
-
-    /**
-     * file service
-     *
-     * @var FileService
-     */
-    private FileService $fileService;
 
     /**
      * constructor method
@@ -42,9 +18,7 @@ class ActivityLogController extends Controller
      */
     public function __construct()
     {
-        $this->activityLogRepository = new ActivityLogRepository;
-        $this->userRepository        = new UserRepository;
-        $this->fileService           = new FileService;
+        parent::__construct();
 
         $this->middleware('can:Log Aktivitas');
     }
@@ -98,9 +72,9 @@ class ActivityLogController extends Controller
     /**
      * download export data as json
      *
-     * @return Response
+     * @return BinaryFileResponse
      */
-    public function json()
+    public function json(): BinaryFileResponse
     {
         $data = $this->activityLogRepository->getFilter();
         return $this->fileService->downloadJson($data, 'activity-logs.json');
@@ -109,9 +83,9 @@ class ActivityLogController extends Controller
     /**
      * download export data as xlsx
      *
-     * @return Response
+     * @return BinaryFileResponse
      */
-    public function excel()
+    public function excel(): BinaryFileResponse
     {
         $data = $this->activityLogRepository->getFilter();
         return (new ActivityLogExport($data))->download('activity-logs.xlsx', \Maatwebsite\Excel\Excel::XLSX);
@@ -120,9 +94,9 @@ class ActivityLogController extends Controller
     /**
      * download export data as csv
      *
-     * @return Response
+     * @return BinaryFileResponse
      */
-    public function csv()
+    public function csv(): BinaryFileResponse
     {
         $data = $this->activityLogRepository->getFilter();
         return (new ActivityLogExport($data))->download('activity-logs.csv', \Maatwebsite\Excel\Excel::CSV);
@@ -133,7 +107,7 @@ class ActivityLogController extends Controller
      *
      * @return Response
      */
-    public function pdf()
+    public function pdf(): Response
     {
         $data = $this->activityLogRepository->getFilter();
         return PDF::setPaper('Letter', 'landscape')

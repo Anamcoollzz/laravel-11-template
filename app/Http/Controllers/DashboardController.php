@@ -5,29 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Notification;
 use App\Models\User;
-use App\Repositories\ActivityLogRepository;
 use App\Repositories\SettingRepository;
 use App\Services\DatabaseService;
-use App\Services\FileService;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 
-class DashboardController extends Controller
+class DashboardController extends StislaController
 {
-
-    /**
-     * activityLogRepository
-     *
-     * @var ActivityLogRepository
-     */
-    private ActivityLogRepository $activityLogRepository;
-
-    /**
-     * fileService
-     *
-     * @var FileService
-     */
-    private FileService $fileService;
 
     /**
      * constructor method
@@ -36,8 +20,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->activityLogRepository = new ActivityLogRepository;
-        $this->fileService           = new FileService;
+        parent::__construct();
 
         // $this->middleware('can:Log Aktivitas');
     }

@@ -3,26 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
-use App\Models\User;
-use App\Repositories\UserRepository;
-use App\Services\FileService;
 
-class ProfileController extends Controller
+class ProfileController extends StislaController
 {
-
-    /**
-     * user repository
-     *
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
-
-    /**
-     * file service
-     *
-     * @var FileService
-     */
-    private FileService $fileService;
 
     /**
      * constructor method
@@ -31,8 +14,7 @@ class ProfileController extends Controller
      */
     public function __construct()
     {
-        $this->userRepository = new UserRepository;
-        $this->fileService    = new FileService;
+        parent::__construct();
 
         $this->middleware('can:Profil Ubah')->only(['update', 'updatePassword']);
     }

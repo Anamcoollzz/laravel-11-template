@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ActivityLogRepository;
 use App\Repositories\UserRepository;
 use App\Services\DropBoxService;
 use App\Services\EmailService;
@@ -33,6 +34,13 @@ class StislaController extends Controller
      * @var UserRepository
      */
     protected UserRepository $userRepository;
+
+    /**
+     * activity log repository
+     *
+     * @var ActivityLogRepository
+     */
+    protected ActivityLogRepository $activityLogRepository;
 
     /**
      * icon of module
@@ -90,10 +98,11 @@ class StislaController extends Controller
      */
     public function __construct()
     {
-        $this->fileService    = new FileService;
-        $this->emailService   = new EmailService;
-        $this->userRepository = new UserRepository;
-        $this->dropBoxService = new DropBoxService;
+        $this->fileService           = new FileService;
+        $this->emailService          = new EmailService;
+        $this->userRepository        = new UserRepository;
+        $this->activityLogRepository = new ActivityLogRepository;
+        $this->dropBoxService        = new DropBoxService;
     }
 
     /**
