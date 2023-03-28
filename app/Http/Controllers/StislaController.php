@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SettingRepository;
 use App\Repositories\UserRepository;
 use App\Services\DropBoxService;
 use App\Services\EmailService;
@@ -84,16 +85,24 @@ class StislaController extends Controller
     protected DropBoxService $dropBoxService;
 
     /**
+     * setting repository
+     *
+     * @var SettingRepository
+     */
+    protected SettingRepository $settingRepository;
+
+    /**
      * constructor method
      *
      * @return void
      */
     public function __construct()
     {
-        $this->fileService    = new FileService;
-        $this->emailService   = new EmailService;
-        $this->userRepository = new UserRepository;
-        $this->dropBoxService = new DropBoxService;
+        $this->fileService       = new FileService;
+        $this->emailService      = new EmailService;
+        $this->dropBoxService    = new DropBoxService;
+        $this->userRepository    = new UserRepository;
+        $this->settingRepository = new SettingRepository;
     }
 
     /**
