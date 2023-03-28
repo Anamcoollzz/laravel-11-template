@@ -57,6 +57,7 @@ Beberapa fitur atau komponen yang ada
         -   Google captcha
         -   Setting page
 -   Backup database
+-   Dropbox
 -   Manajemen Menu
     -   Menu (CRUD)
     -   Grup Menu (CRUD)
@@ -69,6 +70,7 @@ Beberapa fitur atau komponen yang ada
 
 -   `composer install`
 -   setup your DB in `.env`
+-   `php artisan jwt:secret`
 -   `php artisan migrate --seed`
 -   [optional] setup google captcha, google login, facebook login, github login, twitter login in `.env`
 
