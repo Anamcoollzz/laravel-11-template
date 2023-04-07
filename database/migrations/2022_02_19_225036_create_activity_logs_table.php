@@ -22,11 +22,11 @@ class CreateActivityLogsTable extends Migration
             $table->longText('after')->nullable();
             $table->string('ip');
             $table->text('user_agent');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             // $table->unsignedBigInteger('role_id');
             // $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('roles')->comment('history roles');
+            $table->string('roles')->comment('history roles')->default('[]');
             $table->string('browser')->nullable();
             $table->string('platform')->nullable();
             $table->string('device')->nullable();
