@@ -38,6 +38,7 @@ class CrudExampleRepository extends Repository
             'checkbox2'        => '{{implode(", ", $checkbox2)}}',
             'tags'             => 'stisla.crud-examples.tags',
             'file'             => 'stisla.crud-examples.file',
+            'image'            => fn (CrudExample $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
             'color'            => 'stisla.crud-examples.color',
             'created_at'       => '{{\Carbon\Carbon::parse($created_at)->addHour(7)->format("Y-m-d H:i:s")}}',
             'updated_at'       => '{{\Carbon\Carbon::parse($updated_at)->addHour(7)->format("Y-m-d H:i:s")}}',
@@ -52,7 +53,7 @@ class CrudExampleRepository extends Repository
         ];
         $params = [
             'editColumns' => $editColumns,
-            'rawColumns'  => ['tags', 'file', 'color', 'action'],
+            'rawColumns'  => ['tags', 'file', 'color', 'action', 'image'],
         ];
         return $this->generateDataTables($query, $params);
     }
@@ -84,6 +85,7 @@ class CrudExampleRepository extends Repository
             ['data' => 'checkbox2', 'name' => 'checkbox2'],
             ['data' => 'tags', 'name' => 'tags'],
             ['data' => 'file', 'name' => 'file'],
+            ['data' => 'image', 'name' => 'image'],
             ['data' => 'date', 'name' => 'date'],
             ['data' => 'time', 'name' => 'time'],
             ['data' => 'color', 'name' => 'color'],

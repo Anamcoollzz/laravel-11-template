@@ -29,6 +29,7 @@ class CrudExample extends Model
         'checkbox2',
         'tags',
         'file',
+        'image',
         'date',
         'time',
         'color',
