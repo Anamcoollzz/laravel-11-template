@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <h1>Data Contoh CRUD</h1>
+  <h1>Data Contoh dsa</h1>
   @include('stisla.crud-examples.table')
 </body>
 

@@ -7,7 +7,7 @@
 
 <table class="table table-striped @if ($isYajra || $isAjaxYajra) yajra-datatable @endif"
   @if ($isYajra || $isAjaxYajra) data-ajax-url="{{ $routeYajra }}?isAjaxYajra={{ $isAjaxYajra }}" @else  id="datatable" @endif
-  @if ($isExport === false && $canExport) data-export="true" data-title="{{ __('Contoh CRUD') }}" @endif>
+  @if ($isExport === false && $canExport) data-export="true" data-title="{{ $title }}" @endif>
   <thead>
     <tr>
       @if ($isExport)

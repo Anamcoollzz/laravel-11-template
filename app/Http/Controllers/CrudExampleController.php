@@ -33,6 +33,7 @@ class CrudExampleController extends StislaController
 
         $this->icon                  = 'fa fa-atom';
         $this->crudExampleRepository = new CrudExampleRepository;
+        $this->viewFolder            = 'crud-examples';
 
         $this->defaultMiddleware('Contoh CRUD');
     }
@@ -124,13 +125,14 @@ class CrudExampleController extends StislaController
      */
     protected function getExportData(): array
     {
-        $times = date('Y-m-d_H-i-s');
-        $data = [
+        $times    = date('Y-m-d_H-i-s');
+        $filename = $times . '_crud_examples';
+        $data     = [
             'isExport'   => true,
-            'pdf_name'   => $times . '_crud_examples.pdf',
-            'excel_name' => $times . '_crud_examples.xlsx',
-            'csv_name'   => $times . '_crud_examples.csv',
-            'json_name'  => $times . '_crud_examples.json',
+            'pdf_name'   => $filename . '.pdf',
+            'excel_name' => $filename . '.xlsx',
+            'csv_name'   => $filename . '.csv',
+            'json_name'  => $filename . '.json',
         ];
         return array_merge($this->getIndexData(), $data);
     }

@@ -167,6 +167,7 @@ class StislaController extends Controller
             'routePrefix'       => $routePrefix,
             'isExport'          => false,
             'folder'            => $routePrefix,
+            'viewFolder'        => $this->viewFolder,
         ];
     }
 
@@ -202,7 +203,8 @@ class StislaController extends Controller
                 [
                     'label' => 'Tambah'
                 ]
-            ]
+            ],
+            'viewFolder' => $this->viewFolder,
         ];
     }
 
@@ -232,13 +234,14 @@ class StislaController extends Controller
             ]
         ];
         return [
-            'd'               => $row,
-            'title'           => $title,
-            'routeIndex'      => $routeIndex,
-            'action'          => route($prefixRoute . '.update', [$row->id]),
-            'moduleIcon'      => $this->icon,
-            'isDetail'        => $isDetail,
-            'breadcrumbs'     => $breadcrumbs,
+            'd'           => $row,
+            'title'       => $title,
+            'routeIndex'  => $routeIndex,
+            'action'      => route($prefixRoute . '.update', [$row->id]),
+            'moduleIcon'  => $this->icon,
+            'isDetail'    => $isDetail,
+            'breadcrumbs' => $breadcrumbs,
+            'viewFolder'  => $this->viewFolder,
         ];
     }
 
