@@ -403,4 +403,38 @@ class FileService
         }
         return $supervisors;
     }
+    
+    /**
+     * base 64 to jpeg
+     *
+     * @param string $base64_string
+     * @param string $pathToSave
+     * @return string
+     */
+    function base64ToJpeg(String $base64_string, String $folder)
+    {
+        $pathToSave = storage_path('app/public/' . $folder . '/' . date('YmdHis_') . Str::random(20) . '.jpg');
+        $pathToSave = str_replace('\\', '/', $pathToSave);
+        $pathToSave = str_replace('//', '/', $pathToSave);
+        $folder = dirname($pathToSave);
+        if (!File::exists($folder))
+            File::makeDirectory($folder);
+        // open the output file for writing
+        $ifp = fopen($pathToSave, 'wb');
+
+        // split the string on commas
+        // $data[ 0 ] == "data:image/png;base64"
+        // $data[ 1 ] == <actual base64 string>
+        $data = explode(',', $base64_string);
+
+        // we could add validation here with ensuring count( $data ) > 1
+        fwrite($ifp, base64_decode($data[1]));
+
+        // clean up the file resource
+        fclose($ifp);
+
+        $link = 'storage/' . str_replace(storage_path('app/public/'), '', $pathToSave);
+
+        return asset($link);
+    }
 }
