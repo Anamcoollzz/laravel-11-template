@@ -53,7 +53,7 @@ Route::as('api.')->prefix('v1')->group(function () {
     });
 });
 
-Route::get('provinces', [RegionController::class, 'getProvinces']);
-Route::get('cities/{provinceId}', [RegionController::class, 'getCities']);
-Route::get('districts/{cityId}', [RegionController::class, 'getDistricts']);
-Route::get('villages/{districtId}', [RegionController::class, 'getVillages']);
+Route::get('provinces', [RegionController::class, 'getProvinces'])->name('api.provinces');
+Route::get('cities/{provinceId}', [RegionController::class, 'getCities'])->name('api.cities');
+Route::get('districts/{cityId}', [RegionController::class, 'getDistricts'])->name('api.districts');
+Route::get('villages/{districtId}', [RegionController::class, 'getVillages'])->name('api.villages');
