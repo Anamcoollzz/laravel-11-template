@@ -6,6 +6,7 @@ use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class RegionSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         Region::truncate();
         $sql = file_get_contents(base_path('database/seeders/data/regions.sql'));
         $sql = str_replace("\n", "", $sql);
