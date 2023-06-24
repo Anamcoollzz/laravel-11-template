@@ -32,6 +32,7 @@ class PermissionGroupController extends StislaController
         $this->defaultMiddleware('Group Permission');
 
         $this->icon = 'fa fa-user-lock';
+        $this->viewFolder = 'user-management.permission-groups';
     }
     /**
      * get index data

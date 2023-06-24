@@ -30,6 +30,7 @@ class RoleController extends StislaController
         $this->defaultMiddleware('Role');
 
         $this->icon = 'fas fa-user-tag';
+        $this->viewFolder = 'user-management.roles';
     }
 
     /**

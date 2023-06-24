@@ -19,6 +19,8 @@ class RolePermissionSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
+
+
         Role::truncate();
         $roles = json_decode(file_get_contents(database_path('seeders/data/roles.json')), true);
         foreach ($roles as $role) {
@@ -30,6 +32,9 @@ class RolePermissionSeeder extends Seeder
                 $roleObj->save();
             }
         }
+
+        $roles = Role::all();
+        $rolesArray = $roles->pluck('name')->toArray();
 
         Permission::truncate();
 
@@ -43,8 +48,10 @@ class RolePermissionSeeder extends Seeder
                 'name'                => $permission['name'],
                 'permission_group_id' => $group->id
             ]);
-            foreach ($permission['roles'] as $role)
-                $perm->assignRole($role);
+            foreach ($permission['roles'] as $role) {
+                if (in_array($role, $rolesArray))
+                    $perm->assignRole($role);
+            }
         }
 
         // per module generated permission
@@ -62,7 +69,8 @@ class RolePermissionSeeder extends Seeder
                         'permission_group_id' => $group->id
                     ]);
                     foreach ($permission['roles'] as $role)
-                        $perm->assignRole($role);
+                        if (in_array($role, $rolesArray))
+                            $perm->assignRole($role);
                 }
             }
         }

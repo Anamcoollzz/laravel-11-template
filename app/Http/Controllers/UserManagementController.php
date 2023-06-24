@@ -26,6 +26,7 @@ class UserManagementController extends StislaController
         $this->defaultMiddleware('Pengguna');
 
         $this->icon           = 'fa fa-users';
+        $this->viewFolder     = 'user-management';
     }
 
     /**

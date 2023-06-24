@@ -28,6 +28,7 @@ class PermissionController extends StislaController
         $this->defaultMiddleware('Permission');
 
         $this->icon = 'fa fa-user-lock';
+        $this->viewFolder = 'user-management.permissions';
     }
 
     /**

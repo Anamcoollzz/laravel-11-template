@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -16,6 +17,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
+
+        $roles = Role::all();
+        $rolesArray = $roles->pluck('name')->toArray();
 
         User::truncate();
         $users = json_decode(file_get_contents(database_path('seeders/data/users.json')), true);
@@ -32,7 +36,8 @@ class UserSeeder extends Seeder
                 'last_password_change' => date('Y-m-d H:i:s'),
             ]);
             foreach ($user['roles'] as $role)
-                $userObj->assignRole($role);
+                if (in_array($role, $rolesArray))
+                    $userObj->assignRole($role);
         }
     }
 }

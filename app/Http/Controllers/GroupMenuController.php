@@ -28,6 +28,7 @@ class GroupMenuController extends StislaController
 
         $this->icon                = 'fa fa-bars';
         $this->menuGroupRepository = new MenuGroupRepository;
+        $this->viewFolder          = 'group-menus';
 
         $this->defaultMiddleware('Grup Menu');
     }
