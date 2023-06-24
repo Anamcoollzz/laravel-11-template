@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RegionController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserManagementController;
 use Illuminate\Http\Request;
@@ -51,3 +52,8 @@ Route::as('api.')->prefix('v1')->group(function () {
         Route::apiResource('roles', RoleController::class);
     });
 });
+
+Route::get('provinces', [RegionController::class, 'getProvinces']);
+Route::get('cities/{provinceId}', [RegionController::class, 'getCities']);
+Route::get('districts/{cityId}', [RegionController::class, 'getDistricts']);
+Route::get('villages/{districtId}', [RegionController::class, 'getVillages']);
