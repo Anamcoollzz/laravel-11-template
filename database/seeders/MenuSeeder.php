@@ -14,7 +14,7 @@ class MenuSeeder extends Seeder
      *
      * @var boolean
      */
-    private $withMockup = true;
+    private $withMockup = false;
 
     /**
      * Run the database seeds.

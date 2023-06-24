@@ -10,6 +10,7 @@ use App\Http\Controllers\MenuManagementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionGroupController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -40,6 +41,9 @@ Route::view('form', 'stisla.examples.form.index')->name('form.index');
 Route::view('chart-js', 'stisla.examples.chart-js.index')->name('chart-js.index');
 Route::view('pricing', 'stisla.examples.pricing.index')->name('pricing.index');
 Route::view('invoice', 'stisla.examples.invoice.index')->name('invoice.index');
+
+# PENDUDUK
+Route::resource('persons', PersonController::class);
 
 # USER MANAGEMENT
 Route::prefix('user-management')->as('user-management.')->group(function () {

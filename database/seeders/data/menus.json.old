@@ -10,11 +10,36 @@
                 "is_active_if_url_includes": "dashboard*"
             },
             {
-                "menu_name": "Penduduk",
-                "route_name": "persons.index",
-                "icon": "fas fa-user-plus",
-                "permission": "Penduduk",
-                "is_active_if_url_includes": "persons*"
+                "menu_name": "Contoh CRUD",
+                "route_name": "crud-examples.index",
+                "icon": "fas fa-atom",
+                "permission": "Contoh CRUD",
+                "is_active_if_url_includes": "crud-examples*",
+                "is_mockup": true
+            },
+            {
+                "menu_name": "Contoh CRUD Yajra",
+                "route_name": "crud-examples.index-yajra",
+                "icon": "fas fa-atom",
+                "permission": "Contoh CRUD Yajra",
+                "is_active_if_url_includes": "yajra-crud-examples*",
+                "is_mockup": true
+            },
+            {
+                "menu_name": "Contoh CRUD Ajax",
+                "route_name": "crud-examples.index-ajax",
+                "icon": "fas fa-atom",
+                "permission": "Contoh CRUD Yajra",
+                "is_active_if_url_includes": "ajax-crud-examples*",
+                "is_mockup": true
+            },
+            {
+                "menu_name": "Contoh CRUD Ajax Yajra",
+                "route_name": "crud-examples.index-ajax-yajra",
+                "icon": "fas fa-atom",
+                "permission": "Contoh CRUD Ajax Yajra",
+                "is_active_if_url_includes": "yajra-ajax-crud-examples*",
+                "is_mockup": true
             },
             {
                 "menu_name": "Stisla Example",
@@ -143,6 +168,13 @@
                 "is_active_if_url_includes": "file-managers*"
             },
             {
+                "menu_name": "Notifikasi",
+                "route_name": "notifications.index",
+                "icon": "fas fa-bell",
+                "permission": "Notifikasi",
+                "is_active_if_url_includes": "notifications*"
+            },
+            {
                 "menu_name": "Log",
                 "route_name": "activity-logs.index",
                 "icon": "fas fa-clock-rotate-left",
@@ -180,6 +212,20 @@
                 "icon": "fas fa-cogs",
                 "permission": "Pengaturan",
                 "is_active_if_url_includes": "settings*"
+            },
+            {
+                "menu_name": "Ubuntu",
+                "route_name": "ubuntu.index",
+                "icon": "fab fa-ubuntu",
+                "permission": "Ubuntu",
+                "is_active_if_url_includes": "ubuntu*"
+            },
+            {
+                "menu_name": "Backup Database",
+                "route_name": "backup-databases.index",
+                "icon": "fas fa-database",
+                "permission": "Backup Database",
+                "is_active_if_url_includes": "backup-databases*"
             },
             {
                 "menu_name": "Keluar",
