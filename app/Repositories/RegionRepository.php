@@ -29,6 +29,16 @@ class RegionRepository extends Repository
     }
 
     /**
+     * getProvincesOptions
+     *
+     * @return array
+     */
+    public function getProvincesOptions()
+    {
+        return $this->getProvinces()->pluck('name', 'code')->toArray();
+    }
+
+    /**
      * getCities
      *
      * @param  mixed $provinceId
@@ -37,6 +47,17 @@ class RegionRepository extends Repository
     public function getCities($provinceId)
     {
         return $this->model->query()->where('code', 'like', $provinceId . '%')->whereRaw('LENGTH(code) = 5')->get();
+    }
+
+    /**
+     * getCitiesOptions
+     *
+     * @param  mixed $provinceId
+     * @return array
+     */
+    public function getCitiesOptions($provinceId)
+    {
+        return $this->getCities($provinceId)->pluck('name', 'code')->toArray();
     }
 
     /**
@@ -51,6 +72,17 @@ class RegionRepository extends Repository
     }
 
     /**
+     * getDistrictsOptions
+     *
+     * @param  mixed $cityId
+     * @return array
+     */
+    public function getDistrictsOptions($cityId)
+    {
+        return $this->getDistricts($cityId)->pluck('name', 'code')->toArray();
+    }
+
+    /**
      * getVillages
      *
      * @param  mixed $districtId
@@ -59,5 +91,16 @@ class RegionRepository extends Repository
     public function getVillages($districtId)
     {
         return $this->model->query()->where('code', 'like', $districtId . '%')->whereRaw('LENGTH(code) = 13')->get();
+    }
+
+    /**
+     * getVillagesOptions
+     *
+     * @param  mixed $districtId
+     * @return array
+     */
+    public function getVillagesOptions($districtId)
+    {
+        return $this->getVillages($districtId)->pluck('name', 'code')->toArray();
     }
 }

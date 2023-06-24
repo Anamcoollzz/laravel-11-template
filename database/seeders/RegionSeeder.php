@@ -20,24 +20,27 @@ class RegionSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         Region::truncate();
         $sql = file_get_contents(base_path('database/seeders/data/regions.sql'));
-        $sql = str_replace("\n", "", $sql);
-        $sql = explode("),", $sql);
-        $data = [];
-        foreach ($sql as  $value) {
-            $val = str_replace('(', '', $value);
-            $val = str_replace("'", '', $val);
-            $val = str_replace(")", '', $val);
-            $val = explode(",", $val);
-            $data[] = [
-                'code' => $val[0],
-                'name' => $val[1],
-            ];
-        }
 
-        // insert per 500 rows
-        $chunks = array_chunk($data, 500);
-        foreach ($chunks as $chunk) {
-            DB::table('regions')->insert($chunk);
-        }
+        DB::insert($sql);
+
+        // $sql = str_replace("\n", "", $sql);
+        // $sql = explode("),", $sql);
+        // $data = [];
+        // foreach ($sql as  $value) {
+        //     $val = str_replace('(', '', $value);
+        //     $val = str_replace("'", '', $val);
+        //     $val = str_replace(")", '', $val);
+        //     $val = explode(",", $val);
+        //     $data[] = [
+        //         'code' => $val[0],
+        //         'name' => $val[1],
+        //     ];
+        // }
+
+        // // insert per 500 rows
+        // $chunks = array_chunk($data, 1000);
+        // foreach ($chunks as $chunk) {
+        //     DB::table('regions')->insert($chunk);
+        // }
     }
 }
