@@ -87,7 +87,7 @@ class DashboardController extends StislaController
                 'count' => (new PersonRepository)->count(),
                 'bg'    => 'primary',
                 'icon'  => 'user-plus',
-                'route' => route('backup-databases.index')
+                'route' => route('persons.index')
             ];
         }
 
