@@ -19,9 +19,13 @@ class RegionSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         Region::truncate();
-        $sql = file_get_contents(base_path('database/seeders/data/regions.sql'));
+        // $sql = file_get_contents(base_path('database/seeders/data/regions.sql'));
 
-        DB::insert($sql);
+        // DB::insert($sql);
+
+        // import sql
+        $sql = file_get_contents(base_path('database/seeders/data/regions.sql'));
+        DB::unprepared($sql);
 
         // $sql = str_replace("\n", "", $sql);
         // $sql = explode("),", $sql);
