@@ -36,7 +36,7 @@ class UserManagementController extends StislaController
      */
     protected function getIndexData()
     {
-        $roleOptions = $this->userRepository->getRoles()->pluck('name', 'id')->toArray();
+        $roleOptions = $this->userRepository->getRoleOptions();
         $defaultData = $this->getDefaultDataIndex(__('Pengguna'), 'Pengguna', 'user-management.users');
         return array_merge($defaultData, [
             'data'      => $this->userRepository->getUsers(),
