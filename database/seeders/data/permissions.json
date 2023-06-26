@@ -189,6 +189,12 @@
     },
 
     {
+        "name": "Backup Database",
+        "roles": ["superadmin"],
+        "group": "Backup Database"
+    },
+
+    {
         "name": "Laravel Log Viewer",
         "roles": ["superadmin"],
         "group": "Laravel Log Viewer"
@@ -196,7 +202,7 @@
 
     {
         "name": "Notifikasi",
-        "roles": ["admin"],
+        "roles": ["superadmin", "admin"],
         "group": "Notifikasi"
     },
 
@@ -263,43 +269,48 @@
     },
 
     {
-        "name": "Penduduk",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Tambah",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Ubah",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Detail",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Hapus",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Ekspor",
-        "roles": ["superadmin", "admin", "tim sukses"],
-        "group": "Penduduk"
-    },
-    {
-        "name": "Penduduk Yajra",
+        "name": "Contoh CRUD",
         "roles": ["superadmin", "admin", "user"],
-        "group": "Penduduk"
+        "group": "Contoh CRUD"
     },
     {
-        "name": "Penduduk Ajax Yajra",
+        "name": "Contoh CRUD Tambah",
         "roles": ["superadmin", "admin", "user"],
-        "group": "Penduduk"
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Impor Excel",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Ubah",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Detail",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Hapus",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Ekspor",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Yajra",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
+    },
+    {
+        "name": "Contoh CRUD Ajax Yajra",
+        "roles": ["superadmin", "admin", "user"],
+        "group": "Contoh CRUD"
     }
 ]

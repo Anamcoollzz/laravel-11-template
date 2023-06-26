@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Notification;
 use App\Models\User;
-use App\Repositories\PersonRepository;
 use App\Repositories\SettingRepository;
 use App\Services\DatabaseService;
 use Illuminate\Http\Response;
@@ -78,16 +77,6 @@ class DashboardController extends StislaController
                 'bg'    => 'primary',
                 'icon'  => 'database',
                 'route' => route('backup-databases.index')
-            ];
-        }
-
-        if ($user->can('Penduduk')) {
-            $widgets[] = (object)[
-                'title' => 'Penduduk',
-                'count' => (new PersonRepository)->count(),
-                'bg'    => 'primary',
-                'icon'  => 'user-plus',
-                'route' => route('persons.index')
             ];
         }
 
