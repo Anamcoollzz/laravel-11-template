@@ -21,8 +21,8 @@ class LogRequestMiddleware
             $roles = [];
             if (auth()->check()) {
                 $roles = auth()->user()->roles->pluck('name')->toArray();
-            } else if (auth('api')->check()) {
-                return auth('api')->user()->roles->pluck('name')->toArray();
+            } else if (config('jwt.secret') && auth('api')->check()) {
+                $roles = auth('api')->user()->roles->pluck('name')->toArray();
             }
             $generalService = new \App\Services\GeneralService;
             LogRequest::create([
@@ -32,7 +32,7 @@ class LogRequestMiddleware
                 'request_data' => $request->all(),
                 'ip'           => $request->ip(),
                 'user_agent'   => $request->userAgent(),
-                'user_id'      => auth()->id() ?? auth('api')->id() ?? null,
+                'user_id'      => auth()->id() ?? (config('jwt.secret') ? auth('api')->id() : null) ?? null,
                 'roles'        => $roles,
                 'browser'      => $generalService->getBrowser(),
                 'platform'     => $generalService->getPlatform(),
