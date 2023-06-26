@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
 use App\Models\Notification;
+use App\Models\PermissionGroup;
 use App\Models\User;
 use App\Repositories\SettingRepository;
 use App\Services\DatabaseService;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends StislaController
@@ -50,6 +52,22 @@ class DashboardController extends StislaController
                 'bg'    => 'danger',
                 'icon'  => 'lock',
                 'route' => route('user-management.roles.index')
+            ];
+        if ($user->can('Permission'))
+            $widgets[] = (object)[
+                'title' => 'Permission',
+                'count' => Permission::count(),
+                'bg'    => 'success',
+                'icon'  => 'key',
+                'route' => route('user-management.permissions.index')
+            ];
+        if ($user->can('Group Permission'))
+            $widgets[] = (object)[
+                'title' => 'Group Permission',
+                'count' => PermissionGroup::count(),
+                'bg'    => 'info',
+                'icon'  => 'key',
+                'route' => route('user-management.permission-groups.index')
             ];
         if ($user->can('Log Aktivitas'))
             $widgets[] = (object)[
