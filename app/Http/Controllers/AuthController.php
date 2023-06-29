@@ -8,8 +8,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Repositories\SettingRepository;
-use App\Repositories\UserRepository;
-use App\Services\EmailService;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -20,29 +18,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
-class AuthController extends Controller
+class AuthController extends StislaController
 {
-
-    /**
-     * user repository
-     *
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
-
-    /**
-     * setting repository
-     *
-     * @var SettingRepository
-     */
-    private SettingRepository $settingRepository;
-
-    /**
-     * email service
-     *
-     * @var EmailService
-     */
-    private EmailService $emailService;
 
     /**
      * active socialite providers
@@ -63,9 +40,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->userRepository    = new UserRepository;
-        $this->settingRepository = new SettingRepository;
-        $this->emailService      = new EmailService;
+        parent::__construct();
     }
 
     /**
@@ -144,10 +119,11 @@ class AuthController extends Controller
             $data     = [
                 'isGoogleCaptcha' => $isGoogleCaptcha,
             ];
-            if ($template === 'tampilan 2' || Route::is('login2'))
+            if ($template === 'tampilan 2' || Route::is('login2')) {
                 return view('stisla.auth.login.index2', $data);
-            else
+            } else {
                 return view('stisla.auth.login.index', $data);
+            }
         }
         return view('stisla.auth.login.index');
     }

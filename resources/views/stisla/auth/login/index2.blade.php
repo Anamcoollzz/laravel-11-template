@@ -44,7 +44,6 @@
     </div>
 
     @include('stisla.auth.login.includes.btn-social')
-    @endif
 
   </div>
 @endsection
