@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\ActivityLogExport;
 use Illuminate\Http\Response;
-use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ActivityLogController extends StislaController
@@ -110,11 +109,13 @@ class ActivityLogController extends StislaController
     public function pdf(): Response
     {
         $data = $this->activityLogRepository->getFilter();
+        $html = view('stisla.activity-logs.export-pdf', [
+            'data'    => $data,
+            'isPrint' => false,
+            'isExport' => true,
+        ])->render();
         return PDF::setPaper('Letter', 'landscape')
-            ->loadView('stisla.activity-logs.export-pdf', [
-                'data'    => $data,
-                'isPrint' => false
-            ])
+            ->loadHTML($html)
             ->download('activity-logs.pdf');
     }
 
@@ -128,7 +129,8 @@ class ActivityLogController extends StislaController
         $data = $this->activityLogRepository->getFilter();
         return view('stisla.activity-logs.export-pdf', [
             'data'    => $data,
-            'isPrint' => true
+            'isPrint' => true,
+            'isExport' => true,
         ]);
     }
 }

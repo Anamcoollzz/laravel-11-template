@@ -12,6 +12,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionGroupController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestLogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestingController;
@@ -93,6 +94,14 @@ Route::get('activity-logs/pdf', [ActivityLogController::class, 'pdf'])->name('ac
 Route::get('activity-logs/csv', [ActivityLogController::class, 'csv'])->name('activity-logs.csv');
 Route::get('activity-logs/json', [ActivityLogController::class, 'json'])->name('activity-logs.json');
 Route::get('activity-logs/excel', [ActivityLogController::class, 'excel'])->name('activity-logs.excel');
+
+# REQUEST LOGS
+Route::get('request-logs', [RequestLogController::class, 'index'])->name('request-logs.index');
+Route::get('request-logs/print', [RequestLogController::class, 'exportPrint'])->name('request-logs.print');
+Route::get('request-logs/pdf', [RequestLogController::class, 'pdf'])->name('request-logs.pdf');
+Route::get('request-logs/csv', [RequestLogController::class, 'csv'])->name('request-logs.csv');
+Route::get('request-logs/json', [RequestLogController::class, 'json'])->name('request-logs.json');
+Route::get('request-logs/excel', [RequestLogController::class, 'excel'])->name('request-logs.excel');
 
 # NOTIFICATIONS
 Route::get('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');

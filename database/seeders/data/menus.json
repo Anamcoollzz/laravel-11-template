@@ -189,6 +189,13 @@
                         "is_active_if_url_includes": "activity-logs*"
                     },
                     {
+                        "menu_name": "Log Request",
+                        "route_name": "request-logs.index",
+                        "icon": "fas fa-clock-rotate-left",
+                        "permission": "Log Request",
+                        "is_active_if_url_includes": "request-logs*"
+                    },
+                    {
                         "menu_name": "Laravel Log Viewer",
                         "route_name": "logs.index",
                         "icon": "fas fa-circle-exclamation",

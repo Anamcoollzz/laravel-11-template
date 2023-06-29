@@ -22,6 +22,17 @@
     },
 
     {
+        "name": "Log Request",
+        "roles": ["superadmin", "admin"],
+        "group": "Log Request"
+    },
+    {
+        "name": "Log Request Ekspor",
+        "roles": ["superadmin", "admin"],
+        "group": "Log Request"
+    },
+
+    {
         "name": "Role",
         "roles": ["superadmin"],
         "group": "Role"

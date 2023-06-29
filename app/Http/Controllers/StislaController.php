@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\ActivityLogRepository;
+use App\Repositories\RequestLogRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\UserRepository;
 use App\Services\DropBoxService;
@@ -42,6 +43,13 @@ class StislaController extends Controller
      * @var ActivityLogRepository
      */
     protected ActivityLogRepository $activityLogRepository;
+
+    /**
+     * request log repository
+     *
+     * @var RequestLogRepository
+     */
+    protected RequestLogRepository $requestLogRepository;
 
     /**
      * icon of module
@@ -111,6 +119,7 @@ class StislaController extends Controller
         $this->userRepository        = new UserRepository;
         $this->dropBoxService        = new DropBoxService;
         $this->activityLogRepository = new ActivityLogRepository;
+        $this->requestLogRepository  = new RequestLogRepository;
         $this->dropBoxService        = new DropBoxService;
         $this->settingRepository     = new SettingRepository;
     }

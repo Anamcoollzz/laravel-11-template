@@ -58,11 +58,11 @@
 
                   <div class="col-md-3">
                     @include('stisla.includes.forms.selects.select2', [
-                        'id' => 'filter_kind',
-                        'name' => 'filter_kind',
-                        'label' => __('Pilih Jenis Aktivitas'),
-                        'options' => $kinds,
-                        'selected' => request('filter_kind'),
+                        'id' => 'filter_method',
+                        'name' => 'filter_method',
+                        'label' => __('Pilih Method'),
+                        'options' => $methodOptions,
+                        'selected' => request('filter_method'),
                         'with_all' => true,
                     ])
                   </div>
@@ -137,7 +137,63 @@
                   <h6 class="text-primary">{!! __('Aksi Ekspor <small>(Client Side)</small>') !!}</h6>
                 @endif
 
-                @include('stisla.activity-logs.components.table')
+                <table class="table table-striped table-hovered" id="datatable" @if ($canExport) data-export="true" data-title="{{ $title }}" @endif>
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">{{ __('Pengguna') }}</th>
+                      <th class="text-center">{{ __('Roles') }}</th>
+                      <th class="text-center">{{ __('Uri') }}</th>
+                      <th class="text-center">{{ __('Query String') }}</th>
+                      <th class="text-center">{{ __('Method') }}</th>
+                      <th class="text-center">{{ __('Request Data') }}</th>
+                      <th class="text-center">{{ __('IP') }}</th>
+                      <th class="text-center">{{ __('User Agent') }}</th>
+                      <th class="text-center">{{ __('Browser') }}</th>
+                      <th class="text-center">{{ __('Platform') }}</th>
+                      <th class="text-center">{{ __('Device') }}</th>
+                      <th class="text-center">{{ __('Is Ajax') }}</th>
+                      <th class="text-center">{{ __('Created At') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($data as $item)
+                      <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->user->name ?? '-' }}</td>
+                        <td>
+                          @foreach ($item->roles as $role)
+                            <span class="badge badge-primary mb-1">{{ $role }}</span>
+                          @endforeach
+                        </td>
+                        <td>{{ $item->uri }}</td>
+                        <td>
+                          @if ($item->query_string)
+                            <textarea>{{ $item->query_string }}</textarea>
+                          @else
+                          @endif
+                        </td>
+                        <td>{{ $item->method }}</td>
+                        <td>
+                          <textarea>{{ $item->request_data }}</textarea>
+                        </td>
+                        <td>{{ $item->ip }}</td>
+                        <td>{{ $item->user_agent }}</td>
+                        <td>{{ $item->browser }}</td>
+                        <td>{{ $item->platform }}</td>
+                        <td>{{ $item->device }}</td>
+                        <td>
+                          @if ($item->is_ajax)
+                            <span class="badge badge-primary">Ya</span>
+                          @else
+                            <span class="badge badge-danger">Tidak</span>
+                          @endif
+                        </td>
+                        <td>{{ $item->created_at }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
