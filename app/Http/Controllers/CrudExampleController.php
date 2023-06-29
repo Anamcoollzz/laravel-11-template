@@ -93,6 +93,9 @@ class CrudExampleController extends StislaController
         if ($request->hasFile('file')) {
             $data['file'] = $this->fileService->uploadCrudExampleFile($request->file('file'));
         }
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->fileService->uploadCrudExampleFile($request->file('image'));
+        }
         $data['currency'] = str_replace(',', '', $request->currency);
         $data['currency_idr'] = str_replace('.', '', $request->currency_idr);
 

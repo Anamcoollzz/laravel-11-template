@@ -29,6 +29,7 @@ class CreateCrudExamplesTable extends Migration
             $table->string('checkbox2');
             $table->text('tags');
             $table->text('file');
+            $table->text('image');
             $table->date('date');
             $table->time('time');
             $table->string('color', 10);

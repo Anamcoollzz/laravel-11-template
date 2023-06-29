@@ -29,6 +29,7 @@
       <th>{{ __('Checkbox 2') }}</th>
       <th>{{ __('Tags') }}</th>
       <th>{{ __('File') }}</th>
+      <th>{{ __('Image') }}</th>
       <th>{{ __('Date') }}</th>
       <th>{{ __('Time') }}</th>
       <th>{{ __('Color') }}</th>
@@ -81,9 +82,21 @@
                 -
               @endif
             </td>
+            <td>
+              @if (Str::contains($item->image, 'http'))
+                <a href="{{ $item->image }}">{{ $item->image }}</a>
+              @elseif($item->image)
+                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->image) }}">{{ $urlLink }}</a>
+              @else
+                -
+              @endif
+            </td>
           @else
             <td>
               @include('stisla.crud-examples.file', ['file' => $item->file])
+            </td>
+            <td>
+              @include('stisla.crud-examples.image', ['file' => $item->image])
             </td>
           @endif
 

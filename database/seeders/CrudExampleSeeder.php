@@ -48,6 +48,7 @@ class CrudExampleSeeder extends Seeder
                 'checkbox2'         => json_encode($checkbox2),
                 'tags'              => implode(',', $checkbox2),
                 'file'              => $faker->imageUrl,
+                'image'             => $faker->imageUrl,
                 'date'              => $faker->date('Y-m-d'),
                 'time'              => $faker->date('H:i:s'),
                 'color'             => $faker->hexColor,
