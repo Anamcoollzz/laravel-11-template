@@ -26,6 +26,7 @@ class LogRequest extends Model
         'browser',
         'platform',
         'device',
+        'is_ajax',
     ];
 
     /**

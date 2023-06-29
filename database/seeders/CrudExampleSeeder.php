@@ -53,7 +53,7 @@ class CrudExampleSeeder extends Seeder
                 'time'              => $faker->date('H:i:s'),
                 'color'             => $faker->hexColor,
                 'summernote_simple' => $faker->text(100),
-                'summernote'        => $faker->text(100),
+                'summernote'        => $faker->randomHtml,
                 'created_at'        => now(),
                 'updated_at'        => now(),
             ]);

@@ -37,6 +37,7 @@ class LogRequestMiddleware
                 'browser'      => $generalService->getBrowser(),
                 'platform'     => $generalService->getPlatform(),
                 'device'       => $generalService->getDevice(),
+                'is_ajax'      => $request->ajax(),
             ]);
         }
 

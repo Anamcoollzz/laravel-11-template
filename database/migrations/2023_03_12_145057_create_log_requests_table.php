@@ -27,6 +27,7 @@ class CreateLogRequestsTable extends Migration
             $table->string('browser')->nullable();
             $table->string('platform')->nullable();
             $table->string('device')->nullable();
+            $table->boolean('is_ajax')->default(false);
             $table->timestamps();
         });
     }

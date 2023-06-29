@@ -1,9 +1,9 @@
 [
-    { "key": "application_name", "value": "Tim Sukses" },
+    { "key": "application_name", "value": "Laravel 9 Template" },
     { "key": "application_version", "value": "1.0.0" },
-    { "key": "app_description", "value": "Ini adalah sistem yang digunakan untuk mendata masyarakat yang berhak ikut pemilu" },
+    { "key": "app_description", "value": "Deskripsi sistem tulis disini" },
     { "key": "city", "value": "Jember" },
-    { "key": "company_name", "value": "PT Mora Teknologi" },
+    { "key": "company_name", "value": "PT Anam Developer" },
     { "key": "country", "value": "Indonesia" },
     {
         "key": "favicon",
@@ -17,7 +17,7 @@
         "key": "meta_author",
         "value": "Hairul Anam"
     },
-    { "key": "meta_description", "value": "PT Mora Teknologi" },
+    { "key": "meta_description", "value": "PT Anam Developer" },
     {
         "key": "meta_keywords",
         "value": "Sistem Informasi, Pemrograman, Github, PHP, Laravel, Stisla, Heroku, Gitlab, MySQL"
