@@ -3,6 +3,10 @@
   $isAjax = $isAjax ?? false;
   $isYajra = $isYajra ?? false;
   $isAjaxYajra = $isAjaxYajra ?? false;
+  $canExport = $canExport ?? false;
+  $canUpdate = $canUpdate ?? false;
+  $canDelete = $canDelete ?? false;
+  $canDetail = $canDetail ?? false;
 @endphp
 
 <table class="table table-striped @if ($isYajra || $isAjaxYajra) yajra-datatable @endif"
@@ -75,18 +79,18 @@
           @if ($isExport)
             <td>
               @if (Str::contains($item->file, 'http'))
-                <a href="{{ $item->file }}">{{ $item->file }}</a>
+                <a href="{{ $item->file }}">cek</a>
               @elseif($item->file)
-                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->file) }}">{{ $urlLink }}</a>
+                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->file) }}">cek</a>
               @else
                 -
               @endif
             </td>
             <td>
               @if (Str::contains($item->image, 'http'))
-                <a href="{{ $item->image }}">{{ $item->image }}</a>
+                <a href="{{ $item->image }}">cek</a>
               @elseif($item->image)
-                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->image) }}">{{ $urlLink }}</a>
+                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->image) }}">cek</a>
               @else
                 -
               @endif

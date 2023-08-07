@@ -403,7 +403,7 @@ class FileService
         }
         return $supervisors;
     }
-    
+
     /**
      * base 64 to jpeg
      *

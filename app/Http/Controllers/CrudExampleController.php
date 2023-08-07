@@ -35,7 +35,13 @@ class CrudExampleController extends StislaController
         $this->crudExampleRepository = new CrudExampleRepository;
         $this->viewFolder            = 'crud-examples';
 
-        $this->defaultMiddleware('Contoh CRUD');
+        $this->middleware('can:Contoh CRUD');
+        $this->middleware('can:Contoh CRUD Tambah')->only(['create', 'store']);
+        $this->middleware('can:Contoh CRUD Ubah')->only(['edit', 'update']);
+        $this->middleware('can:Contoh CRUD Detail')->only(['show']);
+        $this->middleware('can:Contoh CRUD Hapus')->only(['destroy']);
+        $this->middleware('can:Contoh CRUD Ekspor')->only(['json', 'excel', 'csv', 'pdf']);
+        $this->middleware('can:Contoh CRUD Impor Excel')->only(['importExcel', 'importExcelExample']);
     }
 
     /**
@@ -323,7 +329,7 @@ class CrudExampleController extends StislaController
      *
      * @return BinaryFileResponse
      */
-    public function json(): BinaryFileResponse
+    public function exportJson()
     {
         $data  = $this->getExportData();
         return $this->fileService->downloadJson($data['data'], $data['json_name']);
@@ -334,7 +340,7 @@ class CrudExampleController extends StislaController
      *
      * @return Response
      */
-    public function excel(): BinaryFileResponse
+    public function exportExcel()
     {
         $data  = $this->getExportData();
         return $this->fileService->downloadExcelGeneral('stisla.crud-examples.table', $data, $data['excel_name']);
@@ -345,7 +351,7 @@ class CrudExampleController extends StislaController
      *
      * @return Response
      */
-    public function csv(): BinaryFileResponse
+    public function exportCsv()
     {
         $data  = $this->getExportData();
         return $this->fileService->downloadCsvGeneral('stisla.crud-examples.table', $data, $data['csv_name']);
@@ -356,9 +362,16 @@ class CrudExampleController extends StislaController
      *
      * @return Response
      */
-    public function pdf(): Response
+    public function exportPdf()
     {
-        $data  = $this->getExportData();
-        return $this->fileService->downloadPdfA2('stisla.includes.others.export-pdf', $data, $data['pdf_name']);
+        $filename = date('YmdHis') . '_crud_examples.pdf';
+        $html     = view('stisla.crud-examples.export-pdf', [
+            'title'    => 'Contoh CRUD',
+            'data'     => $this->crudExampleRepository->getLatest(),
+            'isExport' => true,
+        ])->render();
+        // return $html;
+
+        return $this->pdfService->downloadPdfA2($html, $filename);
     }
 }

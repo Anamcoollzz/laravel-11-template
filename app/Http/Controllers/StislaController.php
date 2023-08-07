@@ -9,6 +9,7 @@ use App\Repositories\UserRepository;
 use App\Services\DropBoxService;
 use App\Services\EmailService;
 use App\Services\FileService;
+use App\Services\PDFService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,13 @@ class StislaController extends Controller
      * @var FileService
      */
     protected FileService $fileService;
+
+    /**
+     * pdf service
+     *
+     * @var PDFService
+     */
+    protected PDFService $pdfService;
 
     /**
      * email service
@@ -115,6 +123,7 @@ class StislaController extends Controller
     public function __construct()
     {
         $this->fileService           = new FileService;
+        $this->pdfService            = new PDFService;
         $this->emailService          = new EmailService;
         $this->userRepository        = new UserRepository;
         $this->dropBoxService        = new DropBoxService;
