@@ -19,9 +19,8 @@ class SettingSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         DB::table('settings')->truncate();
-        // $settings = json_decode(file_get_contents(database_path('seeders/data/settings2.json')), true);
-        $settings = json_decode(file_get_contents(database_path('seeders/data/settings.json')), true);
-        // DB::table('settings')->insert($settings);
+        $settings = config('stisla.settings');
+        // $settings = config('stisla.settings2');
 
         $encrypts = SettingRepository::getEncryptedKeys();
         foreach ($settings as $setting) {

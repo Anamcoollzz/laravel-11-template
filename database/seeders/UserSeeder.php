@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
         $rolesArray = $roles->pluck('name')->toArray();
 
         User::truncate();
-        $users = json_decode(file_get_contents(database_path('seeders/data/users.json')), true);
+
+        $users = config('stisla.users');
         foreach ($users as $user) {
             $userObj = User::create([
                 'name'                 => $user['name'],

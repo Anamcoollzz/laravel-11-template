@@ -27,7 +27,8 @@ class MenuSeeder extends Seeder
 
         MenuGroup::truncate();
         Menu::truncate();
-        $data = json_decode(file_get_contents(database_path('seeders/data/menus.json')), true);
+        // $data = json_decode(file_get_contents(database_path('seeders/data/menus.json')), true);
+        $data = config('stisla.menus');
         foreach ($data as $item) {
             $this->execute($item);
         }

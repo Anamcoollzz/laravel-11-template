@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ForgotPasswordMail;
-use App\Mail\TestingMail;
-use App\Models\User;
 use App\Services\EmailService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class TestingController extends Controller
@@ -25,5 +20,20 @@ class TestingController extends Controller
     public function modal()
     {
         return view('testing.modal');
+    }
+
+    public function test()
+    {
+        // $content = file_get_contents(database_path('seeders/data/menus.json'));
+        // $content = file_get_contents(database_path('seeders/data/permissions.json'));
+        // $content = file_get_contents(database_path('seeders/data/roles.json'));
+        // $content = file_get_contents(database_path('seeders/data/settings.json'));
+        // $content = file_get_contents(database_path('seeders/data/users.json'));
+        $content = file_get_contents(database_path('seeders/data/settings2.json'));
+        $content = str_replace(":", " =>", $content);
+        $content = str_replace('"', "'", $content);
+        $content = str_replace("}", "]", $content);
+        $content = str_replace("{", "[", $content);
+        return '<pre>' . $content . '</pre>';
     }
 }

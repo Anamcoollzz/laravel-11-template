@@ -22,7 +22,7 @@ class RolePermissionSeeder extends Seeder
 
 
         Role::truncate();
-        $roles = json_decode(file_get_contents(database_path('seeders/data/roles.json')), true);
+        $roles = config('stisla.roles');
         foreach ($roles as $role) {
             $roleObj = Role::create([
                 'name' => $role,
@@ -39,7 +39,7 @@ class RolePermissionSeeder extends Seeder
         Permission::truncate();
 
         // default permissions
-        $permissions = json_decode(file_get_contents(database_path('seeders/data/permissions.json')), true);
+        $permissions = config('stisla.permissions');
         foreach ($permissions as $permission) {
             $group = PermissionGroup::updateOrCreate([
                 'group_name' => $permission['group']

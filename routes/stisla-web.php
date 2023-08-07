@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\YoutubeController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +37,6 @@ Route::post('crud-generator', [CrudController::class, 'generateJson'])->middlewa
 
 # YOUTUBE
 Route::get('youtube/view-sync', [YoutubeController::class, 'viewSync'])->name('youtube.view-sync')->middleware('auth');
+
+# TEST
+Route::get('test', [TestingController::class, 'test'])->name('test');
