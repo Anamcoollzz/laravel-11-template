@@ -364,7 +364,7 @@ class CrudExampleController extends StislaController
      */
     public function exportPdf()
     {
-        $filename = date('YmdHis') . '_crud_examples.pdf';
+        $filename = date('YmdHis') . '_contoh_crud.pdf';
         $html     = view('stisla.crud-examples.export-pdf', [
             'title'    => 'Contoh CRUD',
             'data'     => $this->crudExampleRepository->getLatest(),
