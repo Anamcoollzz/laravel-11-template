@@ -327,12 +327,14 @@ class CrudExampleController extends StislaController
     /**
      * download export data as json
      *
-     * @return BinaryFileResponse
+     * @return Response
      */
     public function exportJson()
     {
-        $data  = $this->getExportData();
-        return $this->fileService->downloadJson($data['data'], $data['json_name']);
+        $filename = date('YmdHis') . '_contoh_crud.json';
+        $data     = $this->crudExampleRepository->getLatest();
+
+        return $this->fileService->downloadJson($data, $filename);
     }
 
     /**
