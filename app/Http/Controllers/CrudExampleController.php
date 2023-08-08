@@ -40,7 +40,7 @@ class CrudExampleController extends StislaController
         $this->middleware('can:Contoh CRUD Ubah')->only(['edit', 'update']);
         $this->middleware('can:Contoh CRUD Detail')->only(['show']);
         $this->middleware('can:Contoh CRUD Hapus')->only(['destroy']);
-        $this->middleware('can:Contoh CRUD Ekspor')->only(['json', 'excel', 'csv', 'pdf']);
+        $this->middleware('can:Contoh CRUD Ekspor')->only(['exportJson', 'exportExcel', 'exportCsv', 'exportPdf']);
         $this->middleware('can:Contoh CRUD Impor Excel')->only(['importExcel', 'importExcelExample']);
     }
 
