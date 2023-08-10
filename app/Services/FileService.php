@@ -33,8 +33,14 @@ class FileService
             return $httpsUrl;
         }
         $filename = date('YmdHis_') . Str::random(20) . '.' . $file->getClientOriginalExtension();
+
+        // vps
         $file->storeAs('public/' . $folderName, $filename);
         return asset('storage/' . $folderName . '/' . $filename);
+
+        // shared hosting
+        $file->move('uploads/' . $folderName, $filename);
+        return asset('uploads/' . $folderName . '/' . $filename);
     }
 
     /**
