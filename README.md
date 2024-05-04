@@ -1,8 +1,8 @@
-# Laravel 9 Template With Stisla
+# Laravel 10 Template With Stisla
 
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/c_scale,w_100/v1677141031/logo_srs66z.png)](https://anamapp.my.id)
 
-Free Starter Laravel 9 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
+Free Starter Laravel 10 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1677142211/Screen_Shot_2023-02-23_at_15.26.27_axnj7a.png)](https://anamapp.my.id)
@@ -103,4 +103,4 @@ Rencana nanti bakal kuupdate ke versi laravel terbaru 9 bahkan 10
 
 atau kunjungi https://anamapp.my.id
 
-https://github.com/Anamcoollzz/laravel-9-template
+https://github.com/Anamcoollzz/laravel-10-template
