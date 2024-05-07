@@ -5,7 +5,7 @@
 Free Starter Laravel 10 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
-[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1677142211/Screen_Shot_2023-02-23_at_15.26.27_axnj7a.png)](https://anamapp.my.id)
+[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1715076280/oxosvere2fsuuamoqif8.png)](https://anamapp.my.id)
 
 ## Fitur dan komponen
 
@@ -74,7 +74,7 @@ Beberapa fitur atau komponen yang ada
 -   `php artisan migrate --seed`
 -   [optional] setup google captcha, google login, facebook login, github login, twitter login in `.env`
 
-## Libraries
+## Libraries dan Link Penting
 
 -   https://demo.getstisla.com/
 -   https://spatie.be/docs/laravel-permission/v5/introduction
@@ -84,6 +84,7 @@ Beberapa fitur atau komponen yang ada
 -   https://github.com/barryvdh/laravel-dompdf
 -   https://datatables.net/
 -   https://packagist.org/packages/buzz/laravel-google-captcha
+-   https://www.google.com/recaptcha/about
 -   https://github.com/thinhbuzz/laravel-google-captcha
 -   https://github.com/cloudinary-devs/cloudinary-laravel
 -   https://github.com/rap2hpoutre/laravel-log-viewer
@@ -91,7 +92,7 @@ Beberapa fitur atau komponen yang ada
 -   https://github.com/tymondesigns/jwt-auth
 
 Terima kasih, bisa distar ataupun difork ya guys. Kalau ada request module atau apapun itu, bisa tulis di issue.
-Rencana nanti bakal kuupdate ke versi laravel terbaru 9 bahkan 10
+Rencana nanti bakal kuupdate ke versi laravel terbaru 11
 
 #### Yuk Ramaikan channel youtubeku biar semangat ngonten dan belajar barengnya
 
