@@ -1,43 +1,41 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The skeleton application for the Laravel framework.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "framework"
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "alaouy/youtube": "^2.2",
         "barryvdh/laravel-dompdf": "^2.0",
         "buzz/laravel-google-captcha": "^2.3",
-        "cloudinary-labs/cloudinary-laravel": "^1.0",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "cloudinary-labs/cloudinary-laravel": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
-        "laravel/framework": "^9.19",
-        "laravel/sanctum": "^3.0",
+        "laravel/framework": "^10.10",
+        "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.5",
-        "laravel/tinker": "^2.7",
-        "laravel/ui": "^3.4",
+        "laravel/tinker": "^2.8",
+        "laravel/ui": "^4.5",
         "maatwebsite/excel": "^3.1",
         "rap2hpoutre/laravel-log-viewer": "^2.2",
         "spatie/laravel-permission": "^5.10",
         "tymon/jwt-auth": "^2.0",
         "unisharp/laravel-filemanager": "^2.5",
-        "yajra/laravel-datatables": "^1.0"
+        "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
-        "laravel/sail": "^1.0.1",
+        "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.1",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -80,7 +78,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",
