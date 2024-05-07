@@ -14,7 +14,7 @@ class MenuSeeder extends Seeder
      *
      * @var boolean
      */
-    private $withMockup = true;
+    private $withMockup = false;
 
     /**
      * Run the database seeds.
@@ -50,9 +50,9 @@ class MenuSeeder extends Seeder
         ]);
         foreach ($item['menus'] as $menu) {
             if ((isset($menu['is_mockup']) && $menu['is_mockup'] === true && $this->withMockup) || !isset($menu['is_mockup'])) {
-                if ($menu['menu_name'] === 'Notifikasi' || $menu['menu_name'] === 'Profil') {
-                    continue;
-                }
+                // if ($menu['menu_name'] === 'Notifikasi' || $menu['menu_name'] === 'Profil') {
+                //     continue;
+                // }
                 $menuObj = Menu::create([
                     'menu_name'                 => $menu['menu_name'],
                     'icon'                      => $menu['icon'],
