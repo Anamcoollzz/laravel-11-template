@@ -103,6 +103,7 @@ class AuthController extends StislaController
             if (Str::contains($e->getMessage(), 'SMTP')) {
                 return back()->with('errorMessage', __('Gagal mengirim email verifikasi, silahkan coba lagi nanti'));
             }
+            return back()->with('errorMessage', __($e->getMessage()));
         }
     }
 
