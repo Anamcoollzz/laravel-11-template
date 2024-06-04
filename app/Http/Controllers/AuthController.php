@@ -147,6 +147,16 @@ class AuthController extends StislaController
             }
             $this->userRepository->login($user);
             return Helper::redirectSuccess(route('dashboard.index'), __('Berhasil masuk ke dalam sistem'));
+        } else {
+            $maxWrongLogin = 4;
+            $userNew = $this->userRepository->update(['wrong_login' => $user->wrong_login + 1], $user->id);
+            if ($userNew->wrong_login >= $maxWrongLogin) {
+                $userNew->update(['is_active' => false]);
+                logExecute(__('Login'), UPDATE, $user, $userNew);
+                return Helper::backError(['email' => __('Akun anda sudah diblokir')]);
+            }
+            logExecute(__('Login'), UPDATE, $user, $userNew);
+            return Helper::backError(['password' => __('Password yang dimasukkan salah (' . $userNew->wrong_login . ')')]);
         }
         return Helper::backError(['password' => __('Password yang dimasukkan salah')]);
     }

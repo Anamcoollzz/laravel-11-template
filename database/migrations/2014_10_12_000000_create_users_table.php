@@ -27,6 +27,9 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->dateTime('last_password_change')->nullable();
             $table->string('twitter_id', 30)->nullable()->unique();
+            $table->text('file_upload')->nullable();
+            $table->tinyInteger('wrong_login')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
