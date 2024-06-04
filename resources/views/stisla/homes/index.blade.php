@@ -23,7 +23,7 @@
                 @if ($_is_active_register_page)
                   &nbsp;
                   atau
-                  <a class="btn btn-success" href="{{ route('login') }}">Daftar</a>
+                  <a class="btn btn-success" href="{{ route('register') }}">Daftar</a>
                 @endif
               @endif
             </div>

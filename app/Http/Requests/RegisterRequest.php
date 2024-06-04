@@ -29,8 +29,9 @@ class RegisterRequest extends FormRequest
             return [
                 'name'                  => 'required',
                 'email'                 => 'required|email|unique:users,email',
-                'password'              => 'required|min:6|confirmed',
-                'password_confirmation' => 'required|min:6',
+                'password'              => 'required|min:4|confirmed',
+                'password_confirmation' => 'required|min:4',
+                'phone_number'          => 'nullable|numeric',
             ];
         }
 
@@ -39,9 +40,10 @@ class RegisterRequest extends FormRequest
         return [
             'name'                  => 'required',
             'email'                 => 'required|email|unique:users,email',
-            'password'              => 'required|min:6|confirmed',
-            'password_confirmation' => 'required|min:6',
-            'g-recaptcha-response'  => $isGoogleCaptcha ? 'required|captcha' : 'nullable'
+            'password'              => 'required|min:4|confirmed',
+            'password_confirmation' => 'required|min:4',
+            'g-recaptcha-response'  => $isGoogleCaptcha ? 'required|captcha' : 'nullable',
+            'phone_number'          => 'nullable|numeric',
         ];
     }
 }

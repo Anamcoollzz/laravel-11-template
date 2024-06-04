@@ -14,12 +14,12 @@
     </div>
     <form method="POST" action="" class="needs-validation" novalidate="" id="formAuth">
       @csrf
-      @include('stisla.includes.forms.inputs.input-name')
+      @include('stisla.includes.forms.inputs.input-name', ['required' => true])
       @include('stisla.includes.forms.inputs.input', [
           'id' => 'phone_number',
           'name' => 'phone_number',
           'label' => __('No HP'),
-          'type' => 'text',
+          'type' => 'number',
           'required' => false,
           'icon' => 'fas fa-phone',
       ])
