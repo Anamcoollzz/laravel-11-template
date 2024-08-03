@@ -100,7 +100,7 @@ class UbuntuController extends StislaController
         }
 
         $seeders = [];
-        if ($isLaravel) {
+        if ($isLaravel && File::exists($path . '/database/seeders')) {
             $seederFiles   = File::files($path . '/database/seeders', true);
             foreach ($seederFiles as $seed) {
                 $seeders[] = str_replace('.php', '', $seed->getFilename());
