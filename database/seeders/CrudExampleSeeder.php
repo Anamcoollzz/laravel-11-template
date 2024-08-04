@@ -20,7 +20,8 @@ class CrudExampleSeeder extends Seeder
         $faker        = \Faker\Factory::create('id_ID');
         $options      = array_values(get_options());
         $radioOptions = array_values(get_options(4));
-        foreach (range(1, 100) as $i) {
+        $now          = now();
+        foreach (range(1, 25) as $i) {
             $selectMultiple = [];
             foreach (range(1, Arr::random(range(1, 3))) as $j) {
                 array_push($selectMultiple, $options[$j - 1]);
@@ -54,8 +55,10 @@ class CrudExampleSeeder extends Seeder
                 'color'             => $faker->hexColor,
                 'summernote_simple' => $faker->text(100),
                 'summernote'        => $faker->randomHtml,
-                'created_at'        => now(),
-                'updated_at'        => now(),
+                'barcode'           => Str::random(10),
+                'qr_code'           => $faker->ean13,
+                'created_at'        => $now,
+                'updated_at'        => $now,
             ]);
         }
         foreach (collect($data)->chunk(20) as $chunkData) {

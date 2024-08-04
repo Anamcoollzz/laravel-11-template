@@ -5,7 +5,7 @@
 @extends('stisla.layouts.app-form')
 
 @section('rowForm')
-  @include('stisla.' . $viewFolder . '.only-form')
+  @include('stisla.crud-examples.only-form')
 @endsection
 
 @push('css')

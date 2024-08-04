@@ -10,6 +10,12 @@
     @include('stisla.includes.forms.inputs.input', ['required' => true, 'name' => 'text', 'label' => 'Text'])
   </div>
   <div class="col-md-6">
+    @include('stisla.includes.forms.inputs.input', ['required' => true, 'name' => 'barcode', 'label' => 'Barcode'])
+  </div>
+  <div class="col-md-6">
+    @include('stisla.includes.forms.inputs.input', ['required' => true, 'name' => 'qr_code', 'label' => 'QR Code'])
+  </div>
+  <div class="col-md-6">
     @include('stisla.includes.forms.inputs.input-email', ['required' => true])
   </div>
   <div class="col-md-6">

@@ -6,5 +6,5 @@
 @extends('stisla.layouts.app-datatable')
 
 @section('table')
-  @include('stisla.' . $viewFolder . '.table')
+  @include('stisla.crud-examples.table')
 @endsection

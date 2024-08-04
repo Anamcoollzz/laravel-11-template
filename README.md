@@ -72,6 +72,7 @@ Beberapa fitur atau komponen yang ada
 -   setup your DB in `.env`
 -   `php artisan jwt:secret`
 -   `php artisan migrate --seed`
+-   `php artisan storage:link`
 -   [optional] setup google captcha, google login, facebook login, github login, twitter login in `.env`
 
 ## Libraries dan Link Penting
@@ -90,6 +91,7 @@ Beberapa fitur atau komponen yang ada
 -   https://github.com/rap2hpoutre/laravel-log-viewer
 -   https://github.com/yajra/laravel-datatables
 -   https://github.com/tymondesigns/jwt-auth
+-   https://github.com/milon/barcode
 
 Terima kasih, bisa distar ataupun difork ya guys. Kalau ada request module atau apapun itu, bisa tulis di issue.
 

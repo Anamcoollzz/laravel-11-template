@@ -39,6 +39,8 @@ class CrudExampleRepository extends Repository
             'tags'             => 'stisla.crud-examples.tags',
             'file'             => 'stisla.crud-examples.file',
             'image'            => fn (CrudExample $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
+            'barcode'          => fn (CrudExample $item) => \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10),
+            'qr_code'          => fn (CrudExample $item) => \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3),
             'color'            => 'stisla.crud-examples.color',
             'created_at'       => '{{\Carbon\Carbon::parse($created_at)->addHour(7)->format("Y-m-d H:i:s")}}',
             'updated_at'       => '{{\Carbon\Carbon::parse($updated_at)->addHour(7)->format("Y-m-d H:i:s")}}',
@@ -53,7 +55,7 @@ class CrudExampleRepository extends Repository
         ];
         $params = [
             'editColumns' => $editColumns,
-            'rawColumns'  => ['tags', 'file', 'color', 'action', 'image'],
+            'rawColumns'  => ['tags', 'file', 'color', 'action', 'image', 'barcode', 'qr_code'],
         ];
         return $this->generateDataTables($query, $params);
     }
@@ -73,6 +75,9 @@ class CrudExampleRepository extends Repository
                 'orderable'  => false
             ],
             ['data' => 'text', 'name' => 'text'],
+            ['data' => 'barcode', 'name' => 'barcode'],
+            ['data' => 'qr_code', 'name' => 'qr_code'],
+            ['data' => 'email', 'name' => 'email'],
             ['data' => 'number', 'name' => 'number'],
             ['data' => 'currency', 'name' => 'currency'],
             ['data' => 'currency_idr', 'name' => 'currency_idr'],

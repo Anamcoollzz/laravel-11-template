@@ -35,6 +35,8 @@ class CrudExample extends Model
         'color',
         'summernote_simple',
         'summernote',
+        'barcode',
+        'qr_code',
     ];
 
     /**
@@ -44,7 +46,7 @@ class CrudExample extends Model
      */
     protected $casts = [
         'checkbox'         => 'array',
-        'checkbox2'         => 'array',
+        'checkbox2'        => 'array',
         'select2_multiple' => 'array',
     ];
 }

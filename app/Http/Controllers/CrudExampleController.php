@@ -8,6 +8,7 @@ use App\Http\Requests\ImportExcelRequest;
 use App\Imports\CrudExampleImport;
 use App\Models\CrudExample;
 use App\Repositories\CrudExampleRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -51,8 +52,8 @@ class CrudExampleController extends StislaController
      */
     protected function getIndexData()
     {
-        $isYajra = Route::is('crud-examples.index-yajra');
-        $isAjax  = Route::is('crud-examples.index-ajax');
+        $isYajra     = Route::is('crud-examples.index-yajra');
+        $isAjax      = Route::is('crud-examples.index-ajax');
         $isAjaxYajra = Route::is('crud-examples.index-ajax-yajra');
         if ($isYajra || $isAjaxYajra) {
             $data = collect([]);
@@ -95,6 +96,8 @@ class CrudExampleController extends StislaController
             'select2_multiple',
             'summernote',
             'summernote_simple',
+            'barcode',
+            'qr_code',
         ]);
         if ($request->hasFile('file')) {
             $data['file'] = $this->fileService->uploadCrudExampleFile($request->file('file'));
@@ -149,13 +152,14 @@ class CrudExampleController extends StislaController
     /**
      * showing crud example page
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = $this->getIndexData();
 
-        if (request()->ajax()) {
+        if ($request->ajax()) {
             return response()->json([
                 'success' => true,
                 'data'    => view('stisla.crud-examples.table', $data)->render(),
@@ -179,9 +183,10 @@ class CrudExampleController extends StislaController
     /**
      * showing add new crud example page
      *
+     * @param Request $request
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $title      = __('Contoh CRUD');
         $fullTitle  = __('Tambah Contoh CRUD');
@@ -192,7 +197,7 @@ class CrudExampleController extends StislaController
             'checkboxOptions' => get_options(5),
             'fullTitle'       => $fullTitle,
         ]);
-        if (request()->ajax()) {
+        if ($request->ajax()) {
             return view('stisla.crud-examples.only-form', $data);
         }
         return view('stisla.crud-examples.form', $data);
@@ -224,14 +229,15 @@ class CrudExampleController extends StislaController
     /**
      * showing edit crud example page
      *
+     * @param Request $request
      * @param CrudExample $crudExample
      * @return Response
      */
-    public function edit(CrudExample $crudExample)
+    public function edit(Request $request, CrudExample $crudExample)
     {
         $data = $this->getDetailData($crudExample);
 
-        if (request()->ajax()) {
+        if ($request->ajax()) {
             return view('stisla.crud-examples.only-form', $data);
         }
 

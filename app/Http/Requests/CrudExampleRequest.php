@@ -43,6 +43,8 @@ class CrudExampleRequest extends FormRequest
             "color"             => "required",
             "summernote_simple" => "required",
             "summernote"        => "required",
+            "barcode"           => "required",
+            "qr_code"           => "required",
         ];
     }
 }

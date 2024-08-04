@@ -16,6 +16,8 @@ class CreateCrudExamplesTable extends Migration
         Schema::create('crud_examples', function (Blueprint $table) {
             $table->id();
             $table->string('text');
+            $table->string('barcode');
+            $table->string('qr_code');
             $table->string('email');
             $table->double('number');
             $table->double('currency');

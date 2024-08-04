@@ -20,6 +20,8 @@
         <th>{{ __('No') }}</th>
       @endif
       <th>{{ __('Text') }}</th>
+      <th>{{ __('Barcode') }}</th>
+      <th>{{ __('QR Code') }}</th>
       <th>{{ __('Email') }}</th>
       <th>{{ __('Number') }}</th>
       <th>{{ __('Currency') }}</th>
@@ -54,6 +56,13 @@
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $item->text }}</td>
+          @if ($isExport)
+            <td>{{ $item->barcode }}</td>
+            <td>{{ $item->qr_code }}</td>
+          @else
+            <td>{!! \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10) !!}</td>
+            <td>{!! \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3) !!}</td>
+          @endif
           <td>{{ $item->email }}</td>
           <td>{{ $item->number }}</td>
           <td>{{ dollar($item->currency) }}</td>
