@@ -1,11 +1,11 @@
-https://res.cloudinary.com/sistem-informasi/image/upload/v1677142211/Screen_Shot_2023-02-23_at_15.26.27_axnj7a.png
+https://res.cloudinary.com/sistem-informasi/image/upload/v1722772844/fos8y0dcivd8gbejuaql.png
 
-Laravel 8 Template With Stisla
+Laravel 11 Template With Stisla
 
-Free Starter Laravel 8 Template menggunakan stisla admin dashboard
+Free Starter Laravel 11 Template menggunakan stisla admin dashboard
 Beberapa fitur atau komponen yang ada
 
--   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/8.x/socialite)
+-   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/11.x/socialite)
 -   Dashboard (widget, log aktivitas terbaru)
 -   Profil
     -   Perbarui profil
@@ -22,7 +22,7 @@ Beberapa fitur atau komponen yang ada
     -   Log Aktivitas
     -   Laravel Log Viewer
 -   User dan role
-    -   Manjemen Role dan permission menggunakan [spatie](https://spatie.be/docs/laravel-permission/v5/introduction)
+    -   Manjemen Role dan permission menggunakan [spatie](https://spatie.be/docs/laravel-permission/v6/introduction)
         -   CRUD
         -   Export
         -   Import
@@ -62,8 +62,8 @@ Beberapa fitur atau komponen yang ada
 Libraries
 
 -   https://demo.getstisla.com/
--   https://spatie.be/docs/laravel-permission/v5/introduction
--   https://laravel.com/docs/8.x/socialite
+-   https://spatie.be/docs/laravel-permission/v6/introduction
+-   https://laravel.com/docs/11.x/socialite
 -   https://unisharp.github.io/laravel-filemanager/
 -   https://laravel-excel.com/
 -   https://github.com/barryvdh/laravel-dompdf
@@ -74,6 +74,7 @@ Libraries
 -   https://github.com/tymondesigns/jwt-auth
 
 Terima kasih, bisa distar ataupun difork ya guys. Kalau ada request module atau apapun itu, bisa tulis di issue.
-Rencana nanti bakal kuupdate ke versi laravel terbaru 9 bahkan 10
 
-https://github.com/Anamcoollzz/laravel-8-template
+Web Pribadi https://anamapp.my.id
+
+https://github.com/Anamcoollzz/laravel-11-template

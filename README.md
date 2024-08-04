@@ -1,8 +1,8 @@
-# Laravel 10 Template With Stisla
+# Laravel 11 Template With Stisla
 
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/c_scale,w_100/v1677141031/logo_srs66z.png)](https://anamapp.my.id)
 
-Free Starter Laravel 10 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
+Free Starter Laravel 11 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1722772844/fos8y0dcivd8gbejuaql.png)](https://anamapp.my.id)
