@@ -37,10 +37,10 @@
       <th>{{ __('Date') }}</th>
       <th>{{ __('Time') }}</th>
       <th>{{ __('Color') }}</th>
-      @if ($isExport)
+      {{-- @if ($isExport)
         <th>{{ __('Summernote Simple') }}</th>
         <th>{{ __('Summernote') }}</th>
-      @endif
+      @endif --}}
       <th>{{ __('Created At') }}</th>
       <th>{{ __('Updated At') }}</th>
       @if ($isExport === false && ($canUpdate || $canDelete || $canDetail))
@@ -110,10 +110,10 @@
             @include('stisla.crud-examples.color', ['color' => $item->color])
           </td>
 
-          @if ($isExport)
+          {{-- @if ($isExport)
             <td>{{ $item->summernote_simple }}</td>
             <td>{{ $item->summernote }}</td>
-          @endif
+          @endif --}}
 
           <td>{{ $item->created_at }}</td>
           <td>{{ $item->updated_at }}</td>

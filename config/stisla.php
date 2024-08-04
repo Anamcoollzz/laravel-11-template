@@ -625,10 +625,10 @@ return [
         ['key' => 'mail_from_address', 'value' => 'anamkun@laraveltemplate.com'],
         ['key' => 'mail_from_name', 'value' => 'Superadmin'],
 
-        ['key' => 'mail_mailtrap_host', 'value' => 'smtp.mailtrap.io'],
+        ['key' => 'mail_mailtrap_host', 'value' => 'sandbox.smtp.mailtrap.io'],
         ['key' => 'mail_mailtrap_port', 'value' => '2525'],
-        ['key' => 'mail_mailtrap_username', 'value' => '809d58dfa23ade'],
-        ['key' => 'mail_mailtrap_password', 'value' => 'e9d1aa54a61db1'],
+        ['key' => 'mail_mailtrap_username', 'value' => '10c9ffc0387d2a'],
+        ['key' => 'mail_mailtrap_password', 'value' => '11fd65a07d9f25'],
         ['key' => 'mail_mailtrap_encryption', 'value' => 'tls'],
 
         ['key' => 'mail_host', 'value' => 'smtp'],
@@ -721,10 +721,10 @@ return [
         ['key' => 'mail_from_address', 'value' => 'anamkun@laraveltemplate.com'],
         ['key' => 'mail_from_name', 'value' => 'Superadmin'],
 
-        ['key' => 'mail_mailtrap_host', 'value' => 'smtp.mailtrap.io'],
+        ['key' => 'mail_mailtrap_host', 'value' => 'sandbox.smtp.mailtrap.io'],
         ['key' => 'mail_mailtrap_port', 'value' => '2525'],
-        ['key' => 'mail_mailtrap_username', 'value' => '809d58dfa23ade'],
-        ['key' => 'mail_mailtrap_password', 'value' => 'e9d1aa54a61db1'],
+        ['key' => 'mail_mailtrap_username', 'value' => '10c9ffc0387d2a'],
+        ['key' => 'mail_mailtrap_password', 'value' => '11fd65a07d9f25'],
         ['key' => 'mail_mailtrap_encryption', 'value' => 'tls'],
 
         ['key' => 'mail_host', 'value' => 'smtp'],

@@ -92,7 +92,8 @@ class AuthController extends StislaController
                 $user->update(['email_token' => Str::random(150)]);
                 $this->emailService->verifyAccount($user);
                 logRegister($user);
-                return Helper::redirectSuccess(route('login'), __('Cek inbox email anda untuk memverifikasi akun terlebih dahulu'));
+                DB::commit();
+                return redirect()->route('login')->with('successMessage', __('Cek inbox email anda untuk memverifikasi akun terlebih dahulu'));
             }
             logRegister($user);
             $this->userRepository->login($user);
@@ -101,7 +102,7 @@ class AuthController extends StislaController
         } catch (Exception $e) {
             DB::rollBack();
             if (Str::contains($e->getMessage(), 'SMTP')) {
-                return back()->with('errorMessage', __('Gagal mengirim email verifikasi, silahkan coba lagi nanti'));
+                return back()->withInput()->with('errorMessage', __('Gagal mengirim email verifikasi, silahkan coba lagi nanti'));
             }
             return back()->with('errorMessage', __($e->getMessage()));
         }

@@ -22,8 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('hehe/{role}', [\App\Http\Controllers\RoleController::class, 'edit']);
 Route::as('api.')->prefix('v1')->group(function () {
     # AUTH MODULES
     Route::post('auth/login', [AuthController::class, 'login'])->name('login');

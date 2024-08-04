@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware([OverrideConfig::class, 'api', EnsureAppKey::class,])
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
             // Route::middleware('web')
@@ -42,11 +42,11 @@ class RouteServiceProvider extends ServiceProvider
             //     ->group(base_path('routes/web.php'));
 
             Route::middleware([OverrideConfig::class, 'web', ViewShare::class,])
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/stisla-web.php'));
 
             Route::middleware([OverrideConfig::class, 'web', ViewShare::class, 'auth',])
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/stisla-web-auth.php'));
         });
 

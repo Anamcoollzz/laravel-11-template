@@ -16,9 +16,9 @@ class CrudExampleSeeder extends Seeder
      */
     public function run()
     {
-        $data = [];
-        $faker = \Faker\Factory::create('id_ID');
-        $options = array_values(get_options());
+        $data         = [];
+        $faker        = \Faker\Factory::create('id_ID');
+        $options      = array_values(get_options());
         $radioOptions = array_values(get_options(4));
         foreach (range(1, 100) as $i) {
             $selectMultiple = [];
@@ -59,7 +59,6 @@ class CrudExampleSeeder extends Seeder
             ]);
         }
         foreach (collect($data)->chunk(20) as $chunkData) {
-            // dd($chunkData);
             CrudExample::insert($chunkData->toArray());
         }
     }
