@@ -583,7 +583,7 @@ return [
     ],
 
     'settings' => [
-        ['key' => 'application_name', 'value' => 'Laravel 10 Template'],
+        ['key' => 'application_name', 'value' => 'Laravel 11 Template'],
         ['key' => 'application_version', 'value' => '1.0.0'],
         ['key' => 'app_description', 'value' => 'Deskripsi sistem tulis disini'],
         ['key' => 'city', 'value' => 'Jember'],
@@ -679,7 +679,7 @@ return [
     ],
 
     'settings2' => [
-        ['key' => 'application_name', 'value' => 'Laravel 10 Template'],
+        ['key' => 'application_name', 'value' => 'Laravel 11 Template'],
         ['key' => 'application_version', 'value' => '1.0.0'],
         ['key' => 'app_description', 'value' => 'Ini hanyalah sistem biasa'],
         ['key' => 'city', 'value' => 'Jember'],
