@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 # DASHBOARD
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::post('dashboard', [DashboardController::class, 'post']);
 
 # SETTINGS
 Route::get('settings/all', [SettingController::class, 'allSetting'])->name('settings.all');

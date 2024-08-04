@@ -8,6 +8,7 @@ use App\Models\PermissionGroup;
 use App\Models\User;
 use App\Repositories\SettingRepository;
 use App\Services\DatabaseService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -105,6 +106,16 @@ class DashboardController extends StislaController
             'logs'    => $logs,
             'user'    => $user,
         ]);
+    }
+
+    public function post(Request $request)
+    {
+        $request->validate([
+            'file_upload' => 'required|file|max:102048',
+        ]);
+        $link = $this->fileService->uploadFile($request->file('file_upload'), 'file_upload');
+        auth()->user()->update(['file_upload' => $link]);
+        return redirect()->back()->with('successMessage', 'File berhasil diupload');
     }
 
     /**
