@@ -92,7 +92,6 @@ Beberapa fitur atau komponen yang ada
 -   https://github.com/tymondesigns/jwt-auth
 
 Terima kasih, bisa distar ataupun difork ya guys. Kalau ada request module atau apapun itu, bisa tulis di issue.
-Rencana nanti bakal kuupdate ke versi laravel terbaru 11
 
 #### Yuk Ramaikan channel youtubeku biar semangat ngonten dan belajar barengnya
 
