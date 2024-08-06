@@ -6,6 +6,9 @@
 
 @section('content')
   <div class="card-body">
+
+    @include('stisla.auth.login.includes.alert-info')
+
     <form method="POST" action="{{ route('login-post') }}" class="needs-validation" novalidate="" id="formAuth">
       @csrf
 

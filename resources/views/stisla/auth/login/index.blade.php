@@ -12,6 +12,9 @@
         {{ __('Sebelum memulai, anda harus masuk terlebih dahulu dengan akun anda.') }}
       </p>
     </div>
+
+    @include('stisla.auth.login.includes.alert-info')
+
     <form method="POST" action="" class="needs-validation" novalidate="" id="formLogin">
       @csrf
       @include('stisla.includes.forms.inputs.input-email')
