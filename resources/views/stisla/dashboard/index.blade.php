@@ -30,9 +30,15 @@
     @foreach ($widgets ?? range(1, 8) as $item)
       <div class="col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card card-statistic-1" @if ($item->route ?? false) onclick="openTo('{{ $item->route }}')" style="cursor: pointer;" @endif>
-          <div class="card-icon bg-{{ $item->bg ?? 'primary' }}">
-            <i class="fas fa-{{ $item->icon ?? 'fire' }}"></i>
-          </div>
+          @if (isset($item->bg_color))
+            <div class="card-icon" style="background-color: {{ $item->bg_color }};">
+              <i class="fas fa-{{ $item->icon ?? 'fire' }}"></i>
+            </div>
+          @else
+            <div class="card-icon bg-{{ $item->bg }}">
+              <i class="fas fa-{{ $item->icon ?? 'fire' }}"></i>
+            </div>
+          @endif
           <div class="card-wrap">
             <div class="card-header">
               <h4>{{ $item->title ?? 'Nama Modul' }}</h4>

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
+use App\Models\CrudExample;
+use App\Models\LogRequest;
+use App\Models\Menu;
+use App\Models\MenuGroup;
 use App\Models\Notification;
 use App\Models\PermissionGroup;
 use App\Models\User;
@@ -38,11 +42,19 @@ class DashboardController extends StislaController
         $widgets = [];
         $user = auth()->user();
 
+        if ($user->can('Contoh CRUD'))
+            $widgets[] = (object)[
+                'title' => 'Contoh CRUD',
+                'count' => CrudExample::count(),
+                'bg'    => 'primary',
+                'icon'  => 'atom',
+                'route' => route('crud-examples.index'),
+            ];
         if ($user->can('Pengguna'))
             $widgets[] = (object)[
                 'title' => 'Pengguna',
                 'count' => User::count(),
-                'bg'    => 'primary',
+                'bg'    => 'danger',
                 'icon'  => 'users',
                 'route' => route('user-management.users.index'),
             ];
@@ -50,7 +62,7 @@ class DashboardController extends StislaController
             $widgets[] = (object)[
                 'title' => 'Role',
                 'count' => Role::count(),
-                'bg'    => 'danger',
+                'bg'    => 'success',
                 'icon'  => 'lock',
                 'route' => route('user-management.roles.index')
             ];
@@ -58,7 +70,7 @@ class DashboardController extends StislaController
             $widgets[] = (object)[
                 'title' => 'Permission',
                 'count' => Permission::count(),
-                'bg'    => 'success',
+                'bg'    => 'info',
                 'icon'  => 'key',
                 'route' => route('user-management.permissions.index')
             ];
@@ -68,17 +80,27 @@ class DashboardController extends StislaController
                 'count' => PermissionGroup::count(),
                 'bg'    => 'info',
                 'icon'  => 'key',
-                'route' => route('user-management.permission-groups.index')
+                'route' => route('user-management.permission-groups.index'),
+                'bg_color' => 'brown'
             ];
-        if ($user->can('Log Aktivitas'))
+        if ($user->can('Menu'))
             $widgets[] = (object)[
-                'title' => 'Log Aktivitas',
-                'count' => ActivityLog::count(),
-                'bg'    => 'success',
-                'icon'  => 'clock-rotate-left',
-                'route' => route('activity-logs.index')
+                'title' => 'Menu',
+                'count' => Menu::count(),
+                'bg'    => 'primary',
+                'icon'  => 'bars',
+                'route' => route('menu-managements.index'),
+                'bg_color' => 'pink'
             ];
-
+        if ($user->can('Grup Menu'))
+            $widgets[] = (object)[
+                'title' => 'Grup Menu',
+                'count' => MenuGroup::count(),
+                'bg'    => 'danger',
+                'icon'  => 'bars',
+                'route' => route('menu-managements.index'),
+                'bg_color' => 'orange'
+            ];
         if ($user->can('Notifikasi')) {
             $widgets[] = (object)[
                 'title' => 'Notifikasi',
@@ -86,16 +108,44 @@ class DashboardController extends StislaController
                 'bg'    => 'info',
                 'icon'  => 'bell',
                 'route' => route('notifications.index'),
+                'bg_color' => 'navy'
             ];
         }
-
+        if ($user->can('Log Aktivitas'))
+            $widgets[] = (object)[
+                'title' => 'Log Aktivitas',
+                'count' => ActivityLog::count(),
+                'bg'    => 'success',
+                'icon'  => 'clock-rotate-left',
+                'route' => route('activity-logs.index'),
+                'bg_color' => 'black'
+            ];
+        if ($user->can('Log Request'))
+            $widgets[] = (object)[
+                'title' => 'Log Request',
+                'count' => LogRequest::count(),
+                'bg'    => 'success',
+                'icon'  => 'clock-rotate-left',
+                'route' => route('request-logs.index'),
+                'bg_color' => '#C88A65',
+            ];
+        if ($user->can('Pengaturan'))
+            $widgets[] = (object)[
+                'title' => 'Pengaturan',
+                'count' => '6',
+                'bg'    => 'success',
+                'icon'  => 'clock-rotate-left',
+                'route' => route('settings.all'),
+                'bg_color' => '#E9D66B',
+            ];
         if ($user->can('Backup Database')) {
             $widgets[] = (object)[
                 'title' => 'Backup Database',
                 'count' => count((new DatabaseService)->getAllBackupMysql()),
                 'bg'    => 'primary',
                 'icon'  => 'database',
-                'route' => route('backup-databases.index')
+                'route' => route('backup-databases.index'),
+                'bg_color' => 'purple',
             ];
         }
 
