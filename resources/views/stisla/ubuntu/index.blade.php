@@ -533,6 +533,11 @@
                             'icon' => 'fa fa-table',
                             'tooltip' => 'Lihat Tabel',
                         ])
+                        @include('stisla.includes.forms.buttons.btn-danger', [
+                            'link' => route('ubuntu.index', ['database' => $item->database, 'action' => 'delete_db']),
+                            'icon' => 'fa fa-trash',
+                            'tooltip' => 'Hapus',
+                        ])
                       </td>
                     </tr>
                   @endforeach

@@ -167,11 +167,29 @@ class DatabaseService
         return DB::table($db . '.' . $table)->where('id', $id)->delete();
     }
 
+    /**
+     * create database
+     *
+     * @param string $db
+     * @return void
+     */
     public function createMySqlDb($db)
     {
         $charset    = config("database.connections.mysql.charset", 'utf8mb4');
         $collation  = config("database.connections.mysql.collation", 'utf8mb4_unicode_ci');
         $query      = "CREATE DATABASE IF NOT EXISTS $db CHARACTER SET $charset COLLATE $collation;";
+        DB::statement($query);
+    }
+
+    /**
+     * drop database
+     *
+     * @param string $db
+     * @return void
+     */
+    public function dropMySqlDb($db)
+    {
+        $query      = "DROP DATABASE $db;";
         DB::statement($query);
     }
 

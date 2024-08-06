@@ -129,7 +129,10 @@ class UbuntuController extends StislaController
         $action    = request('action');
 
         $primary = 'id';
-        if ($database && $table && $action == 'json') {
+        if ($database && $action == 'delete_db') {
+            $this->dbService->dropMySqlDb($database);
+            return redirect()->back()->with('successMessage', 'Berhasil menghapus database ' . $database);
+        } else if ($database && $table && $action == 'json') {
             return $this->dbService->getAllRowMySqlAsJson($database, $table);
         } else if ($database && $table && $action == 'json-download') {
             $data = $this->dbService->getAllRowMySqlAsJson($database, $table);
