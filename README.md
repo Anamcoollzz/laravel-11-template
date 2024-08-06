@@ -5,7 +5,7 @@
 Free Starter Laravel 11 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
-[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1722772844/fos8y0dcivd8gbejuaql.png)](https://anamapp.my.id)
+[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1722952619/gke0fclyoor49w2ybxjr.png)](https://anamapp.my.id)
 
 ## Fitur dan komponen
 
