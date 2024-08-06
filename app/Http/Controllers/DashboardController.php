@@ -134,7 +134,7 @@ class DashboardController extends StislaController
                 'title' => 'Pengaturan',
                 'count' => '6',
                 'bg'    => 'success',
-                'icon'  => 'clock-rotate-left',
+                'icon'  => 'cogs',
                 'route' => route('settings.all'),
                 'bg_color' => '#E9D66B',
             ];
