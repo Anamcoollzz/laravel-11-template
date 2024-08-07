@@ -20,6 +20,7 @@ Beberapa fitur atau komponen yang ada
 -   Beberapa contoh menu (tampilan)
 -   Log
     -   Log Aktivitas
+    -   Log Request
     -   Laravel Log Viewer
 -   User dan role
     -   Manjemen Role dan permission menggunakan [spatie](https://spatie.be/docs/laravel-permission/v6/introduction)
@@ -57,7 +58,6 @@ Beberapa fitur atau komponen yang ada
     -   Grup Menu (CRUD)
 -   CRUD Generator (menu nya tersembunyi akses via url saja)
 -   Service dan repository pattern
--   Log Request
 
 Libraries
 
