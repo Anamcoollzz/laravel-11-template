@@ -413,6 +413,7 @@ class UserRepository extends Repository
      */
     public function syncRoles(User $user, array $roles)
     {
+        $roles = Role::whereIn('name', $roles)->get();
         return $user->syncRoles($roles);
     }
 }
