@@ -102,7 +102,7 @@ class UserManagementController extends Controller
             'address',
         ]);
         $userNew = $this->userRepository->update($data, $user->id);
-        $userNew->syncRoles([$request->role]);
+        $this->userRepository->syncRoles($userNew, $request->role);
         logUpdate('Pengguna', $user, $userNew);
         $successMessage = successMessageUpdate("Pengguna");
         return response200($userNew, $successMessage);

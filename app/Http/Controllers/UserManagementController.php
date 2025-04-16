@@ -139,7 +139,7 @@ class UserManagementController extends StislaController
     public function store(UserRequest $request)
     {
         $user = $this->userRepository->create($this->getStoreData($request));
-        $this->userRepository->syncRoles($user, $request->role);
+        $this->userRepository->syncRolesByID($user, $request->role);
         logCreate('Pengguna', $user);
         $successMessage = successMessageCreate('Pengguna');
         return redirect()->back()->with('successMessage', $successMessage);
@@ -169,7 +169,7 @@ class UserManagementController extends StislaController
         $data = $this->getStoreData($request);
 
         $userNew = $this->userRepository->update($data, $user->id);
-        $this->userRepository->syncRoles($userNew, $request->role);
+        $this->userRepository->syncRolesByID($userNew, $request->role);
         logUpdate('Pengguna', $user, $userNew);
         $successMessage = successMessageUpdate('Pengguna');
         return redirect()->back()->with('successMessage', $successMessage);
