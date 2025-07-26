@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exports\CrudExampleExport;
 use App\Exports\RoleExampleExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportExcelRequest;
@@ -14,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RoleController extends Controller

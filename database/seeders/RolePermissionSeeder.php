@@ -6,7 +6,7 @@ use App\Models\PermissionGroup;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -19,8 +19,6 @@ class RolePermissionSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-
-
         Role::truncate();
         $roles = config('stisla.roles');
         foreach ($roles as $role) {
@@ -29,8 +27,9 @@ class RolePermissionSeeder extends Seeder
             ]);
             if ($role === 'superadmin') {
                 $roleObj->is_locked = 1;
-                $roleObj->save();
             }
+            $roleObj->created_by_id = 1;
+            $roleObj->save();
         }
 
         $roles = Role::all();

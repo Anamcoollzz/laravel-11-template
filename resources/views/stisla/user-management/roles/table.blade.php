@@ -9,6 +9,8 @@
       <th>{{ __('Total Permission') }}</th>
       <th>{{ __('Created At') }}</th>
       <th>{{ __('Updated At') }}</th>
+      <th>{{ __('Created By') }}</th>
+      <th>{{ __('Last Updated By') }}</th>
       @if ($canAction && $isExport === false)
         <th>{{ __('Aksi') }}</th>
       @endif
@@ -22,6 +24,8 @@
         <td>{{ $item->permissions_count }}</td>
         <td>{{ $item->created_at }}</td>
         <td>{{ $item->updated_at }}</td>
+        <td>{{ $item->createdBy->name ?? '-' }}</td>
+        <td>{{ $item->lastUpdatedBy->name ?? '-' }}</td>
         @if ($canAction && $isExport === false)
           <td>
             @if ($canUpdate)

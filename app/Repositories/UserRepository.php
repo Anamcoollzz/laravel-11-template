@@ -7,7 +7,7 @@ use App\Models\PermissionGroup;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class UserRepository extends Repository
 {
@@ -313,7 +313,7 @@ class UserRepository extends Repository
      *
      * @param string $roleName
      * @param array $data
-     * @return int
+     * @return Role
      */
     public function createRole(string $roleName, array $data)
     {
@@ -324,8 +324,8 @@ class UserRepository extends Repository
         if (isset($data['permissions'])) {
             $permissions = Permission::whereIn('name', $data['permissions'])->get();
             $role->syncPermissions($permissions);
-            return $role;
         }
+        return $role;
     }
 
     /**

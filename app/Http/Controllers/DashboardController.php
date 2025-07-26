@@ -15,7 +15,7 @@ use App\Services\DatabaseService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class DashboardController extends StislaController
 {

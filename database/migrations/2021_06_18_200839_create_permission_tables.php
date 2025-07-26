@@ -34,6 +34,16 @@ class CreatePermissionTables extends Migration
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->boolean('is_locked')->default(0);
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('last_updated_by_id')->nullable();
+            $table->foreign('created_by_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+            $table->foreign('last_updated_by_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
             $table->timestamps();
 
             $table->unique(['name', 'guard_name']);

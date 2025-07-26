@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\RoleExampleExport;
 use App\Http\Requests\ImportExcelRequest;
 use App\Http\Requests\RoleRequest;
 use App\Imports\RoleImport;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RoleController extends StislaController
@@ -137,6 +135,8 @@ class RoleController extends StislaController
     {
         $data   = $this->getStoreData($request);
         $result = $this->userRepository->createRole($request->name, $data);
+        $result->created_by_id = auth()->user()->id;
+        $result->save();
 
         logCreate('Role', $result);
 
@@ -165,10 +165,11 @@ class RoleController extends StislaController
      */
     public function update(RoleRequest $request, Role $role): RedirectResponse
     {
-        if ($role->is_locked) abort(404);
+        // if ($role->is_locked) abort(404);
 
         $before = $this->userRepository->findRole($role->id);
         $data   = $this->getStoreData($request);
+        $data['last_updated_by_id'] = auth()->user()->id;
         $after  = $this->userRepository->updateRole($role->id, $data);
 
         logUpdate('Role', $before, $after);
