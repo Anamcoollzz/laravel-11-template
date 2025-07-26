@@ -42,7 +42,7 @@ function initDataTables() {
     if ($dtTbl.data('export') === true) {
       var title = $dtTbl.data('title') && $dtTbl.data('title').replace(' ', '_').toLowerCase();
       title = title ? title + '_export' : document.title;
-      options['dom'] = 'Bfrtip';
+      options['dom'] = 'lBfrtip';
       options['buttons'] = [
         {
           attr: { id: 'copyDtBtn' },
@@ -139,7 +139,7 @@ function initDataTables() {
     if ($dtTblYajra.data('export') === true) {
       var title = $dtTblYajra.data('title') && $dtTblYajra.data('title').replace(' ', '_').toLowerCase();
       title = title ? title + '_export' : document.title;
-      options['dom'] = 'Bfrtip';
+      options['dom'] = 'lBfrtip';
       options['buttons'] = [
         {
           attr: { id: 'copyDtBtn' },
