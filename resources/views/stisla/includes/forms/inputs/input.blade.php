@@ -35,6 +35,9 @@
         </div>
         <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}">
       </div>
+      @if ($link_file ?? false)
+        <small><a target="_blank" href="{{ $link_file }}">{{ $link_file_name }}</a></small>
+      @endif
       @if ($hint ?? false)
         <small class="form-text text-muted">{{ $hint }}</small>
       @endif
@@ -52,6 +55,9 @@
         @endif
       </label>
       <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}">
+      @if ($link_file ?? false)
+        <small><a target="_blank" href="{{ $link_file }}">{{ $link_file_name }}</a></small>
+      @endif
       @if ($hint ?? false)
         <small class="form-text text-muted">{{ $hint }}</small>
       @endif

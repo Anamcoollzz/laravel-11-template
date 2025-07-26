@@ -97,10 +97,25 @@
     ])
   </div>
   <div class="col-md-6">
-    @include('stisla.includes.forms.inputs.input', ['required' => isset($d) ? false : true, 'name' => 'file', 'type' => 'file', 'label' => 'File'])
+    @include('stisla.includes.forms.inputs.input', [
+        'required' => isset($d) ? false : true,
+        'name' => 'file',
+        'type' => 'file',
+        'label' => 'File',
+        'link_file' => isset($d) ? $d->file : null,
+        'link_file_name' => isset($d) ? basename($d->file) : null,
+    ])
   </div>
   <div class="col-md-6">
-    @include('stisla.includes.forms.inputs.input', ['required' => isset($d) ? false : true, 'name' => 'image', 'type' => 'file', 'label' => 'Image', 'accept' => 'image/*'])
+    @include('stisla.includes.forms.inputs.input', [
+        'required' => isset($d) ? false : true,
+        'name' => 'image',
+        'type' => 'file',
+        'label' => 'Image',
+        'accept' => 'image/*',
+        'link_file' => isset($d) ? $d->image : null,
+        'link_file_name' => isset($d) ? basename($d->image) : null,
+    ])
   </div>
   <div class="col-md-6">
     @include('stisla.includes.forms.inputs.input', ['required' => true, 'name' => 'date', 'type' => 'date', 'label' => 'Date'])
