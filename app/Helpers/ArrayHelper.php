@@ -1,8 +1,9 @@
 <?php
 
-function get_options($length = 10)
+function get_options($length = 10, $with_header = false)
 {
-    $options = [];
+    if ($with_header)
+        $options = ['' => 'Please select'];
     foreach (range(1, $length) as $number) {
         $options['Option ' . $number] = 'Option ' . $number;
     }

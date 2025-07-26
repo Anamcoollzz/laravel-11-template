@@ -62,7 +62,7 @@
     @include('stisla.includes.forms.selects.select2', [
         'id' => 'select2_multiple',
         'name' => 'select2_multiple',
-        'options' => $selectOptions,
+        'options' => $select2Options,
         'label' => 'Select2 Multiple',
         'required' => true,
         'multiple' => true,
@@ -90,7 +90,7 @@
   </div>
   <div class="col-md-6">
     @include('stisla.includes.forms.inputs.input-checkbox', [
-        'required' => false,
+        'required' => true,
         'id' => 'checkbox2',
         'label' => 'Checkbox 2',
         'options' => $checkboxOptions,

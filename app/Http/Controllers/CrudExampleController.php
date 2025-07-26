@@ -123,7 +123,8 @@ class CrudExampleController extends StislaController
         $title       = __('Contoh CRUD');
         $defaultData = $this->getDefaultDataDetail($title, 'crud-examples', $crudExample, $isDetail);
         return array_merge($defaultData, [
-            'selectOptions'   => get_options(10),
+            'selectOptions'   => get_options(10, true),
+            'select2Options'  => get_options(10, true),
             'radioOptions'    => get_options(4),
             'checkboxOptions' => get_options(5),
             'fullTitle'       => $isDetail ? __('Detail Contoh CRUD') : __('Ubah Contoh CRUD'),
@@ -192,7 +193,8 @@ class CrudExampleController extends StislaController
         $fullTitle  = __('Tambah Contoh CRUD');
         $data       = $this->getDefaultDataCreate($title, 'crud-examples');
         $data       = array_merge($data, [
-            'selectOptions'   => get_options(10),
+            'selectOptions'   => get_options(10, true),
+            'select2Options'  => get_options(10),
             'radioOptions'    => get_options(4),
             'checkboxOptions' => get_options(5),
             'fullTitle'       => $fullTitle,

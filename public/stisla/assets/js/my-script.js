@@ -373,6 +373,7 @@ $('form')
     $('.is-invalid').removeClass('is-invalid');
     $('.invalid-feedback').remove();
     $('.input-group-text').removeClass('border-danger');
+    $('.select2-selection').css({ 'border-color': '#e4e6fc' });
     $('.select2-selection--single,.select2-selection--multiple').css({ 'border-color': '#e4e6fc' });
     $('label.text-danger').removeClass('text-danger');
     $('.error-checkbox').remove();
@@ -381,12 +382,12 @@ $('form')
     $form.find('[data-toggle="summernote_message"]').empty();
     $form.find('.bootstrap-tagsinput').css({ 'border-color': '#e4e6fc' });
     var $formControl = $form.find('.form-control:not(.note-form-control)');
-    var tidakError = true;
+    var notError = true;
     $formControl.each(function (index, item) {
       // console.log('item', item);
       // console.log('itemvalue', item.value);
       if ($(item).hasClass('inputtags') && !item.value) {
-        tidakError = false;
+        notError = false;
         $(item).parent().find('.bootstrap-tagsinput').css({ 'border-color': 'red' });
         $(item).addClass('is-invalid');
         var $formGroup = $(item).closest('.form-group');
@@ -400,10 +401,27 @@ $('form')
         label = label.replaceAll('*', '');
         $invalidFeedback.html($(item).attr('required-message') || label + ' tidak boleh kosong');
         $formGroup.find('label').addClass('text-danger');
-      } else if (item.hasAttribute('required') && !item.value) {
-        tidakError = false;
+      } else if (item.hasAttribute('required') && !item.value && item.tagName === 'SELECT' && $(item).hasClass('select2')) {
+        notError = false;
         $(item).addClass('is-invalid');
         var $formGroup = $(item).closest('.form-group');
+        $formGroup.find('label').addClass('text-danger');
+        $formGroup.find('.select2-selection').css({ 'border-color': 'red' });
+        var $invalidFeedback = $formGroup.find('.invalid-feedback');
+        if ($invalidFeedback.length <= 0) {
+          $formGroup.append('<span class="invalid-feedback"></span>');
+        }
+        $invalidFeedback = $formGroup.find('.invalid-feedback');
+        $invalidFeedback.html($(item).attr('required-message') || 'Tidak boleh kosong');
+        $formGroup.find('.input-group-text').addClass('border-danger');
+        var label = $formGroup.find('label').text() || '';
+        label = label.replaceAll('*', '');
+        $invalidFeedback.html($(item).attr('required-message') || label + ' tidak boleh kosong');
+      } else if (item.hasAttribute('required') && !item.value) {
+        notError = false;
+        $(item).addClass('is-invalid');
+        var $formGroup = $(item).closest('.form-group');
+        $formGroup.find('label').addClass('text-danger');
         var $invalidFeedback = $formGroup.find('.invalid-feedback');
         if ($(item).parent().hasClass('colorpickerinput')) {
           if ($invalidFeedback.length <= 0) {
@@ -422,7 +440,7 @@ $('form')
         $invalidFeedback.html($(item).attr('required-message') || label + ' tidak boleh kosong');
       } else if (item.type == 'email') {
         if (!validateEmail(item.value)) {
-          tidakError = false;
+          notError = false;
           $(item).addClass('is-invalid');
           var $formGroup = $(item).closest('.form-group');
           $formGroup.find('.input-group-text').addClass('border-danger');
@@ -439,6 +457,7 @@ $('form')
         $(item).parent().find('.select2-selection--single,.select2-selection--multiple').css({ 'border-color': 'red' });
       }
     });
+
     // summernote
     $summernote = $form.find('[data-toggle="summernote"]');
     if ($summernote.length) {
@@ -494,7 +513,7 @@ $('form')
     radioNames = unique(radioNames);
     radioNames.forEach(function (item) {
       if (!$('input[name="' + item + '"]:checked').val()) {
-        tidakError = false;
+        notError = false;
         $('input[name="' + item + '"]')
           .parent()
           .parent()
@@ -530,7 +549,7 @@ $('form')
     checkboxNames = unique(checkboxNames);
     checkboxNames.forEach(function (item) {
       if (!$('input[name="' + item + '"]:checked').val()) {
-        tidakError = false;
+        notError = false;
         $('input[name="' + item + '"]')
           .parent()
           .parent()
@@ -566,7 +585,7 @@ $('form')
     checkboxNames2 = unique(checkboxNames2);
     checkboxNames2.forEach(function (item) {
       if (!$('input[name="' + item + '"]:checked').val()) {
-        tidakError = false;
+        notError = false;
         $('input[name="' + item + '"]')
           .parent()
           .parent()
@@ -593,7 +612,7 @@ $('form')
       }
     });
 
-    if (!tidakError) {
+    if (!notError) {
       $('html, body').animate(
         {
           scrollTop: $form.offset().top - 100,
@@ -603,7 +622,7 @@ $('form')
       errorMsg('Ada yang error pada form, silakan cek kembali!!!');
     }
     // return false;
-    return tidakError;
+    return notError;
   });
 
 // swal message

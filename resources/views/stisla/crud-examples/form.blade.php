@@ -39,7 +39,7 @@
           $('[type="number"],[name="currency"],[name="currency_idr"]').trigger('change');
         }, 1000);
         $('select').each(function() {
-          $(this).val($(this).find('option:first').val());
+          $(this).val($(this).find('option:last').val());
         });
         $('[type="checkbox"]').prop('checked', true);
         $('select').trigger('change');
