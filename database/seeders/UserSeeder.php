@@ -35,6 +35,8 @@ class UserSeeder extends Seeder
                 'birth_date'           => $user['birth_date'] ?? null,
                 'address'              => $user['address'] ?? null,
                 'last_password_change' => date('Y-m-d H:i:s'),
+                'created_by_id'        => null,
+                'last_updated_by_id'   => null
             ]);
             foreach ($user['roles'] as $role)
                 if (in_array($role, $rolesArray))

@@ -32,6 +32,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by_id')->nullable()->foreign('created_by_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('last_updated_by_id')->nullable()->foreign('last_updated_by_id')->references('id')->on('users')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -38,6 +38,8 @@ class User extends Authenticatable implements JWTSubject
         'file_upload',
         'wrong_login',
         'is_active',
+        'created_by_id',
+        'last_updated_by_id',
     ];
 
     /**
@@ -108,5 +110,25 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Get the user that created the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    /**
+     * Get the user that last updated the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function lastUpdatedBy()
+    {
+        return $this->belongsTo(User::class, 'last_updated_by_id');
     }
 }

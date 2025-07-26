@@ -23,6 +23,8 @@
       @if ($_is_login_must_verified)
         <th>{{ __('Waktu Verifikasi') }}</th>
       @endif
+      <th>{{ __('Created By') }}</th>
+      <th>{{ __('Last Updated By') }}</th>
       @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
         <th>{{ __('Aksi') }}</th>
       @endif
@@ -56,6 +58,8 @@
         @if ($_is_login_must_verified)
           <td>{{ $item->email_verified_at ?? '-' }}</td>
         @endif
+        <td>{{ $item->createdBy->name ?? '-' }}</td>
+        <td>{{ $item->lastUpdatedBy->name ?? '-' }}</td>
         @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
           <td style="width: 150px;">
             @if ($canUpdate)
