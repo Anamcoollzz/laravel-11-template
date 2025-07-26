@@ -50,7 +50,7 @@
                       'id' => 'is_blank',
                       'name' => 'is_blank',
                       'options' => ['0' => 'Tidak', '1' => 'Ya'],
-                      'label' => 'Is Blank',
+                      'label' => 'Target Blank',
                       'required' => true,
                   ])
                 </div>

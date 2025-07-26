@@ -17,7 +17,7 @@
       <th>{{ __('Route Name') }}</th>
       <th>{{ __('Uri') }}</th>
       <th>{{ __('Icon') }}</th>
-      <th>{{ __('Is Blank') }}</th>
+      <th>{{ __('Target Blank') }}</th>
       <th>{{ __('Permission') }}</th>
       <th>{{ __('Is Active If Url Includes') }}</th>
       <th>{{ __('Parent Menu') }}</th>
