@@ -22,6 +22,7 @@ class CrudExampleImport implements ToCollection, WithHeadingRow
             $insertData = $chunkData->transform(function ($item) use ($dateTime) {
                 $item->put('created_at', $dateTime);
                 $item->put('updated_at', $dateTime);
+                $item->put('created_by_id', auth()->user()->id);
                 return $item;
             })->toArray();
             CrudExample::insert($insertData);

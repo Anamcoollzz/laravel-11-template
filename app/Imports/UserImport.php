@@ -38,14 +38,15 @@ class UserImport implements ToCollection, WithHeadingRow
         foreach ($rows->chunk(30) as $chunkData) {
             $insertData = $chunkData->map(function ($item) use ($dateTime) {
                 return [
-                    'name'         => $item['nama'],
-                    'email'        => $item['email'],
-                    'password'     => bcrypt($item['password']),
-                    'phone_number' => $item['no_hp'],
-                    'birth_date'   => $item['tanggal_lahir'],
-                    'address'      => $item['alamat'],
-                    'created_at'   => $dateTime,
-                    'updated_at'   => $dateTime,
+                    'name'          => $item['nama'],
+                    'email'         => $item['email'],
+                    'password'      => bcrypt($item['password']),
+                    'phone_number'  => $item['no_hp'],
+                    'birth_date'    => $item['tanggal_lahir'],
+                    'address'       => $item['alamat'],
+                    'created_at'    => $dateTime,
+                    'updated_at'    => $dateTime,
+                    'created_by_id' => auth()->user()->id,
                     // 'avatar',
                     // 'email_verified_at',
                     // 'last_login',
