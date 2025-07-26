@@ -57,11 +57,13 @@ class CrudExampleSeeder extends Seeder
                 'summernote'         => $faker->randomHtml,
                 'barcode'            => Str::random(10),
                 'qr_code'            => $faker->ean13,
-                'created_at'         => $now,
-                'updated_at'         => $now,
-                // 'created_by_id'      => Arr::random([null, 1]),
-                'created_by_id'      => 1,
-                'last_updated_by_id' => 1,
+                'created_at'         => $faker->dateTimeBetween('-1 month', 'now'),
+                'updated_at'         => $faker->dateTimeBetween('-1 month', 'now'),
+                'created_by_id'      => Arr::random([null, 1]),
+                // 'created_by_id'      => 1,
+                'last_updated_by_id' => Arr::random([null, 1]),
+                // 'last_updated_by_id' => 1,
+
             ]);
         }
         foreach (collect($data)->chunk(20) as $chunkData) {

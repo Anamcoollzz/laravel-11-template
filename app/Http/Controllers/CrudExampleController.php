@@ -55,19 +55,27 @@ class CrudExampleController extends StislaController
         $isYajra     = Route::is('crud-examples.index-yajra');
         $isAjax      = Route::is('crud-examples.index-ajax');
         $isAjaxYajra = Route::is('crud-examples.index-ajax-yajra');
+
         if ($isYajra || $isAjaxYajra) {
             $data = collect([]);
         } else {
-            $data = $this->crudExampleRepository->getLatestWith(['createdBy', 'lastUpdatedBy']);
+            $data = $this->crudExampleRepository->getFullData();
         }
 
         $defaultData = $this->getDefaultDataIndex(__('Contoh CRUD'), 'Contoh CRUD', 'crud-examples');
+        $users = [];
+
+        if (Route::is('crud-examples.index') || Route::is('crud-examples.index-ajax')) {
+            $users = $this->userRepository->getLatest();
+        }
+
         return array_merge($defaultData, [
             'data'         => $data,
             'isYajra'      => $isYajra,
             'isAjax'       => $isAjax,
             'isAjaxYajra'  => $isAjaxYajra,
             'yajraColumns' => $this->crudExampleRepository->getYajraColumns(),
+            'users'        => $users,
         ]);
     }
 

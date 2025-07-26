@@ -1,15 +1,15 @@
 @php
-$name = $name ?? $id;
-$oldValue = old($name);
-$isMultiple = $multiple ?? ($isMultiple ?? false);
-$isRequired = $required ?? ($isRequired ?? false);
-$dname = $d[$name] ?? false;
-if ($isMultiple) {
-    $selectedArray = is_array($dname) ? $dname : ($dname ? [$dname] : []);
-    $selected = $oldValue ?? ($selected ?? $selectedArray);
-} else {
-    $selected = $oldValue ?? ($selected ?? ($dname ?? false));
-}
+  $name = $name ?? $id;
+  $oldValue = old($name);
+  $isMultiple = $multiple ?? ($isMultiple ?? false);
+  $isRequired = $required ?? ($isRequired ?? false);
+  $dname = $d[$name] ?? false;
+  if ($isMultiple) {
+      $selectedArray = is_array($dname) ? $dname : ($dname ? [$dname] : []);
+      $selected = $oldValue ?? ($selected ?? $selectedArray);
+  } else {
+      $selected = $oldValue ?? ($selected ?? ($dname ?? false));
+  }
 
 @endphp
 

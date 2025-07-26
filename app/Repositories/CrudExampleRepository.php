@@ -117,4 +117,14 @@ class CrudExampleRepository extends Repository
             ],
         ]);
     }
+
+    /**
+     * get full data with relations
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getFullData()
+    {
+        return $this->queryFullData()->with(['createdBy', 'lastUpdatedBy'])->latest()->get();
+    }
 }

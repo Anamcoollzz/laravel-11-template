@@ -18,6 +18,9 @@
     <p class="section-lead">{{ __('Menampilkan halaman ' . $title) }}.</p>
     <div class="row">
       <div class="col-12">
+
+        @yield('filter_top')
+
         @if ($data->count() > 0 || $isYajra || $isAjaxYajra)
           @if ($canExport)
             <div class="card">

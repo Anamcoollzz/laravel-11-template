@@ -332,4 +332,32 @@ class Repository extends RepositoryAbstract
             ],
         ]);
     }
+
+    /**
+     * get query full data
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function queryFullData()
+    {
+        return $this->model
+            ->when(request('filter_created_by_id'), function ($query) {
+                $query->where('created_by_id', request('filter_created_by_id'));
+            })
+            ->when(request('filter_last_updated_by_id'), function ($query) {
+                $query->where('last_updated_by_id', request('filter_last_updated_by_id'));
+            })
+            ->when(request('filter_start_created_at'), function ($query) {
+                $query->whereDate('created_at', '>=', request('filter_start_created_at'));
+            })
+            ->when(request('filter_end_created_at'), function ($query) {
+                $query->whereDate('created_at', '<=', request('filter_end_created_at'));
+            })
+            ->when(request('filter_start_updated_at'), function ($query) {
+                $query->whereDate('updated_at', '>=', request('filter_start_updated_at'));
+            })
+            ->when(request('filter_end_updated_at'), function ($query) {
+                $query->whereDate('updated_at', '<=', request('filter_end_updated_at'));
+            });
+    }
 }

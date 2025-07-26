@@ -5,7 +5,6 @@
     @endif
     {{ $label }}
   </button>
-
 @else
   <a class="btn btn-primary @if ($icon ?? false) btn-icon icon-left @endif" href="{{ $link ?? '#' }}">
     @if ($icon ?? false)
