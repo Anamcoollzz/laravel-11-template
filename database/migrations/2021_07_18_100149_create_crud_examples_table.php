@@ -38,8 +38,18 @@ class CreateCrudExamplesTable extends Migration
             $table->text('summernote_simple');
             $table->longText('summernote');
             $table->timestamps();
-            $table->unsignedBigInteger('created_by_id')->nullable()->foreign('created_by_id')->references('id')->on('users')->onDelete('set null');
-            $table->unsignedBigInteger('last_updated_by_id')->nullable()->foreign('last_updated_by_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('last_updated_by_id')->nullable();
+            $table->foreign('created_by_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('last_updated_by_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 
