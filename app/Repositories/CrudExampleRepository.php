@@ -29,21 +29,24 @@ class CrudExampleRepository extends Repository
     {
         $query = $this->query()->when(request('order')[0]['column'] == 0, function ($query) {
             $query->latest();
-        });
+        })
+            ->with(['createdBy', 'lastUpdatedBy']);
         $editColumns = [
-            'currency'         => fn (CrudExample $item) => dollar($item->currency),
-            'currency_idr'     => fn (CrudExample $item) => rp($item->currency_idr),
+            'currency'         => fn(CrudExample $item) => dollar($item->currency),
+            'currency_idr'     => fn(CrudExample $item) => rp($item->currency_idr),
             'select2_multiple' => '{{implode(", ", $select2_multiple)}}',
             'checkbox'         => '{{implode(", ", $checkbox)}}',
             'checkbox2'        => '{{implode(", ", $checkbox2)}}',
             'tags'             => 'stisla.crud-examples.tags',
             'file'             => 'stisla.crud-examples.file',
-            'image'            => fn (CrudExample $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
-            'barcode'          => fn (CrudExample $item) => \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10),
-            'qr_code'          => fn (CrudExample $item) => \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3),
+            'image'            => fn(CrudExample $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
+            'barcode'          => fn(CrudExample $item) => \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10),
+            'qr_code'          => fn(CrudExample $item) => \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3),
             'color'            => 'stisla.crud-examples.color',
             'created_at'       => '{{\Carbon\Carbon::parse($created_at)->addHour(7)->format("Y-m-d H:i:s")}}',
             'updated_at'       => '{{\Carbon\Carbon::parse($updated_at)->addHour(7)->format("Y-m-d H:i:s")}}',
+            // 'created_by'       => fn(CrudExample $crudExample) => $crudExample->createdBy ? $crudExample->createdBy->name : '-',
+            // 'last_updated_by'  => fn(CrudExample $crudExample) => $crudExample->lastUpdatedBy ? $crudExample->lastUpdatedBy->name : '-',
             'action'           => function (CrudExample $crudExample) use ($additionalParams) {
                 $isAjaxYajra = Route::is('crud-examples.index-ajax-yajra') || request('isAjaxYajra') == 1;
                 $data = array_merge($additionalParams ? $additionalParams : [], [
@@ -56,6 +59,14 @@ class CrudExampleRepository extends Repository
         $params = [
             'editColumns' => $editColumns,
             'rawColumns'  => ['tags', 'file', 'color', 'action', 'image', 'barcode', 'qr_code'],
+            'addColumns'  => [
+                'created_by' => function (CrudExample $item) {
+                    return $item->createdBy ? $item->createdBy->name : '-';
+                },
+                'last_updated_by' => function (CrudExample $item) {
+                    return $item->lastUpdatedBy ? $item->lastUpdatedBy->name : '-';
+                }
+            ]
         ];
         return $this->generateDataTables($query, $params);
     }
@@ -96,6 +107,8 @@ class CrudExampleRepository extends Repository
             ['data' => 'color', 'name' => 'color'],
             ['data' => 'created_at', 'name' => 'created_at'],
             ['data' => 'updated_at', 'name' => 'updated_at'],
+            ['data' => 'created_by', 'name' => 'createdBy.name'],
+            ['data' => 'last_updated_by', 'name' => 'lastUpdatedBy.name'],
             [
                 'data' => 'action',
                 'name' => 'action',

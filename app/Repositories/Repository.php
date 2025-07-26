@@ -273,10 +273,20 @@ class Repository extends RepositoryAbstract
     protected function generateDataTables($query, array $params)
     {
         $dataTables = DataTables::of($query)->addIndexColumn();
-        foreach ($params['editColumns'] as $column => $value) {
-            $dataTables->editColumn($column, $value);
+        if (isset($params['addColumns']) && is_array($params['addColumns'])) {
+            foreach ($params['addColumns'] as $column => $value) {
+                $dataTables->addColumn($column, $value);
+            }
         }
-        return $dataTables->rawColumns($params['rawColumns'] ?? [])->make(true);
+        if (isset($params['editColumns']) && is_array($params['editColumns'])) {
+            foreach ($params['editColumns'] as $column => $value) {
+                $dataTables->editColumn($column, $value);
+            }
+        }
+        if (isset($params['rawColumns']) && is_array($params['rawColumns'])) {
+            $dataTables->rawColumns($params['rawColumns']);
+        }
+        return $dataTables->make(true);
     }
 
     /**
@@ -286,7 +296,7 @@ class Repository extends RepositoryAbstract
      */
     public function getYajraDataTables()
     {
-        return $this->generateDataTables($this->query(),);
+        return $this->generateDataTables($this->query());
         return DataTables::of($this->query())->addIndexColumn()->rawColumns([])->make(true);
     }
 
