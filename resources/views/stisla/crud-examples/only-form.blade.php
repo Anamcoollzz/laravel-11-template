@@ -100,7 +100,7 @@
     @include('stisla.includes.forms.inputs.input', ['required' => isset($d) ? false : true, 'name' => 'file', 'type' => 'file', 'label' => 'File'])
   </div>
   <div class="col-md-6">
-    @include('stisla.includes.forms.inputs.input', ['required' => isset($d) ? false : true, 'name' => 'image', 'type' => 'file', 'label' => 'Image', 'accept' => '*'])
+    @include('stisla.includes.forms.inputs.input', ['required' => isset($d) ? false : true, 'name' => 'image', 'type' => 'file', 'label' => 'Image', 'accept' => 'image/*'])
   </div>
   <div class="col-md-6">
     @include('stisla.includes.forms.inputs.input', ['required' => true, 'name' => 'date', 'type' => 'date', 'label' => 'Date'])
