@@ -33,6 +33,16 @@ class Repository extends RepositoryAbstract
     }
 
     /**
+     * get all data order by created at desc and with
+     *
+     * @return Collection
+     */
+    public function getLatestWith(array $with = [])
+    {
+        return $this->model->with($with)->latest()->get();
+    }
+
+    /**
      * get all data order by created at desc
      *
      * @param string $column

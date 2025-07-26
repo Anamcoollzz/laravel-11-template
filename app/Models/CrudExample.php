@@ -37,6 +37,8 @@ class CrudExample extends Model
         'summernote',
         'barcode',
         'qr_code',
+        'created_by_id',
+        'last_updated_by_id',
     ];
 
     /**
@@ -49,4 +51,24 @@ class CrudExample extends Model
         'checkbox2'        => 'array',
         'select2_multiple' => 'array',
     ];
+
+    /**
+     * Get the user that created the CrudExample.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    /**
+     * Get the user that updated the CrudExample.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function lastUpdatedBy()
+    {
+        return $this->belongsTo(User::class, 'last_updated_by_id');
+    }
 }

@@ -58,7 +58,7 @@ class CrudExampleController extends StislaController
         if ($isYajra || $isAjaxYajra) {
             $data = collect([]);
         } else {
-            $data = $this->crudExampleRepository->getLatest();
+            $data = $this->crudExampleRepository->getLatestWith(['createdBy', 'lastUpdatedBy']);
         }
 
         $defaultData = $this->getDefaultDataIndex(__('Contoh CRUD'), 'Contoh CRUD', 'crud-examples');
@@ -212,6 +212,10 @@ class CrudExampleController extends StislaController
     public function store(CrudExampleRequest $request)
     {
         $data   = $this->getStoreData($request);
+
+        $data['created_by_id'] = auth()->id();
+        // $data['last_updated_by_id'] = null;
+
         $result = $this->crudExampleRepository->create($data);
         logCreate("Contoh CRUD", $result);
         $successMessage = successMessageCreate("Contoh CRUD");
@@ -254,6 +258,10 @@ class CrudExampleController extends StislaController
     public function update(CrudExampleRequest $request, CrudExample $crudExample)
     {
         $data    = $this->getStoreData($request);
+
+        // $data['created_by_id'] = auth()->id();
+        $data['last_updated_by_id'] = auth()->id();
+
         $newData = $this->crudExampleRepository->update($data, $crudExample->id);
         logUpdate("Contoh CRUD", $crudExample, $newData);
         $successMessage = successMessageUpdate("Contoh CRUD");

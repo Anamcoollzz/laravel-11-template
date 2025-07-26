@@ -59,6 +59,8 @@ class CrudExampleSeeder extends Seeder
                 'qr_code'           => $faker->ean13,
                 'created_at'        => $now,
                 'updated_at'        => $now,
+                'created_by_id'     => 1,
+                'last_updated_by_id'     => 1,
             ]);
         }
         foreach (collect($data)->chunk(20) as $chunkData) {

@@ -45,6 +45,8 @@
       @endif --}}
       <th>{{ __('Created At') }}</th>
       <th>{{ __('Updated At') }}</th>
+      <th>{{ __('Created By') }}</th>
+      <th>{{ __('Last Updated By') }}</th>
       @if ($isExport === false && ($canUpdate || $canDelete || $canDetail))
         <th>{{ __('Aksi') }}</th>
       @endif
@@ -126,6 +128,8 @@
 
           <td>{{ $item->created_at }}</td>
           <td>{{ $item->updated_at }}</td>
+          <td>{{ $item->createdBy->name ?? '-' }}</td>
+          <td>{{ $item->lastUpdatedBy->name ?? '-' }}</td>
 
           @if ($isExport === false)
             @include('stisla.includes.forms.buttons.btn-action')
