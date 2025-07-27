@@ -29,9 +29,9 @@
                   @include('stisla.includes.forms.inputs.input', [
                       'type' => 'date',
                       'id' => 'filter_date',
-                      'required' => true,
+                      'required' => false,
                       'label' => __('Masukkan Tanggal'),
-                      'value' => request('filter_date', date('Y-m-d')),
+                      'value' => request('filter_date'),
                   ])
                 </div>
                 @if ($isSuperAdmin)
@@ -103,6 +103,16 @@
                     ])
                   </div>
                 @endif
+                <div class="col-md-3">
+                  @include('stisla.includes.forms.inputs.input', [
+                      'required' => true,
+                      'name' => 'filter_limit',
+                      'type' => 'number',
+                      'label' => 'Limit',
+                      'value' => request('filter_limit', 50),
+                      'min' => 1,
+                  ])
+                </div>
               </div>
               <button class="btn btn-primary icon"><i class="fa fa-search"></i> Cari Data</button>
             </form>
@@ -122,6 +132,13 @@
                   @include('stisla.includes.forms.buttons.btn-json-download', ['link' => $routeJson])
                 </div>
               </div>
+            </div>
+          @endif
+
+          @if (!request('_token'))
+            <div class="alert alert-info">
+              <strong>{{ __('Perhatian!') }}</strong>
+              {{ __('Halaman ini seacara default menampilkan data log request terbaru sebanyak 50, gunakan filter di atas sesuai kebutuhan') }}
             </div>
           @endif
 
