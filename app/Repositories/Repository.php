@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -341,23 +342,33 @@ class Repository extends RepositoryAbstract
     public function queryFullData()
     {
         return $this->model
-            ->when(request('filter_created_by_id'), function ($query) {
+            ->when(request('filter_created_by_id'), function (Builder $query) {
                 $query->where('created_by_id', request('filter_created_by_id'));
             })
-            ->when(request('filter_last_updated_by_id'), function ($query) {
+            ->when(request('filter_last_updated_by_id'), function (Builder $query) {
                 $query->where('last_updated_by_id', request('filter_last_updated_by_id'));
             })
-            ->when(request('filter_start_created_at'), function ($query) {
+            ->when(request('filter_start_created_at'), function (Builder $query) {
                 $query->whereDate('created_at', '>=', request('filter_start_created_at'));
             })
-            ->when(request('filter_end_created_at'), function ($query) {
+            ->when(request('filter_end_created_at'), function (Builder $query) {
                 $query->whereDate('created_at', '<=', request('filter_end_created_at'));
             })
-            ->when(request('filter_start_updated_at'), function ($query) {
+            ->when(request('filter_start_updated_at'), function (Builder $query) {
                 $query->whereDate('updated_at', '>=', request('filter_start_updated_at'));
             })
-            ->when(request('filter_end_updated_at'), function ($query) {
+            ->when(request('filter_end_updated_at'), function (Builder $query) {
                 $query->whereDate('updated_at', '<=', request('filter_end_updated_at'));
+            })
+            ->when(request('filter_limit', 50), function (Builder $query) {
+                $query->limit(request('filter_limit', 50));
+            })
+            ->when(request('filter_sort_by_created_at', 'latest'), function (Builder $query) {
+                if (request('filter_sort_by_created_at') === 'oldest') {
+                    $query->oldest();
+                } else {
+                    $query->latest();
+                }
             });
     }
 }

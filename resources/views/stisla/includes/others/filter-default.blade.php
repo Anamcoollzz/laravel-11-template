@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="card-body">
-    <div class="collapse" id="collapseFilterData">
+    <div class="collapse show" id="collapseFilterData">
       <form action="">
         @csrf
         <div class="row">
@@ -68,6 +68,27 @@
                 'required' => false,
                 'with_all' => true,
                 'selected' => request('filter_last_updated_by_id', null),
+            ])
+          </div>
+          <div class="col-md-6">
+            @include('stisla.includes.forms.selects.select', [
+                'id' => 'filter_sort_by_created_at',
+                'name' => 'filter_sort_by_created_at',
+                'options' => ['latest' => 'latest', 'oldest' => 'oldest'],
+                'label' => 'Sort By Created At',
+                'required' => false,
+                'with_all' => false,
+                'selected' => request('filter_sort_by_created_at', 'latest'),
+            ])
+          </div>
+          <div class="col-md-6">
+            @include('stisla.includes.forms.inputs.input', [
+                'required' => true,
+                'name' => 'filter_limit',
+                'type' => 'number',
+                'label' => 'Limit',
+                'value' => request('filter_limit', 50),
+                'min' => 1,
             ])
           </div>
           <div class="col-12">

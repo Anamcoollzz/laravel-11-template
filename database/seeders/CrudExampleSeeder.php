@@ -21,7 +21,7 @@ class CrudExampleSeeder extends Seeder
         $options      = array_values(get_options());
         $radioOptions = array_values(get_options(4));
         $now          = now();
-        foreach (range(1, 25) as $i) {
+        foreach (range(1, 100) as $i) {
             $selectMultiple = [];
             foreach (range(1, Arr::random(range(1, 3))) as $j) {
                 array_push($selectMultiple, $options[$j - 1]);
