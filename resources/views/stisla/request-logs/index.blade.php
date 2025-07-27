@@ -192,7 +192,14 @@
                         </td>
                         <td>{{ $item->method }}</td>
                         <td>
-                          <textarea>{{ $item->request_data }}</textarea>
+                          <textarea style="display: none;" id="b{{ $item->id }}">{{ json_encode(json_decode($item->request_data), JSON_PRETTY_PRINT) }}</textarea>
+                          @include('stisla.includes.forms.buttons.btn-primary', [
+                              'data_target' => '#logModal',
+                              'data_toggle' => 'modal',
+                              'label' => __('Lihat'),
+                              'onclick' => "showLogData(this, '#b" . $item->id . "');",
+                              'size' => 'sm',
+                          ])
                         </td>
                         <td>{{ $item->ip }}</td>
                         <td>{{ $item->user_agent }}</td>
@@ -240,3 +247,5 @@
 
 @push('modals')
 @endpush
+
+@include('stisla.activity-logs.components.script', ['logTitle' => 'Request Data'])
