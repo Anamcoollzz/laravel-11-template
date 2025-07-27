@@ -1,3 +1,4 @@
+<input type="hidden" id="preloaderImg" value="{{ asset('assets/images/Iphone-spinner-2.gif') }}">
 @stack('modals')
 
 @if (session('successMessage'))

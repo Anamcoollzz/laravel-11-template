@@ -42,9 +42,13 @@
           <td>{{ $item->route_name }}</td>
           <td>{{ $item->uri }}</td>
           <td>
-            {{ $item->icon }}
-            <br>
-            <i class="{{ $item->icon }}"></i>
+            @if ($isExport)
+              {{ $item->icon }}
+            @else
+              <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
+                <i class="{{ $item->icon }}" data-toggle="tooltip" title="{{ $item->icon }}"></i>
+              </a>
+            @endif
           </td>
           <td>
             @if ($item->is_blank == 1)

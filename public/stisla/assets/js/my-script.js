@@ -649,7 +649,11 @@ function showModalForm(e, action, link) {
   window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   $('#modalForm').parent().attr('action', link.replaceAll('/edit', '').replaceAll('/create', ''));
   $('#modalForm').modal('show');
-  $('#modalForm').find('.modal-body').html('memproses...');
+  // $('#modalForm').find('.modal-body').html('memproses...');
+  var path = $('#preloaderImg').val();
+  $('#modalForm')
+    .find('.modal-body')
+    .html('<img src="' + path + '" alt="Loading..." style="width: 50px; height: 50px; display: block; margin: auto;">');
   $('#modalForm').find('.modal-footer').hide();
 
   var title = 'Tambah Data';
