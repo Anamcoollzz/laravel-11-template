@@ -22,8 +22,8 @@ function initDataTables() {
       language: {
         lengthMenu: 'Menampilkan _MENU_ baris data per halaman',
         zeroRecords: 'Tidak ada data',
-        info: 'Menampilkan halaman _PAGE_ dari _PAGES_',
-        infoFiltered: '(filtered from _MAX_ total records)',
+        info: 'Menampilkan halaman _PAGE_ dari _PAGES_, total data sebanyak _TOTAL_',
+        infoFiltered: '(difilter dari _MAX_ total data)',
         search: 'Pencarian',
         paginate: {
           previous: 'Sebelumnya',
@@ -119,8 +119,8 @@ function initDataTables() {
       language: {
         lengthMenu: 'Menampilkan _MENU_ baris data per halaman',
         zeroRecords: 'Tidak ada data',
-        info: 'Menampilkan halaman _PAGE_ dari _PAGES_',
-        infoFiltered: '(filtered from _MAX_ total records)',
+        info: 'Menampilkan halaman _PAGE_ dari _PAGES_, total data sebanyak _TOTAL_',
+        infoFiltered: '(difilter dari _MAX_ total data)',
         search: 'Pencarian',
         paginate: {
           previous: 'Sebelumnya',
