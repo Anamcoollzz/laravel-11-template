@@ -635,6 +635,10 @@ function successMsg(msg) {
   return swal('Sukses', msg, 'success');
 }
 
+function successMessage() {
+  return swal('Sukses', msg, 'success');
+}
+
 function showImportModal(e) {
   e.preventDefault();
   $('#importModal').modal('show');
@@ -848,4 +852,50 @@ function initForm() {
   initColorPicker();
   initCleave();
   initTags();
+}
+
+function copyTextToClipboard(text, callback) {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      console.log('Text copied to clipboard!');
+      if (callback) callback();
+    })
+    .catch((err) => {
+      console.error('Failed to copy text: ', err);
+      // Fallback for older browsers or insecure contexts (HTTP)
+      fallbackCopyTextToClipboard(text);
+    });
+}
+
+// Fallback for older browsers or non-secure contexts (HTTP)
+function fallbackCopyTextToClipboard(text) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+
+  // Make the textarea invisible
+  textArea.style.position = 'fixed';
+  textArea.style.top = '0';
+  textArea.style.left = '0';
+  textArea.style.width = '2em';
+  textArea.style.height = '2em';
+  textArea.style.padding = '0';
+  textArea.style.border = 'none';
+  textArea.style.outline = 'none';
+  textArea.style.boxShadow = 'none';
+  textArea.style.background = 'transparent';
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    const successful = document.execCommand('copy');
+    const msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
 }

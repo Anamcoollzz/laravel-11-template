@@ -84,18 +84,43 @@
                       <td>{{ $item->title }}</td>
                       <td>{{ $item->activity_type }}</td>
                       <td>
-                        <textarea>{{ $item->request_data }}</textarea>
+                        <textarea style="display: none;" id="rd{{ $item->id }}">{{ json_encode(json_decode($item->request_data), JSON_PRETTY_PRINT) }}</textarea>
+                        @include('stisla.includes.forms.buttons.btn-primary', [
+                            'data_target' => '#logModal',
+                            'data_toggle' => 'modal',
+                            'label' => __('Lihat'),
+                            'onclick' => "showLogData(this, '#rd" . $item->id . "');",
+                            'size' => 'sm',
+                        ])
                       </td>
                       <td>
-                        <textarea>{{ $item->before }}</textarea>
+                        <textarea style="display: none;" id="b{{ $item->id }}">{{ json_encode(json_decode($item->before), JSON_PRETTY_PRINT) }}</textarea>
+                        @include('stisla.includes.forms.buttons.btn-primary', [
+                            'data_target' => '#logModal',
+                            'data_toggle' => 'modal',
+                            'label' => __('Lihat'),
+                            'onclick' => "showLogData(this, '#b" . $item->id . "');",
+                            'size' => 'sm',
+                        ])
                       </td>
                       <td>
-                        <textarea>{{ $item->after }}</textarea>
+                        <textarea style="display: none;" id="a{{ $item->id }}">{{ json_encode(json_decode($item->after), JSON_PRETTY_PRINT) }}</textarea>
+                        @include('stisla.includes.forms.buttons.btn-primary', [
+                            'data_target' => '#logModal',
+                            'data_toggle' => 'modal',
+                            'label' => __('Lihat'),
+                            'onclick' => "showLogData(this, '#a" . $item->id . "');",
+                            'size' => 'sm',
+                        ])
                       </td>
                       <td>{{ $item->ip }}</td>
                       <td>{{ $item->user_agent }}</td>
                       <td>{{ $item->user->name }}</td>
-                      <td>{{ implode(', ', $item->roles) }}</td>
+                      <td>
+                        @foreach ($item->roles as $role)
+                          <span class="badge badge-primary mb-1">{{ $role }}</span>
+                        @endforeach
+                      </td>
                       <td>{{ $item->created_at }}</td>
                     </tr>
                   @endforeach
@@ -111,10 +136,4 @@
   </div>
 @endsection
 
-@push('js')
-  <script>
-    function openTo(link) {
-      window.location.href = link;
-    }
-  </script>
-@endpush
+@include('stisla.activity-logs.components.script')

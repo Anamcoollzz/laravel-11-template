@@ -167,3 +167,5 @@
 
 @push('modals')
 @endpush
+
+@include('stisla.activity-logs.components.script')

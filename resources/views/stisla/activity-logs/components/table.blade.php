@@ -10,7 +10,7 @@
       <th class="text-center">#</th>
       <th class="text-center">{{ __('Judul') }}</th>
       <th class="text-center">{{ __('Jenis') }}</th>
-      {{-- <th class="text-center">{{ __('Request Data') }}</th> --}}
+      <th class="text-center">{{ __('Request Data') }}</th>
       <th class="text-center">{{ __('Before') }}</th>
       <th class="text-center">{{ __('After') }}</th>
       <th class="text-center">{{ __('IP') }}</th>
@@ -31,25 +31,46 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $item->title }}</td>
         <td>{{ $item->activity_type }}</td>
-        {{-- <td>
+        <td>
           @if ($isExport)
             {{ $item->request_data }}
           @else
-            <textarea>{{ $item->request_data }}</textarea>
+            <textarea style="display: none;" id="rd{{ $item->id }}">{{ json_encode(json_decode($item->request_data), JSON_PRETTY_PRINT) }}</textarea>
+            @include('stisla.includes.forms.buttons.btn-primary', [
+                'data_target' => '#logModal',
+                'data_toggle' => 'modal',
+                'label' => __('Lihat'),
+                'onclick' => "showLogData(this, '#rd" . $item->id . "');",
+                'size' => 'sm',
+            ])
           @endif
-        </td> --}}
+        </td>
         <td>
           @if ($isExport)
             {{ $item->before }}
           @else
-            <textarea>{{ $item->before }}</textarea>
+            <textarea style="display: none;" id="b{{ $item->id }}">{{ json_encode(json_decode($item->before), JSON_PRETTY_PRINT) }}</textarea>
+            @include('stisla.includes.forms.buttons.btn-primary', [
+                'data_target' => '#logModal',
+                'data_toggle' => 'modal',
+                'label' => __('Lihat'),
+                'onclick' => "showLogData(this, '#b" . $item->id . "');",
+                'size' => 'sm',
+            ])
           @endif
         </td>
         <td>
           @if ($isExport)
             {{ $item->after }}
           @else
-            <textarea>{{ $item->after }}</textarea>
+            <textarea style="display: none;" id="a{{ $item->id }}">{{ json_encode(json_decode($item->after), JSON_PRETTY_PRINT) }}</textarea>
+            @include('stisla.includes.forms.buttons.btn-primary', [
+                'data_target' => '#logModal',
+                'data_toggle' => 'modal',
+                'label' => __('Lihat'),
+                'onclick' => "showLogData(this, '#a" . $item->id . "');",
+                'size' => 'sm',
+            ])
           @endif
         </td>
         <td>{{ $item->ip }}</td>
