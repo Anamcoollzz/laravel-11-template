@@ -26,8 +26,8 @@ class RequestLogRepository extends Repository
     public function getFilter()
     {
         return $this->model->query()
-            ->when(request('filter_date', date('Y-m-d')), function ($query) {
-                $query->whereDate('created_at', request('filter_date', date('Y-m-d')));
+            ->when(request('filter_date'), function ($query) {
+                $query->whereDate('created_at', request('filter_date'));
             })
             ->when(request('filter_user'), function ($query) {
                 $query->whereUserId(request('filter_user'));
@@ -50,6 +50,9 @@ class RequestLogRepository extends Repository
             ->with([
                 'user',
             ])
+            ->when(request('filter_limit', 50), function ($query) {
+                $query->limit(request('filter_limit', 50));
+            })
             ->latest()
             ->get();
     }
