@@ -9,6 +9,24 @@ use Illuminate\Support\Str;
 
 class CrudExampleSeeder extends Seeder
 {
+
+    /**
+     * Generate a gravatar image URL based on the email address.
+     *
+     * @param string $email
+     * @return string
+     */
+    public function generateImage($email)
+    {
+        $address = strtolower(trim($email));
+
+        // Create an SHA256 hash of the final string
+        $hash = hash('sha256', $address);
+
+        // Grab the actual image URL
+        return 'https://gravatar.com/avatar/' . $hash;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -36,7 +54,7 @@ class CrudExampleSeeder extends Seeder
             }
             array_push($data, [
                 'text'               => Str::random(10),
-                'email'              => $faker->email,
+                'email'              => $email = $faker->email,
                 'number'             => $faker->numberBetween(1, 1000),
                 'currency'           => $faker->numberBetween(1, 10000),
                 'currency_idr'       => $faker->numberBetween(1000, 10000000),
@@ -48,8 +66,8 @@ class CrudExampleSeeder extends Seeder
                 'checkbox'           => json_encode($checkbox),
                 'checkbox2'          => json_encode($checkbox2),
                 'tags'               => implode(',', $checkbox2),
-                'file'               => $faker->imageUrl,
-                'image'              => $faker->imageUrl,
+                'file'               => 'https://picsum.photos/200/300?random=' . $i,
+                'image'              => 'https://picsum.photos/200/300?random=' . $i,
                 'date'               => $faker->date('Y-m-d'),
                 'time'               => $faker->date('H:i:s'),
                 'color'              => $faker->hexColor,
