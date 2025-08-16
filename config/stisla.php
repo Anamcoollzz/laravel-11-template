@@ -52,6 +52,13 @@ return [
                     'is_active_if_url_includes' => 'banks*',
                 ],
                 [
+                    'menu_name' => 'Deposito',
+                    'route_name' => 'bank-deposits.index',
+                    'icon' => 'fas fa-dollar',
+                    'permission' => 'Deposito Bank',
+                    'is_active_if_url_includes' => 'bank-deposits*',
+                ],
+                [
                     'menu_name' => 'Stisla Example',
                     'route_name' => null,
                     'icon' => 'fas fa-caret-square-down',
@@ -626,6 +633,53 @@ return [
         // ],
         // [
         //     'name' => 'Bank Ajax Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ]
+
+        // deposito bank
+        [
+            'name' => 'Deposito Bank',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Tambah',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Impor Excel',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Ubah',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Detail',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Hapus',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Deposito Bank Ekspor',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        // [
+        //     'name' => 'Deposito Bank Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ],
+        // [
+        //     'name' => 'Deposito Bank Ajax Yajra',
         //     'roles' => ['superadmin', 'admin', 'banker'],
         //     'group' => 'Bank'
         // ]

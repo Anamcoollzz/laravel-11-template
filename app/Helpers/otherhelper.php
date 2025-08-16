@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\ActivityLog;
 use App\Repositories\SettingRepository;
-use Illuminate\Http\JsonResponse;
 
 function active_template()
 {
@@ -74,4 +72,26 @@ if (!function_exists('decode_id')) {
         $secure = unserialize(base64_decode($val));
         return $secure['val'];
     }
+}
+
+/**
+ * convert idr to double
+ *
+ * @param string $value
+ * @return float
+ */
+function idr_to_double($value)
+{
+    return str_replace(',', '', $value);
+}
+
+/**
+ * convert rp to double
+ *
+ * @param string $value
+ * @return float
+ */
+function rp_to_double($value)
+{
+    return str_replace('.', '', $value);
 }

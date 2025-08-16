@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="card-body">
-    <div class="collapse show" id="collapseFilterData">
+    <div class="collapse {{ $is_show === false ? '' : 'show' }}" id="collapseFilterData">
       <form action="">
         @csrf
         <div class="row">

@@ -66,7 +66,7 @@ class PermissionGroupController extends StislaController
      * @param boolean $isDetail
      * @return array
      */
-    private function getDetailData(PermissionGroup $permissionGroup, bool $isDetail): array
+    private function getDetailDataOld(PermissionGroup $permissionGroup, bool $isDetail): array
     {
         $defaultData = $this->getDefaultDataDetail(__('Group Permission'), 'user-management.permission-groups', $permissionGroup, $isDetail);
         $data        = ['fullTitle' => $isDetail ? __('Detail Group Permission') : __('Ubah Group Permission')];
@@ -130,7 +130,7 @@ class PermissionGroupController extends StislaController
         logCreate('Group Permission', $result);
 
         $successMessage = successMessageCreate('Group Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -141,7 +141,7 @@ class PermissionGroupController extends StislaController
      */
     public function edit(PermissionGroup $permissionGroup)
     {
-        $data = $this->getDetailData($permissionGroup, false);
+        $data = $this->getDetailDataOld($permissionGroup, false);
         return view('stisla.user-management.permission-groups.form', $data);
     }
 
@@ -161,7 +161,7 @@ class PermissionGroupController extends StislaController
         logUpdate('Group Permission', $before, $after);
 
         $successMessage = successMessageUpdate('Group Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -172,7 +172,7 @@ class PermissionGroupController extends StislaController
      */
     public function show(PermissionGroup $permissionGroup)
     {
-        $data = $this->getDetailData($permissionGroup, true);
+        $data = $this->getDetailDataOld($permissionGroup, true);
         return view('stisla.user-management.permission-groups.form', $data);
     }
 
@@ -193,7 +193,7 @@ class PermissionGroupController extends StislaController
             DB::commit();
 
             $successMessage = successMessageDelete('Group Permission');
-            return back()->with('successMessage', $successMessage);
+            return backSuccess($successMessage);
         } catch (Exception $exception) {
             DB::rollBack();
             return back()->with('errorMessage', $exception->getMessage());
@@ -226,7 +226,7 @@ class PermissionGroupController extends StislaController
             DB::commit();
 
             $successMessage = successMessageImportExcel("Group Permission");
-            return back()->with('successMessage', $successMessage);
+            return backSuccess($successMessage);
         } catch (Exception $exception) {
             DB::rollBack();
             return back()->with('errorMessage', $exception->getMessage());

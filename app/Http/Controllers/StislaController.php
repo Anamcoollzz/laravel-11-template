@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\GeneralExport;
+use App\Http\Requests\ImportExcelRequest;
+use App\Imports\GeneralImport;
 use App\Repositories\ActivityLogRepository;
+use App\Repositories\Repository;
 use App\Repositories\RequestLogRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\UserRepository;
@@ -11,9 +15,11 @@ use App\Services\EmailService;
 use App\Services\FileService;
 use App\Services\PDFService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Support\Str;
 
 class StislaController extends Controller
 {
@@ -37,6 +43,13 @@ class StislaController extends Controller
      * @var EmailService
      */
     protected EmailService $emailService;
+
+    /**
+     * repository
+     *
+     * @var Repository
+     */
+    protected Repository $repository;
 
     /**
      * user repository
@@ -95,11 +108,32 @@ class StislaController extends Controller
     protected String $viewFolder;
 
     /**
+     * title
+     *
+     * @var String
+     */
+    protected String $title;
+
+    /**
+     * prefix
+     *
+     * @var String
+     */
+    protected String $prefix;
+
+    /**
      * import excel example path
      *
      * @var String
      */
     protected String $importExcelExamplePath;
+
+    /**
+     * pdf paper size
+     *
+     * @var String
+     */
+    protected String $pdfPaperSize = 'A4';
 
     /**
      * dropbox service
@@ -114,6 +148,13 @@ class StislaController extends Controller
      * @var SettingRepository
      */
     protected SettingRepository $settingRepository;
+
+    /**
+     * import
+     *
+     * @var GeneralImport
+     */
+    protected GeneralImport $import;
 
     /**
      * constructor method
@@ -131,6 +172,7 @@ class StislaController extends Controller
         $this->requestLogRepository  = new RequestLogRepository;
         $this->dropBoxService        = new DropBoxService;
         $this->settingRepository     = new SettingRepository;
+        $this->import                = new GeneralImport;
     }
 
     /**
@@ -146,7 +188,7 @@ class StislaController extends Controller
         $this->middleware('can:' . $moduleName . ' Ubah')->only(['edit', 'update']);
         $this->middleware('can:' . $moduleName . ' Detail')->only(['show']);
         $this->middleware('can:' . $moduleName . ' Hapus')->only(['destroy']);
-        $this->middleware('can:' . $moduleName . ' Ekspor')->only(['json', 'excel', 'csv', 'pdf']);
+        $this->middleware('can:' . $moduleName . ' Ekspor')->only(['json', 'excel', 'csv', 'pdf', 'exportJson', 'exportExcel', 'exportCsv', 'exportPdf']);
         $this->middleware('can:' . $moduleName . ' Impor Excel')->only(['importExcel', 'importExcelExample']);
         $this->middleware('can:' . $moduleName . ' Force Login')->only(['forceLogin']);
     }
@@ -170,8 +212,6 @@ class StislaController extends Controller
         $canImportExcel = $user->can($permissionPrefix . ' Impor Excel');
         $canExport      = $user->can($permissionPrefix . ' Ekspor');
         $canForceLogin  = $user->can($permissionPrefix . ' Force Login');
-
-        // dd($canImportExcel);
 
         return [
             'canCreate'         => $canCreate,
@@ -299,7 +339,8 @@ class StislaController extends Controller
             'csv_name'   => $times . '_' . $moduleName . '.csv',
             'json_name'  => $times . '_' . $moduleName . '.json',
         ];
-        return array_merge($this->getIndexData(), $data);
+
+        return array_merge($this->getIndexData(), $data, $this->getIndexDataFromParent());
     }
 
     /**
@@ -344,5 +385,307 @@ class StislaController extends Controller
     {
         $data  = $this->getExportData();
         return $this->fileService->downloadPdf('stisla.includes.others.export-pdf', $data, $data['pdf_name'], $this->paperSize, $this->orientationPdf);
+    }
+
+    /**
+     * get index data
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function getIndexDataFromParent(array $data = [])
+    {
+        $prefix = $this->prefix;
+        $title  = $this->title;
+
+        $isYajra     = Route::is($prefix . '.index-yajra');
+        $isAjax      = Route::is($prefix . '.index-ajax');
+        $isAjaxYajra = Route::is($prefix . '.index-ajax-yajra');
+
+        if ($isYajra || $isAjaxYajra)
+            $data = collect([]);
+        else {
+            if (isset($data['data']))
+                $data = $data['data'];
+            else
+                $data = $this->repository->getFullData();
+        }
+
+        $defaultData = $this->getDefaultDataIndex($title, $title, $prefix . '');
+        $users = [];
+
+        if (Route::is($prefix . '.index') || Route::is($prefix . '.index-ajax'))
+            $users = $this->userRepository->getLatest();
+
+        $times    = date('Y-m-d_H-i-s');
+        $filename = $times . '_' . Str::snake($title);
+
+        return array_merge($defaultData, [
+            'data'         => $data,
+            'isYajra'      => $isYajra,
+            'isAjax'       => $isAjax,
+            'isAjaxYajra'  => $isAjaxYajra,
+            'yajraColumns' => $this->repository->getYajraColumns(),
+            'users'        => $users,
+            'isExport'     => false,
+            'pdf_name'     => $filename . '.pdf',
+            'excel_name'   => $filename . '.xlsx',
+            'csv_name'     => $filename . '.csv',
+            'json_name'    => $filename . '.json',
+        ]);
+    }
+
+    /**
+     * import excel file to db
+     *
+     * @param ImportExcelRequest $request
+     * @return Response
+     */
+    public function importExcel(ImportExcelRequest $request)
+    {
+        $this->fileService->importExcel($this->import, $request->file('import_file'));
+        $successMessage = successMessageImportExcel($this->title);
+
+        return backSuccess($successMessage);
+    }
+
+    /**
+     * download export data as json
+     *
+     * @return Response
+     */
+    public function exportJson()
+    {
+        $filename = date('YmdHis') . '_' . Str::snake($this->title) . '.json';
+        $data     = $this->repository->getLatest();
+
+        return $this->fileService->downloadJson($data, $filename);
+    }
+
+    /**
+     * download export data as xlsx
+     *
+     * @return Response
+     */
+    public function exportExcel()
+    {
+        $data  = $this->getExportData();
+        return $this->fileService->downloadExcelGeneral('stisla.' . $this->prefix . '.table', $data, $data['excel_name']);
+    }
+
+    /**
+     * download export data as csv
+     *
+     * @return Response
+     */
+    public function exportCsv()
+    {
+        $data  = $this->getExportData();
+        return $this->fileService->downloadCsvGeneral('stisla.' . $this->prefix . '.table', $data, $data['csv_name']);
+    }
+
+    /**
+     * download export data as pdf
+     *
+     * @return Response
+     */
+    public function exportPdf()
+    {
+        $filename = date('YmdHis') . '_' . Str::snake($this->title) . '.pdf';
+        $html     = view('stisla.' . $this->prefix . '.export-pdf', [
+            'title'    => $this->title,
+            'data'     => $this->repository->getFullData(),
+            'isExport' => true,
+        ])->render();
+        // return $html;
+
+        if ($this->pdfPaperSize === 'A2') {
+            return $this->pdfService->downloadPdfA2($html, $filename);
+        } else if ($this->pdfPaperSize === 'A4') {
+            return $this->pdfService->downloadPdfA4($html, $filename);
+        } else if ($this->pdfPaperSize === 'A3') {
+            return $this->pdfService->downloadPdfA3($html, $filename);
+        }
+    }
+
+    /**
+     * download import example
+     *
+     * @return BinaryFileResponse
+     */
+    protected function executeImportExcelExample(): BinaryFileResponse
+    {
+        $excelInstance = new GeneralExport('stisla.' . $this->prefix . '.table', [
+            'data' => $this->repository->getFullData(),
+            'isExport' => true,
+        ]);
+        return $this->fileService->downloadExcel($excelInstance, Str::snake($this->prefix) . '_import.xlsx');
+    }
+
+    /**
+     * execute destroy
+     *
+     * @param Model $model
+     * @return Response
+     */
+    protected function executeDestroy(Model $model)
+    {
+        $this->repository->delete($model->id);
+        logDelete($this->title, $model);
+        $successMessage = successMessageDelete($this->title);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $successMessage,
+            ]);
+        }
+
+        return backSuccess($successMessage);
+    }
+
+    /**
+     * execute update
+     *
+     * @param Request $request
+     * @param Model $model
+     * @return Response
+     */
+    protected function executeUpdate(Request $request, Model $model)
+    {
+        $data    = $this->getStoreData($request);
+        $newData = $this->repository->updateWithUser($data, $model->id);
+        logUpdate($this->title, $model, $newData);
+        $successMessage = successMessageUpdate($this->title);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $successMessage,
+            ]);
+        }
+
+        return backSuccess($successMessage);
+    }
+
+    /**
+     * save data to db
+     *
+     * @param Request $request
+     * @return Response
+     */
+    protected function executeStore(Request $request)
+    {
+        $data   = $this->getStoreData($request);
+        $result = $this->repository->create($data);
+        logCreate($this->title, $result);
+        $successMessage = successMessageCreate($this->title);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $successMessage,
+            ]);
+        }
+
+        return backSuccess($successMessage);
+    }
+
+    /**
+     * prepare create form
+     *
+     * @param Request $request
+     * @param array $data
+     * @return Response
+     */
+    protected function prepareCreateForm(Request $request, array $data = [])
+    {
+        $fullTitle  = __('Tambah ' . $this->title);
+        $data       = array_merge($this->getDefaultDataCreate($this->title, $this->prefix), $data);
+        $data       = array_merge($data, [
+            'selectOptions'   => get_options(10, true),
+            'select2Options'  => get_options(10),
+            'radioOptions'    => get_options(4),
+            'checkboxOptions' => get_options(5),
+            'fullTitle'       => $fullTitle,
+        ]);
+
+        if ($request->ajax()) {
+            return view('stisla.' . $this->prefix . '.only-form', $data);
+        }
+
+        return view('stisla.' . $this->prefix . '.form', $data);
+    }
+
+    /**
+     * get detail data
+     *
+     * @param Model|Illuminate\Foundation\Auth\User $model
+     * @param bool $isDetail
+     * @param array $data
+     * @return array
+     */
+    protected function getDetailData(Model $model, bool $isDetail = false, array $data = []): array
+    {
+        $defaultData = $this->getDefaultDataDetail($this->title, $this->prefix, $model, $isDetail);
+        return array_merge($defaultData, [
+            'selectOptions'   => get_options(10, true),
+            'select2Options'  => get_options(10, true),
+            'radioOptions'    => get_options(4),
+            'checkboxOptions' => get_options(5),
+            'fullTitle'       => $isDetail ? __('Detail ' . $this->title) : __('Ubah ' . $this->title),
+        ], $data);
+    }
+
+    /**
+     * prepare index
+     *
+     * @param Request $request
+     * @param array $data
+     * @return Response
+     */
+    protected function prepareIndex(Request $request, array $data = [])
+    {
+        $data = array_merge($this->getIndexDataFromParent($data), $data);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'data'    => view('stisla.' . $this->prefix . '.table', $data)->render(),
+            ]);
+        }
+
+        return view('stisla.' . $this->prefix . '.index', $data);
+    }
+
+    /**
+     * prepare detail form
+     *
+     * @param Request $request
+     * @param Model $model
+     * @param bool $isDetail
+     * @param array $data
+     * @return Response
+     */
+    protected function prepareDetailForm(Request $request, Model $model, bool $isDetail = false, array $data = [])
+    {
+        $data = array_merge($this->getDetailData($model, $isDetail), $data);
+
+        if ($request->ajax()) {
+            return view('stisla.' . $this->prefix . '.only-form', $data);
+        }
+
+        return view('stisla.' . $this->prefix . '.form', $data);
+    }
+
+    /**
+     * datatable yajra index
+     *
+     * @return Response
+     */
+    public function yajraAjax()
+    {
+        $defaultData = $this->getDefaultDataIndex(__($this->title), $this->title, $this->prefix);
+        return $this->repository->getYajraDataTables($defaultData);
     }
 }

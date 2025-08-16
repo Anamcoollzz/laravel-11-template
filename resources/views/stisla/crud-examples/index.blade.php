@@ -11,6 +11,6 @@
 
 @section('filter_top')
   @if (Route::is('crud-examples.index'))
-    @include('stisla.includes.others.filter-default')
+    @include('stisla.includes.others.filter-default', ['is_show' => false])
   @endif
 @endsection

@@ -6,11 +6,11 @@
 @extends('stisla.layouts.app-datatable')
 
 @section('table')
-  @include('stisla.banks.table')
+  @include('stisla.bank-deposits.table')
 @endsection
 
 @section('filter_top')
-  @if (Route::is('banks.index'))
+  @if (Route::is('bank-deposits.index'))
     @include('stisla.includes.others.filter-default', ['is_show' => false])
   @endif
 @endsection

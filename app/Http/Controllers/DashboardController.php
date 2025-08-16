@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
+use App\Models\Bank;
+use App\Models\BankDeposit;
 use App\Models\CrudExample;
 use App\Models\LogRequest;
 use App\Models\Menu;
@@ -49,6 +51,24 @@ class DashboardController extends StislaController
                 'bg'    => 'primary',
                 'icon'  => 'atom',
                 'route' => route('crud-examples.index'),
+            ];
+        if ($user->can('Bank'))
+            $widgets[] = (object)[
+                'title' => 'Bank',
+                'count' => Bank::count(),
+                'bg'    => 'primary',
+                'icon'  => 'university',
+                'route' => route('banks.index'),
+                'bg_color' => 'lightblue'
+            ];
+        if ($user->can('Deposito Bank'))
+            $widgets[] = (object)[
+                'title' => 'Deposito Bank',
+                'count' => BankDeposit::count(),
+                'bg'    => 'primary',
+                'icon'  => 'dollar',
+                'route' => route('bank-deposits.index'),
+                'bg_color' => 'lightgreen'
             ];
         if ($user->can('Pengguna'))
             $widgets[] = (object)[

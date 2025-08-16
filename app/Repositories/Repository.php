@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class Repository extends RepositoryAbstract
@@ -74,7 +75,20 @@ class Repository extends RepositoryAbstract
      */
     public function create(array $data)
     {
-        return $this->model->create($data);
+        return $this->query()->create($data);
+    }
+
+    /**
+     * store data to db
+     *
+     * @param array $data
+     * @return Model
+     */
+    public function createWithUser(array $data)
+    {
+        $data['created_by_id'] = Auth::id();
+        // $data['last_updated_by_id'] = Auth::id();
+        return $this->create($data);
     }
 
     /**
@@ -169,6 +183,21 @@ class Repository extends RepositoryAbstract
     }
 
     /**
+     * update data by id
+     *
+     * @param array $data
+     * @param int $id
+     * @param array $columns
+     * @return Model
+     */
+    public function updateWithUser(array $data, int $id, array $columns = ['*'])
+    {
+        // $data['created_by_id'] = Auth::id();
+        $data['last_updated_by_id'] = Auth::id();
+        return $this->update($data, $id, $columns);
+    }
+
+    /**
      * update data by key
      *
      * @param array $data
@@ -236,8 +265,7 @@ class Repository extends RepositoryAbstract
      */
     public function getFilter()
     {
-        return $this->model
-            ->get();
+        return $this->model->get();
     }
 
     /**
@@ -259,7 +287,7 @@ class Repository extends RepositoryAbstract
     /**
      * get query
      *
-     * @return Model
+     * @return \Illuminate\Database\Eloquent\Builder<static>
      */
     public function query()
     {
@@ -269,6 +297,8 @@ class Repository extends RepositoryAbstract
     /**
      * get data as datatable
      *
+     * @param \Illuminate\Database\Eloquent\Builder<static> $query
+     * @param array $params
      * @return Response
      */
     protected function generateDataTables($query, array $params)
@@ -297,18 +327,19 @@ class Repository extends RepositoryAbstract
      */
     public function getYajraDataTables()
     {
-        return $this->generateDataTables($this->query());
-        return DataTables::of($this->query())->addIndexColumn()->rawColumns([])->make(true);
+        return $this->generateDataTables($this->query(), []);
     }
 
     /**
      * get data as select options
      *
+     * @param string $label
+     * @param string $value
      * @return array
      */
-    public function getSelectOptions($key, $value)
+    public function getSelectOptions($label = 'name', $value = 'id')
     {
-        return $this->query()->select($key, $value)->get()->pluck($key, $value)->toArray();
+        return $this->query()->select($label, $value)->get()->pluck($label, $value)->toArray();
     }
 
     /**
@@ -370,5 +401,26 @@ class Repository extends RepositoryAbstract
                     $query->latest();
                 }
             });
+    }
+
+    /**
+     * get full data with relations
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getFullData()
+    {
+        return $this->queryFullData()->with(['createdBy', 'lastUpdatedBy'])->latest()->get();
+    }
+
+    /**
+     * get full data with relations
+     *
+     * @param array $relations
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getFullDataWith(array $relations = [])
+    {
+        return $this->queryFullData()->with(array_merge(['createdBy', 'lastUpdatedBy'], $relations))->latest()->get();
     }
 }

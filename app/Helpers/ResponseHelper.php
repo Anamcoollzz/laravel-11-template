@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\RedirectResponse;
+
 /**
  * response422
  *
@@ -62,4 +64,15 @@ function response500($data = null, string $message = null)
         'data' => $data,
         'message' => $message,
     ], 500);
+}
+
+/**
+ * back success
+ *
+ * @param string $successMessage
+ * @return RedirectResponse
+ */
+function backSuccess($successMessage)
+{
+    return back()->with('successMessage', $successMessage);
 }

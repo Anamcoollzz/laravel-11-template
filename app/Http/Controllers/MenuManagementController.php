@@ -117,7 +117,7 @@ class MenuManagementController extends StislaController
         logCreate("Manajemen Menu", $result);
 
         $successMessage = successMessageCreate("Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -127,7 +127,7 @@ class MenuManagementController extends StislaController
      * @param bool $isDetail
      * @return array
      */
-    private function getDetailData(Menu $menuManagement, bool $isDetail = false)
+    protected function getDetailDataOld(Menu $menuManagement, bool $isDetail = false)
     {
         $title         = __('Manajemen Menu');
         $defaultData   = $this->getDefaultDataDetail($title, 'menu-managements', $menuManagement, $isDetail);
@@ -151,7 +151,7 @@ class MenuManagementController extends StislaController
      */
     public function edit(Menu $menuManagement)
     {
-        $data = $this->getDetailData($menuManagement);
+        $data = $this->getDetailDataOld($menuManagement);
         return view('stisla.menu-managements.form', $data);
     }
 
@@ -180,7 +180,7 @@ class MenuManagementController extends StislaController
         logUpdate("Manajemen Menu", $menuManagement, $newData);
 
         $successMessage = successMessageUpdate("Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -191,7 +191,7 @@ class MenuManagementController extends StislaController
      */
     public function show(Menu $menuManagement)
     {
-        $data = $this->getDetailData($menuManagement, true);
+        $data = $this->getDetailDataOld($menuManagement, true);
         return view('stisla.menu-managements.form', $data);
     }
 
@@ -208,6 +208,6 @@ class MenuManagementController extends StislaController
         logDelete("Manajemen Menu", $menuManagement);
 
         $successMessage = successMessageDelete("Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 }

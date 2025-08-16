@@ -33,7 +33,7 @@
             @endif
           </div>
         </div>
-        <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}">
+        <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}" step="any">
       </div>
       @if ($link_file ?? false)
         <small><a target="_blank" href="{{ $link_file }}">{{ $link_file_name }}</a></small>
@@ -54,7 +54,7 @@
           <span class="text-danger">*</span>
         @endif
       </label>
-      <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}">
+      <input {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }} {{ $addClass ?? '' }}" step="any">
       @if ($link_file ?? false)
         <small><a target="_blank" href="{{ $link_file }}">{{ $link_file_name }}</a></small>
       @endif
@@ -72,7 +72,7 @@
 @else
   <div class="form-group form-float">
     <div class="form-line  @error($name ?? $id) error @enderror">
-      <input {!! implode(' ', $props) !!} class="form-control">
+      <input {!! implode(' ', $props) !!} class="form-control" step="any">
       <label class="form-label">{{ $label ?? $id }}</label>
     </div>
 

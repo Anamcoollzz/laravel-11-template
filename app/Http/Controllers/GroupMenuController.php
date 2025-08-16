@@ -80,7 +80,7 @@ class GroupMenuController extends StislaController
         $result = $this->menuGroupRepository->create($data);
         logCreate("Grup Menu", $result);
         $successMessage = successMessageCreate("Grup Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -90,7 +90,7 @@ class GroupMenuController extends StislaController
      * @param bool $isDetail
      * @return array
      */
-    private function getDetailData(MenuGroup $groupMenu, bool $isDetail = false)
+    protected function getDetailDataOld(MenuGroup $groupMenu, bool $isDetail = false)
     {
         $title         = __('Grup Menu');
         $defaultData   = $this->getDefaultDataDetail($title, 'group-menus', $groupMenu, $isDetail);
@@ -109,7 +109,7 @@ class GroupMenuController extends StislaController
      */
     public function edit(MenuGroup $groupMenu)
     {
-        $data = $this->getDetailData($groupMenu);
+        $data = $this->getDetailDataOld($groupMenu);
         return view('stisla.group-menus.form', $data);
     }
 
@@ -129,7 +129,7 @@ class GroupMenuController extends StislaController
         $newData = $this->menuGroupRepository->update($data, $groupMenu->id);
         logUpdate("Grup Menu", $groupMenu, $newData);
         $successMessage = successMessageUpdate("Grup Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -140,7 +140,7 @@ class GroupMenuController extends StislaController
      */
     public function show(MenuGroup $groupMenu)
     {
-        $data = $this->getDetailData($groupMenu, true);
+        $data = $this->getDetailDataOld($groupMenu, true);
         return view('stisla.group-menus.form', $data);
     }
 
@@ -155,6 +155,6 @@ class GroupMenuController extends StislaController
         $this->menuGroupRepository->delete($groupMenu->id);
         logDelete("Grup Menu", $groupMenu);
         $successMessage = successMessageDelete("Grup Menu");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 }

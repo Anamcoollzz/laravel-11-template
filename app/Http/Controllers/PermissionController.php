@@ -63,7 +63,7 @@ class PermissionController extends StislaController
      * @param boolean $isDetail
      * @return array
      */
-    private function getDetailData(Permission $permission, bool $isDetail): array
+    private function getDetailDataOld(Permission $permission, bool $isDetail): array
     {
         $defaultData = $this->getDefaultDataDetail(__('Permission'), 'user-management.permissions', $permission, $isDetail);
         $data = [
@@ -132,7 +132,7 @@ class PermissionController extends StislaController
         logCreate('Permission', $result);
 
         $successMessage = successMessageCreate('Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -143,7 +143,7 @@ class PermissionController extends StislaController
      */
     public function edit(Permission $permission)
     {
-        $data = $this->getDetailData($permission, false);
+        $data = $this->getDetailDataOld($permission, false);
         return view('stisla.user-management.permissions.form', $data);
     }
 
@@ -163,7 +163,7 @@ class PermissionController extends StislaController
         logUpdate('Permission', $before, $after);
 
         $successMessage = successMessageUpdate('Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -174,7 +174,7 @@ class PermissionController extends StislaController
      */
     public function show(Permission $permission)
     {
-        $data = $this->getDetailData($permission, true);
+        $data = $this->getDetailDataOld($permission, true);
         return view('stisla.user-management.permissions.form', $data);
     }
 
@@ -196,7 +196,7 @@ class PermissionController extends StislaController
             DB::commit();
 
             $successMessage = successMessageDelete('Permission');
-            return back()->with('successMessage', $successMessage);
+            return backSuccess($successMessage);
         } catch (Exception $exception) {
             DB::rollBack();
             return back()->with('errorMessage', $exception->getMessage());
@@ -227,7 +227,7 @@ class PermissionController extends StislaController
             $this->fileService->importExcel(new PermissionImport, $request->file('import_file'));
             $successMessage = successMessageImportExcel("Permission");
             DB::commit();
-            return back()->with('successMessage', $successMessage);
+            return backSuccess($successMessage);
         } catch (Exception $exception) {
             DB::rollBack();
             return back()->with('errorMessage', $exception->getMessage());

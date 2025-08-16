@@ -19,7 +19,7 @@
       @else
         <th>{{ __('No') }}</th>
       @endif
-      <th>{{ __('Text') }}</th>
+      {{-- <th>{{ __('Text') }}</th>
       <th>{{ __('Barcode') }}</th>
       <th>{{ __('QR Code') }}</th>
       <th>{{ __('Email') }}</th>
@@ -38,11 +38,25 @@
       <th>{{ __('Image') }}</th>
       <th>{{ __('Date') }}</th>
       <th>{{ __('Time') }}</th>
-      <th>{{ __('Color') }}</th>
+      <th>{{ __('Color') }}</th> --}}
       {{-- @if ($isExport)
         <th>{{ __('Summernote Simple') }}</th>
         <th>{{ __('Summernote') }}</th>
       @endif --}}
+      <th>{{ __('Bank') }}</th>
+      <th>{{ __('Jenis') }}</th>
+      <th>{{ __('Jangka Waktu') }}</th>
+      <th>{{ __('Jatuh Tempo') }}</th>
+      <th>{{ __('Status') }}</th>
+      <th>{{ __('Per Anum (%)') }}</th>
+      <th>{{ __('Amount') }}</th>
+      <th>{{ __('Pajak (%)') }}</th>
+      <th>{{ __('Total Pajak') }}</th>
+      <th>{{ __('Estimasi') }}</th>
+      <th>{{ __('Realisasi') }}</th>
+      <th>{{ __('Selisih') }}</th>
+
+      {{-- wajib --}}
       <th>{{ __('Created At') }}</th>
       <th>{{ __('Updated At') }}</th>
       <th>{{ __('Created By') }}</th>
@@ -57,7 +71,7 @@
       @foreach ($data as $item)
         <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ $item->text }}</td>
+          {{-- <td>{{ $item->text }}</td>
           @if ($isExport)
             <td>{{ $item->barcode }}</td>
             <td>{{ $item->qr_code }}</td>
@@ -81,7 +95,7 @@
 
           @if ($isExport === false)
             <td>
-              @include('stisla.crud-examples.tags', ['tags' => $item->tags])
+              @include('stisla.bank-deposits.tags', ['tags' => $item->tags])
             </td>
           @else
             <td>{{ implode(', ', explode(',', $item->tags)) }}</td>
@@ -92,7 +106,7 @@
               @if (Str::contains($item->file, 'http'))
                 <a href="{{ $item->file }}">cek</a>
               @elseif($item->file)
-                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->file) }}">cek</a>
+                <a href="{{ $urlLink = Storage::url('bank-deposits/' . $item->file) }}">cek</a>
               @else
                 -
               @endif
@@ -101,30 +115,43 @@
               @if (Str::contains($item->image, 'http'))
                 <a href="{{ $item->image }}">cek</a>
               @elseif($item->image)
-                <a href="{{ $urlLink = Storage::url('crud-examples/' . $item->image) }}">cek</a>
+                <a href="{{ $urlLink = Storage::url('bank-deposits/' . $item->image) }}">cek</a>
               @else
                 -
               @endif
             </td>
           @else
             <td>
-              @include('stisla.crud-examples.file', ['file' => $item->file])
+              @include('stisla.bank-deposits.file', ['file' => $item->file])
             </td>
             <td>
-              @include('stisla.crud-examples.image', ['file' => $item->image])
+              @include('stisla.bank-deposits.image', ['file' => $item->image])
             </td>
           @endif
 
           <td>{{ $item->date }}</td>
           <td>{{ $item->time }}</td>
           <td>
-            @include('stisla.crud-examples.color', ['color' => $item->color])
-          </td>
+            @include('stisla.bank-deposits.color', ['color' => $item->color])
+          </td> --}}
 
           {{-- @if ($isExport)
             <td>{{ $item->summernote_simple }}</td>
             <td>{{ $item->summernote }}</td>
           @endif --}}
+
+          <td>{{ $item->bank->name }}</td>
+          <td>{{ $item->bank->bank_type }}</td>
+          <td>{{ $item->time_period }}</td>
+          <td>{{ $item->due_date }}</td>
+          <td>{{ $item->status }}</td>
+          <td>{{ $item->per_anum }}</td>
+          <td>{{ rp($item->amount) }}</td>
+          <td>{{ $item->tax_percentage }}%</td>
+          <td>{{ rp($item->tax) }}</td>
+          <td>{{ rp($item->estimation) }}</td>
+          <td>{{ $item->realization }}</td>
+          <td>{{ $item->difference }}</td>
 
           {{-- wajib --}}
           <td>{{ $item->created_at }}</td>

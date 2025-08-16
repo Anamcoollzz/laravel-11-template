@@ -66,7 +66,7 @@ class RoleController extends StislaController
      * @param boolean $isDetail
      * @return array
      */
-    private function getDetailData(Role $role, bool $isDetail): array
+    private function getDetailDataOld(Role $role, bool $isDetail): array
     {
         $role->load(['permissions']);
         $rolePermissions = $role->permissions->pluck('name')->toArray();
@@ -141,7 +141,7 @@ class RoleController extends StislaController
         logCreate('Role', $result);
 
         $successMessage = successMessageCreate('Role Dan Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -152,7 +152,7 @@ class RoleController extends StislaController
      */
     public function edit(Role $role): View
     {
-        $data = $this->getDetailData($role, false);
+        $data = $this->getDetailDataOld($role, false);
         return view('stisla.user-management.roles.form', $data);
     }
 
@@ -175,7 +175,7 @@ class RoleController extends StislaController
         logUpdate('Role', $before, $after);
 
         $successMessage = successMessageUpdate('Role Dan Permission');
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -186,7 +186,7 @@ class RoleController extends StislaController
      */
     public function show(Role $role): View
     {
-        $data = $this->getDetailData($role, true);
+        $data = $this->getDetailDataOld($role, true);
         return view('stisla.user-management.roles.form', $data);
     }
 
@@ -209,7 +209,7 @@ class RoleController extends StislaController
             DB::commit();
 
             $successMessage = successMessageDelete('Role Dan Permission');
-            return back()->with('successMessage', $successMessage);
+            return backSuccess($successMessage);
         } catch (Exception $exception) {
             DB::rollBack();
             return back()->with('errorMessage', $exception->getMessage());

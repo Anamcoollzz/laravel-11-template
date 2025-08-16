@@ -18,7 +18,7 @@ class BankController extends StislaController
 {
 
     /**
-     * crud example repository
+     * bank repository
      *
      * @var BankRepository
      */
@@ -37,13 +37,7 @@ class BankController extends StislaController
         $this->bankRepository = new BankRepository;
         $this->viewFolder     = 'banks';
 
-        $this->middleware('can:Bank');
-        $this->middleware('can:Bank Tambah')->only(['create', 'store']);
-        $this->middleware('can:Bank Ubah')->only(['edit', 'update']);
-        $this->middleware('can:Bank Detail')->only(['show']);
-        $this->middleware('can:Bank Hapus')->only(['destroy']);
-        $this->middleware('can:Bank Ekspor')->only(['exportJson', 'exportExcel', 'exportCsv', 'exportPdf']);
-        $this->middleware('can:Bank Impor Excel')->only(['importExcel', 'importExcelExample']);
+        $this->defaultMiddleware('Bank');
     }
 
     /**
@@ -105,26 +99,6 @@ class BankController extends StislaController
     }
 
     /**
-     * get detail data
-     *
-     * @param Bank $bank
-     * @param bool $isDetail
-     * @return array
-     */
-    private function getDetailData(Bank $bank, bool $isDetail = false)
-    {
-        $title       = __('Bank');
-        $defaultData = $this->getDefaultDataDetail($title, 'banks', $bank, $isDetail);
-        return array_merge($defaultData, [
-            'selectOptions'   => get_options(10, true),
-            'select2Options'  => get_options(10, true),
-            'radioOptions'    => get_options(4),
-            'checkboxOptions' => get_options(5),
-            'fullTitle'       => $isDetail ? __('Detail Bank') : __('Ubah Bank'),
-        ]);
-    }
-
-    /**
      * get export data
      *
      * @return array
@@ -144,7 +118,7 @@ class BankController extends StislaController
     }
 
     /**
-     * showing crud example page
+     * showing bank page
      *
      * @param Request $request
      * @return Response
@@ -175,7 +149,7 @@ class BankController extends StislaController
     }
 
     /**
-     * showing add new crud example page
+     * showing add new bank page
      *
      * @param Request $request
      * @return Response
@@ -199,7 +173,7 @@ class BankController extends StislaController
     }
 
     /**
-     * save new crud example to db
+     * save new bank to db
      *
      * @param BankRequest $request
      * @return Response
@@ -222,11 +196,11 @@ class BankController extends StislaController
             ]);
         }
 
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
-     * showing edit crud example page
+     * showing edit bank page
      *
      * @param Request $request
      * @param Bank $bank
@@ -268,7 +242,7 @@ class BankController extends StislaController
             ]);
         }
 
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     public function show(Bank $bank)
@@ -283,7 +257,7 @@ class BankController extends StislaController
     }
 
     /**
-     * delete crud example from db
+     * delete bank from db
      *
      * @param Bank $bank
      * @return Response
@@ -302,7 +276,7 @@ class BankController extends StislaController
             ]);
         }
 
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -330,7 +304,7 @@ class BankController extends StislaController
     {
         $this->fileService->importExcel(new BankImport, $request->file('import_file'));
         $successMessage = successMessageImportExcel("Bank");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**

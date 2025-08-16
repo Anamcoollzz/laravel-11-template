@@ -72,7 +72,7 @@ class UserManagementController extends StislaController
      * @param boolean $isDetail
      * @return array
      */
-    private function getDetailData(User $user, bool $isDetail)
+    protected function getDetailDataOld(User $user, bool $isDetail)
     {
         $roleOptions = $this->userRepository->getRoleOptions();
         if ($user->roles->count() > 1)
@@ -156,7 +156,7 @@ class UserManagementController extends StislaController
      */
     public function edit(User $user)
     {
-        $data = $this->getDetailData($user, false);
+        $data = $this->getDetailDataOld($user, false);
         return view('stisla.user-management.users.form', $data);
     }
 
@@ -187,7 +187,7 @@ class UserManagementController extends StislaController
      */
     public function show(User $user)
     {
-        $data = $this->getDetailData($user, true);
+        $data = $this->getDetailDataOld($user, true);
         return view('stisla.user-management.users.form', $data);
     }
 
@@ -238,7 +238,7 @@ class UserManagementController extends StislaController
     {
         $this->fileService->importExcel(new UserImport, $request->file('import_file'));
         $successMessage = successMessageImportExcel("Pengguna");
-        return back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**

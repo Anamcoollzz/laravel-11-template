@@ -43,6 +43,22 @@ class GeneralExport implements FromView, ShouldAutoSize
      *
      * @return View
      */
+    // public function view(): View
+    // {
+    //     $data = $this->data;
+    //     dd($data);
+    //     // if ($data instanceof \Illuminate\Support\Collection)
+    //     //     $data = $data->toArray();
+
+    //     // return view($this->view, array_merge(['data' => $data, 'is_export'], ['is_export' => true]));
+    //     echo view($this->view, array_merge(['data' => $data], ['is_export' => true]))->render();
+    // }
+
+    /**
+     * export from view
+     *
+     * @return View
+     */
     public function view(): View
     {
         return view($this->view, $this->data);
