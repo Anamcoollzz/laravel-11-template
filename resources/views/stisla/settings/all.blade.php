@@ -33,13 +33,18 @@
         </div>
       @endforeach
 
+      @if (auth()->user()->can('Reset Sistem'))
+        <div class="col-12">
+          <a href="{{ route('reset') }}" class="btn btn-primary">Reset</a>
+          <a href="{{ route('reset2') }}" class="btn btn-primary">Reset2</a>
+        </div>
+      @endif
+
     </div>
   </div>
 
 @endsection
 
 @push('scripts')
-  <script>
-
-  </script>
+  <script></script>
 @endpush

@@ -6,7 +6,6 @@ use App\Repositories\MenuRepository;
 use App\Repositories\SettingRepository;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class ViewShare
 {

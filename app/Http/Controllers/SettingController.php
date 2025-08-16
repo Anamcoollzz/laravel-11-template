@@ -6,8 +6,10 @@ use App\Http\Requests\SettingRequest;
 use App\Repositories\SettingRepository;
 use App\Services\FileService;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 class SettingController extends Controller
 {
@@ -37,6 +39,7 @@ class SettingController extends Controller
         $this->fileService       = new FileService;
 
         $this->middleware('can:Pengaturan');
+        $this->middleware('can:Reset Sistem')->only(['reset', 'reset2']);
     }
 
     /**
@@ -176,5 +179,47 @@ class SettingController extends Controller
         $after = $this->settingRepository->all();
         logUpdate('Pengaturan', $before, $after);
         return back()->with(config('app.template') === 'stisla' ? 'successMessage' : 'success_msg', __('Application Setting') . ' ' . __('success updated'));
+    }
+
+    /**
+     * reset setting data
+     *
+     * @return Response
+     */
+    public function reset()
+    {
+        // return back();
+        config(['stisla.use_setting' => '1']);
+
+        // shell_exec('php artisan db:seed');
+        // //get output from shell
+        // $commandOutput = shell_exec('php artisan db:seed');
+        // dd($commandOutput);
+        $output = new BufferedOutput();
+        $a = Artisan::call(
+            'migrate:refresh',
+            [
+                '--force' => true,
+                '--path' => 'database/migrations',
+                '--realpath' => true,
+                // '--pretend' => false,
+                '--seed' => true,
+            ],
+            $output
+        );
+        $commandOutput = $output->fetch();
+        return backSuccess('Aplikasi berhasil direset');
+    }
+
+    /**
+     * reset setting data
+     *
+     * @return Response
+     */
+    public function reset2()
+    {
+        config(['stisla.use_setting' => '2']);
+        Artisan::call('db:seed');
+        return backSuccess(__('Aplikasi berhasil direset'));
     }
 }

@@ -432,6 +432,7 @@ class StislaController extends Controller
             'excel_name'   => $filename . '.xlsx',
             'csv_name'     => $filename . '.csv',
             'json_name'    => $filename . '.json',
+            'moduleIcon'   => $this->icon,
         ]);
     }
 

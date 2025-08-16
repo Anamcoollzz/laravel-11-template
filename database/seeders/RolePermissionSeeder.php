@@ -43,6 +43,9 @@ class RolePermissionSeeder extends Seeder
             $group = PermissionGroup::updateOrCreate([
                 'group_name' => $permission['group']
             ]);
+            if ($permission['name'] === 'Reset Sistem') {
+                // dd($permission['roles']);
+            }
             $perm = Permission::create([
                 'name'                => $permission['name'],
                 'permission_group_id' => $group->id

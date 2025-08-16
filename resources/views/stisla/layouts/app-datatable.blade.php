@@ -25,7 +25,7 @@
           @if ($canExport)
             <div class="card">
               <div class="card-header">
-                <h4><i class="{{ $moduleIcon }}"></i> {!! __('Aksi Ekspor <small>(Server Side)</small>') !!}</h4>
+                <h4><i class="fa fa-print"></i> {!! __('Aksi Ekspor <small>(Server Side)</small>') !!}</h4>
                 <div class="card-header-action">
                   @include('stisla.includes.forms.buttons.btn-pdf-download', ['link' => $routePdf])
                   @include('stisla.includes.forms.buttons.btn-excel-download', ['link' => $routeExcel])
@@ -35,6 +35,9 @@
               </div>
             </div>
           @endif
+
+          @yield('panel1')
+          @yield('panel2')
 
           <div class="card">
             <div class="card-header">

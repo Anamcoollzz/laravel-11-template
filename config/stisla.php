@@ -452,6 +452,12 @@ return [
         ],
 
         [
+            'name' => 'Reset Sistem',
+            'roles' => ['superadmin'],
+            'group' => 'Pengaturan'
+        ],
+
+        [
             'name' => 'Manajemen File',
             'roles' => ['superadmin', 'admin'],
             'group' => 'Manajemen File'
@@ -641,37 +647,37 @@ return [
         [
             'name' => 'Deposito Bank',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Tambah',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Impor Excel',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Ubah',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Detail',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Hapus',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         [
             'name' => 'Deposito Bank Ekspor',
             'roles' => ['superadmin', 'admin', 'banker'],
-            'group' => 'Bank'
+            'group' => 'Deposito Bank'
         ],
         // [
         //     'name' => 'Deposito Bank Yajra',
@@ -691,6 +697,8 @@ return [
         'banker',
         'user'
     ],
+
+    'use_setting' => '1',
 
     'settings' => [
         ['key' => 'application_name', 'value' => 'Laravel 11 Template'],

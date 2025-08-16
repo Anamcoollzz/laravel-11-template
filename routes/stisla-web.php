@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestingController;
 use App\Http\Controllers\YoutubeController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 # DASHBOARD

@@ -29,7 +29,7 @@ class BankDepositController extends StislaController
     {
         parent::__construct();
 
-        $this->icon           = 'fa fa-money';
+        $this->icon           = 'fa fa-dollar';
         $this->repository     = new BankDepositRepository;
         $this->bankRepository = new BankRepository;
         $this->prefix         = $this->viewFolder = 'bank-deposits';

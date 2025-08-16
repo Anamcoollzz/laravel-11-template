@@ -171,6 +171,9 @@ class DashboardController extends StislaController
 
         $logs = $this->activityLogRepository->getMineLatest();
 
+        // \Debugbar::enable();
+        // \Debugbar::disable();
+
         return view('stisla.dashboard.index', [
             'widgets' => $widgets,
             'logs'    => $logs,

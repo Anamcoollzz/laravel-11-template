@@ -544,7 +544,12 @@
           @php
             $i = 0;
             $providers = ['google', 'facebook', 'twitter', 'github'];
-            $url = ['https://console.cloud.google.com/apis/credentials', 'https://developers.facebook.com/apps/?show_reminder=true', 'https://developer.twitter.com/en/portal/dashboard', 'https://github.com/settings/developers'];
+            $url = [
+                'https://console.cloud.google.com/apis/credentials',
+                'https://developers.facebook.com/apps/?show_reminder=true',
+                'https://developer.twitter.com/en/portal/dashboard',
+                'https://github.com/settings/developers',
+            ];
           @endphp
 
           @foreach ($providers as $provider)

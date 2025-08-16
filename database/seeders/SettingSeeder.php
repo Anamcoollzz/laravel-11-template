@@ -20,7 +20,11 @@ class SettingSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         DB::table('settings')->truncate();
-        $settings = config('stisla.settings');
+        if (config('stisla.use_setting') === '1') {
+            $settings = config('stisla.settings');
+        } else {
+            $settings = config('stisla.settings2');
+        }
         // $settings = config('stisla.settings2');
 
         $encrypts = SettingRepository::getEncryptedKeys();

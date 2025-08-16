@@ -17,6 +17,8 @@ class OverrideConfig
      */
     public function handle(Request $request, Closure $next)
     {
+        // config(['app.debug' => false]);
+        // config(['debugbar.enabled' => null]);
         config(['captcha.sitekey' => SettingRepository::googleCaptchaSiteKey()]);
         config(['captcha.secret' => SettingRepository::googleCaptchaSecret()]);
 

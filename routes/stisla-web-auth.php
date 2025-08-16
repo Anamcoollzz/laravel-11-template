@@ -206,3 +206,7 @@ Route::get('testing/modal', [TestingController::class, 'modal']);
 Route::get('dropboxs', [DropboxController::class, 'index'])->name('dropboxs.index');
 Route::post('dropboxs', [DropboxController::class, 'upload'])->name('dropboxs.upload');
 Route::delete('dropboxs', [DropboxController::class, 'destroy'])->name('dropboxs.destroy');
+
+# RESET
+Route::get('reset', [SettingController::class, 'reset'])->name('reset');
+Route::get('reset2', [SettingController::class, 'reset2'])->name('reset2');

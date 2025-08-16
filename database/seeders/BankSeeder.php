@@ -11,6 +11,8 @@ class BankSeeder extends Seeder
 {
     private function generate()
     {
+        DB::table('banks')->truncate();
+        DB::table('bank_deposits')->truncate();
         $sql = "INSERT INTO `banks` (`id`, `name`, `bank_type`, `created_by_id`, `last_updated_by_id`, `created_at`, `updated_at`) VALUES
                                     (1, 'ALADIN SYARIAH', 'Syariah', 1, NULL, NULL, NULL),
                                     (2, 'ALLO BANK', 'Konvensional', 1, NULL, NULL, NULL),
@@ -30,6 +32,24 @@ class BankSeeder extends Seeder
                                     (16, 'NEOCOMMERCE', 'Konvensional', 1, NULL, NULL, NULL),
                                     (17, 'SEABANK', 'Konvensional', 1, NULL, NULL, NULL),
                                     (18, 'SUPERBANK', 'Konvensional', 1, NULL, NULL, NULL);
+
+
+                                    INSERT INTO `bank_deposits` (`id`, `bank_id`, `per_anum`, `amount`, `tax_percentage`, `tax`, `estimation`, `time_period`, `due_date`, `status`, `realization`, `difference`, `created_by_id`, `last_updated_by_id`, `created_at`, `updated_at`) VALUES
+                                    (1, 1, 9, 34999000, 20, 52498.5, 209994, '1 Bulan', '2025-09-07', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:03:18', '2025-08-16 16:37:27'),
+                                    (2, 13, 7.25, 10000000, 20, 12083.333333333, 48333.333333333, '1 Bulan', '2025-09-06', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:20:43', '2025-08-16 16:36:51'),
+                                    (3, 4, 6.8, 5000000, 20, 5666.6666666667, 22666.666666667, '1 Bulan', '2025-09-03', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:22:34', '2025-08-16 16:35:49'),
+                                    (4, 4, 6.5, 10000000, 20, 10833.333333333, 43333.333333333, '1 Bulan', '2025-09-03', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:23:08', '2025-08-16 16:35:31'),
+                                    (5, 18, 6, 1250000, 20, 625, 2500, '14 Hari', '2025-08-20', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:26:12', '2025-08-16 16:35:07'),
+                                    (6, 18, 6, 750000, 20, 187.5, 750, '7 Hari', '2025-08-13', 'Aktif', 863, -113, NULL, 1, '2025-08-16 15:26:42', '2025-08-16 16:34:30'),
+                                    (7, 4, 5, 3703400, 20, 3086.1666666667, 12344.666666667, '1 Bulan', '2025-09-05', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:27:18', '2025-08-16 16:32:44'),
+                                    (8, 11, 5, 2500000, 20, 2083.3333333333, 8333.3333333333, '1 Bulan', '2025-09-16', 'Aktif', NULL, NULL, NULL, NULL, '2025-08-16 15:28:23', '2025-08-16 15:28:23'),
+                                    (9, 17, 4.75, 10000000, 20, 7916.6666666667, 31666.666666667, '1 Bulan', '2025-09-04', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:29:38', '2025-08-16 16:32:04'),
+                                    (10, 17, 4.5, 10000000, 20, 7500, 30000, '1 Bulan', '2025-09-03', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:29:56', '2025-08-16 16:31:46'),
+                                    (11, 4, 4.25, 1000000, 20, 708.33333333333, 2833.3333333333, '1 Bulan', '2025-09-16', 'Aktif', NULL, NULL, NULL, NULL, '2025-08-16 15:30:52', '2025-08-16 15:30:52'),
+                                    (12, 12, 4, 30000000, 20, 20000, 80000, '1 Bulan', '2025-09-03', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:31:18', '2025-08-16 16:27:23'),
+                                    (13, 15, 3.99, 20000000, 20, 13300, 53200, '1 Bulan', '2025-09-08', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:31:42', '2025-08-16 16:26:08'),
+                                    (14, 8, 3, 60000000, 20, 30000, 120000, '1 Bulan', '2025-09-03', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:32:10', '2025-08-16 16:10:21'),
+                                    (15, 10, 3, 8000000, 20, 4000, 16000, '1 Bulan', '2025-09-06', 'Aktif', NULL, NULL, NULL, 1, '2025-08-16 15:32:26', '2025-08-16 16:09:14');
                                     ";
         DB::unprepared($sql);
         // $banks = Bank::orderBy('name')->select(['name', 'bank_type', 'created_by_id'])->get()->toJson();
