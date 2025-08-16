@@ -803,6 +803,7 @@ return [
         ['key' => 'city', 'value' => 'Jember'],
         ['key' => 'company_name', 'value' => '[Nama Perusahaannya]'],
         ['key' => 'country', 'value' => 'Indonesia'],
+        ['key' => 'app_is_demo', 'value' => '0'],
         [
             'key' => 'favicon',
             'value' => 'assets/icons/favicon.ico',

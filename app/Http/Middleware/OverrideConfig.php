@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Setting;
 use App\Repositories\SettingRepository;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class OverrideConfig
     {
         // config(['app.debug' => false]);
         // config(['debugbar.enabled' => null]);
+        config(['app.is_demo' => Setting::firstOrCreate(['key' => 'app_is_demo'], ['value' => false])->value === '1']);
         config(['captcha.sitekey' => SettingRepository::googleCaptchaSiteKey()]);
         config(['captcha.secret' => SettingRepository::googleCaptchaSecret()]);
 
