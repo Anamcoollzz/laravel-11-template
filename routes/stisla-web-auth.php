@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BackupDatabaseController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\CrudExampleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DropboxController;
@@ -162,15 +163,26 @@ Route::get('yajra-crud-examples', [CrudExampleController::class, 'index'])->name
 Route::get('yajra-crud-examples/ajax', [CrudExampleController::class, 'yajraAjax'])->name('crud-examples.ajax-yajra');
 Route::get('ajax-crud-examples', [CrudExampleController::class, 'index'])->name('crud-examples.index-ajax');
 Route::get('yajra-ajax-crud-examples', [CrudExampleController::class, 'index'])->name('crud-examples.index-ajax-yajra');
-
 Route::get('crud-examples/pdf', [CrudExampleController::class, 'exportPdf'])->name('crud-examples.pdf');
 Route::get('crud-examples/csv', [CrudExampleController::class, 'exportCsv'])->name('crud-examples.csv');
 Route::get('crud-examples/excel', [CrudExampleController::class, 'exportExcel'])->name('crud-examples.excel');
 Route::get('crud-examples/json', [CrudExampleController::class, 'exportJson'])->name('crud-examples.json');
-
 Route::get('crud-examples/import-excel-example', [CrudExampleController::class, 'importExcelExample'])->name('crud-examples.import-excel-example');
 Route::post('crud-examples/import-excel', [CrudExampleController::class, 'importExcel'])->name('crud-examples.import-excel');
 Route::resource('crud-examples', CrudExampleController::class);
+
+# BANK
+Route::get('yajra-banks', [BankController::class, 'index'])->name('banks.index-yajra');
+Route::get('yajra-banks/ajax', [BankController::class, 'yajraAjax'])->name('banks.ajax-yajra');
+Route::get('ajax-banks', [BankController::class, 'index'])->name('banks.index-ajax');
+Route::get('yajra-ajax-banks', [BankController::class, 'index'])->name('banks.index-ajax-yajra');
+Route::get('banks/pdf', [BankController::class, 'exportPdf'])->name('banks.pdf');
+Route::get('banks/csv', [BankController::class, 'exportCsv'])->name('banks.csv');
+Route::get('banks/excel', [BankController::class, 'exportExcel'])->name('banks.excel');
+Route::get('banks/json', [BankController::class, 'exportJson'])->name('banks.json');
+Route::get('banks/import-excel-example', [BankController::class, 'importExcelExample'])->name('banks.import-excel-example');
+Route::post('banks/import-excel', [BankController::class, 'importExcel'])->name('banks.import-excel');
+Route::resource('banks', BankController::class);
 
 Route::get('testing/datatable', [TestingController::class, 'datatable']);
 Route::get('testing/send-email', [TestingController::class, 'sendEmail']);

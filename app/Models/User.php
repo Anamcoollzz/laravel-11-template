@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\StringHelper;
+use App\Traits\UserTrait;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +14,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, HasRoles, \Laravel\Sanctum\HasApiTokens;
+    use HasFactory, Notifiable, HasRoles, \Laravel\Sanctum\HasApiTokens, UserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -110,25 +111,5 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-
-    /**
-     * Get the user that created the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function createdBy()
-    {
-        return $this->belongsTo(User::class, 'created_by_id');
-    }
-
-    /**
-     * Get the user that last updated the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function lastUpdatedBy()
-    {
-        return $this->belongsTo(User::class, 'last_updated_by_id');
     }
 }

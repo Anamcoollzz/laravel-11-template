@@ -14,13 +14,13 @@
   }
 
   th {
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(141, 165, 245);
   }
 
   th,
   td {
     border: 1px solid black;
     padding: 2px 5px;
+    color: rgb(64, 63, 63)
   }
-
 </style>

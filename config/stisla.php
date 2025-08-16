@@ -45,6 +45,13 @@ return [
                     'is_mockup' => true
                 ],
                 [
+                    'menu_name' => 'Bank',
+                    'route_name' => 'banks.index',
+                    'icon' => 'fas fa-university',
+                    'permission' => 'Bank',
+                    'is_active_if_url_includes' => 'banks*',
+                ],
+                [
                     'menu_name' => 'Stisla Example',
                     'route_name' => null,
                     'icon' => 'fas fa-caret-square-down',
@@ -529,6 +536,7 @@ return [
             'group' => 'Grup Menu'
         ],
 
+        // contoh crud
         [
             'name' => 'Contoh CRUD',
             'roles' => ['superadmin', 'admin', 'user'],
@@ -573,12 +581,60 @@ return [
             'name' => 'Contoh CRUD Ajax Yajra',
             'roles' => ['superadmin', 'admin', 'user'],
             'group' => 'Contoh CRUD'
-        ]
+        ],
+
+        // bank
+        [
+            'name' => 'Bank',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Tambah',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Impor Excel',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Ubah',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Detail',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Hapus',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        [
+            'name' => 'Bank Ekspor',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Bank'
+        ],
+        // [
+        //     'name' => 'Bank Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ],
+        // [
+        //     'name' => 'Bank Ajax Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ]
     ],
 
     'roles' => [
         'superadmin',
         'admin',
+        'banker',
         'user'
     ],
 
@@ -776,7 +832,7 @@ return [
 
     'users' => [
         [
-            'name'              => 'Hairul Anam',
+            'name'              => 'Hairul Anam Superadmin',
             'email'             => 'superadmin@laraveltemplate.com',
             'password'          => 'superadmin',
             'roles'             => ['superadmin', 'admin'],
@@ -787,7 +843,7 @@ return [
             'address'           => 'Jember'
         ],
         [
-            'name'              => 'Admin',
+            'name'              => 'Hairul Anam Admin',
             'email'             => 'admin@laraveltemplate.com',
             'password'          => 'admin',
             'roles'             => ['admin'],
@@ -797,10 +853,20 @@ return [
             'address'           => 'Jember'
         ],
         [
-            'name'              => 'User',
+            'name'              => 'Hairul Anam User',
             'email'             => 'user@laraveltemplate.com',
             'password'          => 'user',
             'roles'             => ['user'],
+            'email_verified_at' => '2021-04-06 04:06:00',
+            'phone_number'      => '6285322778935',
+            'birth_date'        => '1998-04-08',
+            'address'           => 'Jember'
+        ],
+        [
+            'name'              => 'Hairul Anam Banker',
+            'email'             => 'banker@laraveltemplate.com',
+            'password'          => 'banker',
+            'roles'             => ['banker'],
             'email_verified_at' => '2021-04-06 04:06:00',
             'phone_number'      => '6285322778935',
             'birth_date'        => '1998-04-08',

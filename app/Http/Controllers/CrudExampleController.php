@@ -10,6 +10,7 @@ use App\Models\CrudExample;
 use App\Repositories\CrudExampleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -223,7 +224,7 @@ class CrudExampleController extends StislaController
     {
         $data   = $this->getStoreData($request);
 
-        $data['created_by_id'] = auth()->id();
+        $data['created_by_id'] = Auth::id();
         // $data['last_updated_by_id'] = null;
 
         $result = $this->crudExampleRepository->create($data);
@@ -269,8 +270,8 @@ class CrudExampleController extends StislaController
     {
         $data    = $this->getStoreData($request);
 
-        // $data['created_by_id'] = auth()->id();
-        $data['last_updated_by_id'] = auth()->id();
+        // $data['created_by_id'] = Auth::id();
+        $data['last_updated_by_id'] = Auth::id();
 
         $newData = $this->crudExampleRepository->update($data, $crudExample->id);
         logUpdate("Contoh CRUD", $crudExample, $newData);
