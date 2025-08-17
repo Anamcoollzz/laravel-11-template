@@ -110,6 +110,15 @@
                         'required' => true,
                     ])
                   </div>
+                  <div class="col-sm-6">
+                    @include('stisla.includes.forms.inputs.input-radio-toggle', [
+                        'id' => 'debugbar',
+                        'label' => __('Debugbar'),
+                        'value' => $_debugbar,
+                        'options' => ['0' => 'Tidak', '1' => 'Ya'],
+                        'required' => true,
+                    ])
+                  </div>
 
                   <div class="col-md-12">
                     @include('stisla.includes.forms.buttons.btn-save')
