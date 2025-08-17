@@ -1,6 +1,6 @@
 @php
   $_superadmin_account = \App\Models\User::find(1);
-  $_is_superadmin = auth()->id() == $_superadmin_account->id;
+  $_is_superadmin = auth_id() == $_superadmin_account->id;
 @endphp
 
 @extends('stisla.layouts.app')

@@ -228,8 +228,8 @@ class BankController extends StislaController
     {
         $data    = $this->getStoreData($request);
 
-        // $data['created_by_id'] = auth()->id();
-        $data['last_updated_by_id'] = Auth::id();
+        // $data['created_by_id'] = auth_id();
+        $data['last_updated_by_id'] = auth_id();
 
         $newData = $this->bankRepository->update($data, $bank->id);
         logUpdate("Bank", $bank, $newData);

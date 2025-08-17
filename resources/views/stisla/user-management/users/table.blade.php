@@ -32,7 +32,7 @@
       <th>{{ __('Updated At') }}</th>
       <th>{{ __('Created By') }}</th>
       <th>{{ __('Last Updated By') }}</th>
-      @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
+      @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth_id())) && $isExport === false)
         <th>{{ __('Aksi') }}</th>
       @endif
     </tr>
@@ -76,7 +76,7 @@
         <td>{{ $item->updated_at ?? '-' }}</td>
         <td>{{ $item->createdBy->name ?? '-' }}</td>
         <td>{{ $item->lastUpdatedBy->name ?? '-' }}</td>
-        @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
+        @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth_id())) && $isExport === false)
           <td style="width: 150px;">
             @if ($canUpdate && $item->deleted_at === null)
               @include('stisla.includes.forms.buttons.btn-edit', ['link' => route($routePrefix . '.edit', [$item->id])])
@@ -105,7 +105,7 @@
             @if ($canDetail)
               @include('stisla.includes.forms.buttons.btn-detail', ['link' => route($routePrefix . '.show', [$item->id])])
             @endif
-            @if ($canForceLogin && $item->id != auth()->id())
+            @if ($canForceLogin && $item->id != auth_id())
               @include('stisla.includes.forms.buttons.btn-success', [
                   'link' => route($routePrefix . '.force-login', [$item->id]),
                   'icon' => 'fa fa-door-open',

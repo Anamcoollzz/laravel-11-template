@@ -32,7 +32,7 @@ class LogRequestMiddleware
                 'request_data' => $request->all(),
                 'ip'           => $request->ip(),
                 'user_agent'   => $request->userAgent(),
-                'user_id'      => auth()->id() ?? (config('jwt.secret') ? auth('api')->id() : null) ?? null,
+                'user_id'      => auth_id() ?? (config('jwt.secret') ? auth('api')->id() : null) ?? null,
                 'roles'        => $roles,
                 'browser'      => $generalService->getBrowser(),
                 'platform'     => $generalService->getPlatform(),

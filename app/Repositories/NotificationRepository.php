@@ -26,7 +26,7 @@ class NotificationRepository extends Repository
     public function myUnReadNotif($limit = 1000)
     {
         return $this->model->query()->where('is_read', 0)
-            ->limit($limit)->latest()->where('user_id', auth()->id())->get();
+            ->limit($limit)->latest()->where('user_id', auth_id())->get();
     }
 
     /**
@@ -38,7 +38,7 @@ class NotificationRepository extends Repository
     {
         return $this->model->query()
             ->where('is_read', 0)
-            ->latest()->where('user_id', auth()->id())
+            ->latest()->where('user_id', auth_id())
             ->select($columns)
             ->get();
     }
@@ -52,7 +52,7 @@ class NotificationRepository extends Repository
     {
         return $this->model->query()
             ->where('is_read', 0)
-            ->where('user_id', auth()->id())
+            ->where('user_id', auth_id())
             ->count();
     }
 
@@ -81,7 +81,7 @@ class NotificationRepository extends Repository
     public function getMinePaginate($perPage = 20)
     {
         return $this->model->query()
-            ->where('user_id', auth()->id())->latest()
+            ->where('user_id', auth_id())->latest()
             ->paginate($perPage);
     }
 
@@ -92,7 +92,7 @@ class NotificationRepository extends Repository
      */
     public function readAllMyNotif()
     {
-        return $this->model->query()->where('user_id', auth()->id())
+        return $this->model->query()->where('user_id', auth_id())
             ->update(['is_read' => 1]);
     }
 

@@ -140,8 +140,8 @@ class UserManagementController extends StislaController
     public function store(UserRequest $request)
     {
         $data = $this->getStoreData($request);
-        $data['created_by_id'] = auth()->id();
-        // $data['last_updated_by_id'] = auth()->id();
+        $data['created_by_id'] = auth_id();
+        // $data['last_updated_by_id'] = auth_id();
         $user = $this->userRepository->create($data);
         $this->userRepository->syncRolesByID($user, $request->role);
         logCreate('Pengguna', $user);
@@ -171,7 +171,7 @@ class UserManagementController extends StislaController
     public function update(UserRequest $request, User $user)
     {
         $data = $this->getStoreData($request);
-        $data['last_updated_by_id'] = auth()->id();
+        $data['last_updated_by_id'] = auth_id();
 
         $userNew = $this->userRepository->update($data, $user->id);
         $this->userRepository->syncRolesByID($userNew, $request->role);

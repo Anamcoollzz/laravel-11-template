@@ -68,7 +68,7 @@ class NotificationController extends Controller
      */
     public function read(Notification $notification)
     {
-        if ($notification->user_id != auth()->id()) abort(404);
+        if ($notification->user_id != auth_id()) abort(404);
 
         $notification = $this->NotificationRepository->find($notification->id, ['id', 'title', 'is_read']);
 

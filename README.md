@@ -1,15 +1,15 @@
-# Laravel 11 Template With Stisla
+# Laravel 12 Template With Stisla
 
 [![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/c_scale,w_100/v1677141031/logo_srs66z.png)](https://anamapp.my.id)
 
-Free Starter Laravel 11 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
+Free Starter Laravel 12 Template menggunakan [stisla admin dashboard ](https://github.com/stisla/stisla)
 
 Beberapa fitur atau komponen yang ada
-[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1722952895/moueazjjry5c5qyy1a1m.png)](https://anamapp.my.id)
+[![N|Solid](https://res.cloudinary.com/sistem-informasi/image/upload/v1755440754/laravel/Screenshot_2025-08-17_at_21.23.59_mbvs1a.png)](https://anamapp.my.id)
 
 ## Fitur dan komponen
 
--   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/11.x/socialite)
+-   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/12.x/socialite)
 -   Google captcha
 -   Dashboard (widget, log aktivitas terbaru)
 -   Profil
@@ -22,6 +22,10 @@ Beberapa fitur atau komponen yang ada
     -   Import
     -   Server side data table
     -   Ajax Method
+-   Modul Bank, Deposito, Riwayat Deposito (Create, Read, Update, Delete) dan Import Excel serta Export (PDF, JSON, Excel)
+    -   CRUD
+    -   Export
+    -   Import
 -   Beberapa contoh menu (tampilan)
 -   Log
     -   Log Aktivitas
@@ -36,6 +40,7 @@ Beberapa fitur atau komponen yang ada
         -   Export
         -   Import
         -   Force Login
+        -   Block / Unblock
     -   Manajemen Group Permission
         -   CRUD
         -   Export
@@ -49,6 +54,7 @@ Beberapa fitur atau komponen yang ada
 -   Manajemen file menggunakan [Unisharp](https://unisharp.github.io/laravel-filemanager/)
 -   Pengaturan
     -   Umum
+    -   Reset Sistem
     -   Meta
     -   Tampilan
     -   Email

@@ -109,7 +109,7 @@ class ActivityLogRepository extends Repository
     public function getMineLatest($limit = 10)
     {
         return $this->model->query()
-            ->where('user_id', auth()->id())
+            ->where('user_id', auth_id())
             ->limit($limit)
             ->with([
                 'user',

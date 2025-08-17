@@ -1,8 +1,8 @@
 https://res.cloudinary.com/sistem-informasi/image/upload/v1722772844/fos8y0dcivd8gbejuaql.png
 
-Laravel 11 Template With Stisla
+Laravel 12 Template With Stisla
 
-Free Starter Laravel 11 Template menggunakan stisla admin dashboard
+Free Starter Laravel 12 Template menggunakan stisla admin dashboard
 Beberapa fitur atau komponen yang ada
 
 -   Login social media (github, facebook, google, dan twitter) menggunakan library [socialite](https://laravel.com/docs/11.x/socialite)

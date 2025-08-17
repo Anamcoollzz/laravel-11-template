@@ -29,7 +29,7 @@ class UserRepository extends Repository
      */
     public function getUserIdLogin()
     {
-        return auth()->id() ?? auth('api')->id();
+        return auth_id() ?? auth('api')->id();
     }
 
     /**
