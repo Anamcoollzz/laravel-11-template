@@ -903,3 +903,31 @@ function fallbackCopyTextToClipboard(text) {
 
   document.body.removeChild(textArea);
 }
+
+function confirmation(cb, title = 'Anda yakin?', text = 'Sekali restore, data akan dikembalikan ke tanggal tersebut!') {
+  swal({
+    title: title,
+    text: text,
+    icon: 'warning',
+    buttons: true,
+    dangerMode: true,
+    buttons: {
+      cancel: {
+        text: 'Batal',
+        value: null,
+        visible: true,
+        className: '',
+        closeModal: true,
+      },
+      confirm: {
+        text: 'Lanjutkan',
+      },
+    },
+  }).then((onYes) => {
+    if (onYes) {
+      cb();
+    } else {
+      swal('Okay, tidak jadi');
+    }
+  });
+}

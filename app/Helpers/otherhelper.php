@@ -107,3 +107,13 @@ function auth_user()
 {
     return Auth::user() ?? auth('api')->user();
 }
+
+/**
+ * get user login id
+ *
+ * @return int
+ */
+function auth_id()
+{
+    return Auth::id() ?? auth('api')->id();
+}

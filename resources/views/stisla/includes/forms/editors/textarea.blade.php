@@ -11,16 +11,18 @@
   array_push($props, isset($readonly) ? 'readonly' : '');
   array_push($props, $required ?? false ? 'required' : '');
   array_push($props, isset($type) ? 'type="' . $type . '"' : 'type="text"');
+
+  $hasError = $errors->has($name ?? $id);
 @endphp
 
 @if (config('app.template') === 'stisla')
   <div class="form-group">
-    <label for="{{ $id ?? $name }}">{{ $label ?? $id }}
+    <label for="{{ $id ?? $name }}" style="{{ $hasError ? 'color: #dc3545' : '' }}">{{ $label ?? $id }}
       @if ($required ?? false)
         <span class="text-danger">*</span>
       @endif
     </label>
-    <textarea rows="12" {!! implode(' ', $props) !!} class="form-control {{ $errors->has($name ?? $id) ? 'is-invalid' : '' }}">{{ old($name ?? $id) ?? ($value ?? ($d[$name ?? $id] ?? '')) }}</textarea>
+    <textarea rows="12" {!! implode(' ', $props) !!} class="form-control {{ $hasError ? 'is-invalid' : '' }}">{{ old($name ?? $id) ?? ($value ?? ($d[$name ?? $id] ?? '')) }}</textarea>
     @if ($hint ?? false)
       <div class="text-muted">{{ $hint }}</div>
     @endif
@@ -32,7 +34,7 @@
     @enderror
   </div>
 @else
-  <div class="form-group {{ $errors->has($name ?? $id) ? 'has-error' : '' }}">
+  <div class="form-group {{ $hasError ? 'has-error' : '' }}">
     <label @isset($id) for="{{ $id }}" @endisset>
       {{ $label }}
       @if ($required ?? false)
@@ -43,7 +45,7 @@
       @isset($disabled) disabled @endisset @if ($required ?? false) required @endif @if ($min ?? false) min="{{ $min }}" @endif class="form-control">{{ old($name ?? $id, $d->$name ?? ($d->$id ?? '')) }}</textarea>
 
     <span class="text-danger">
-      @if ($errors->has($name ?? $id))
+      @if ($hasError)
         {{ $errors->first($name ?? $id) }}
       @endif
     </span>

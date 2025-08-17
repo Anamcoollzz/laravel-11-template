@@ -80,7 +80,11 @@ class AuthController extends StislaController
             DB::beginTransaction();
             $data = $request->only(
                 [
-                    'name', 'email', 'phone_number', 'birth_date', 'address',
+                    'name',
+                    'email',
+                    'phone_number',
+                    'birth_date',
+                    'address',
                 ]
             );
             $data = array_merge([
@@ -138,26 +142,43 @@ class AuthController extends StislaController
      */
     public function login(LoginRequest $request)
     {
+        $maxWrongLogin = 5;
         $user = $this->userRepository->findByEmail($request->email);
+        if ($user->deleted_at !== null) {
+            return Helper::backError(['email' => __('Akun anda sudah dihapus, silakan menggunakan akun lain ')]);
+        }
+        if ($user->is_active == 0) {
+            return Helper::backError(['email' => __('Akun anda sudah diblokir dikarenakan ') . $user->blocked_reason]);
+        }
         if (Hash::check($request->password, $user->password)) {
-            $loginMustVerified = $this->settingRepository->loginMustVerified();
-            if ($loginMustVerified) {
-                if ($user->email_verified_at === null) {
-                    return Helper::backError(['email' => __('Email belum diverifikasi')]);
-                }
+            if ($user->wrong_login >= $maxWrongLogin) {
+                return Helper::backError(['email' => __('Akun anda sudah diblokir dikarenakan ') . $user->blocked_reason]);
             }
+            $loginMustVerified = $this->settingRepository->loginMustVerified();
+
+            if ($loginMustVerified && $user->email_verified_at === null) {
+                return Helper::backError(['email' => __('Email belum diverifikasi')]);
+            }
+            $this->userRepository->update([
+                'is_active'      => true,
+                'wrong_login'    => 0,
+                'blocked_reason' => null
+            ], $user->id);
             $this->userRepository->login($user);
             return Helper::redirectSuccess(route('dashboard.index'), __('Berhasil masuk ke dalam sistem'));
         } else {
-            $maxWrongLogin = 4;
             $userNew = $this->userRepository->update(['wrong_login' => $user->wrong_login + 1], $user->id);
             if ($userNew->wrong_login >= $maxWrongLogin) {
-                $userNew->update(['is_active' => false]);
+                $blockedReason = 'Salah memasukkan kata sandi sebanyak 5 kali';
+                $userNew->update([
+                    'is_active' => false,
+                    'blocked_reason' => $blockedReason
+                ]);
                 logExecute(__('Login'), UPDATE, $user, $userNew);
-                return Helper::backError(['email' => __('Akun anda sudah diblokir')]);
+                return Helper::backError(['email' => __('Akun anda sudah diblokir dikarenakan ') . $blockedReason]);
             }
             logExecute(__('Login'), UPDATE, $user, $userNew);
-            return Helper::backError(['password' => __('Password yang dimasukkan salah (' . $userNew->wrong_login . ')')]);
+            return Helper::backError(['password' => __('Password yang dimasukkan salah (tersisa ' . $maxWrongLogin - $userNew->wrong_login . ')')]);
         }
         return Helper::backError(['password' => __('Password yang dimasukkan salah')]);
     }

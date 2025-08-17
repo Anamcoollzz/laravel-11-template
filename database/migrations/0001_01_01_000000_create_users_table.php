@@ -30,20 +30,14 @@ return new class extends Migration
             $table->text('file_upload')->nullable();
             $table->tinyInteger('wrong_login')->default(0);
             $table->boolean('is_active')->default(1);
+            $table->string('blocked_reason')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('last_updated_by_id')->nullable();
-            $table->foreign('created_by_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('set null');
-            $table->foreign('last_updated_by_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('set null');
+            $table->foreign('created_by_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('last_updated_by_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

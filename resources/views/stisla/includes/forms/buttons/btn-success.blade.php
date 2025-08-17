@@ -6,7 +6,8 @@
     {{ $label }}
   </button>
 @else
-  <a class="btn btn-success @if ($icon ?? false) btn-icon btn-{{ $size ?? '' }} icon-left @endif" href="{{ $link ?? '#' }}" title="{{ $tooltip ?? ($title ?? '') }}" data-toggle="tooltip">
+  <a class="btn btn-success @if ($icon ?? false) btn-icon btn-{{ $size ?? '' }} icon-left @endif" href="{{ $link ?? '#' }}" title="{{ $tooltip ?? ($title ?? '') }}" data-toggle="tooltip"
+    onclick="{{ $onclick ?? '' }}">
     @if ($icon ?? false)
       <i class="{{ $icon }}"></i>
     @endif

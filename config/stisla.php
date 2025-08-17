@@ -46,24 +46,33 @@ return [
                 ],
                 [
                     'menu_name' => 'Bank',
-                    'route_name' => 'banks.index',
+                    'route_name' => null,
                     'icon' => 'fas fa-university',
-                    'permission' => 'Bank',
-                    'is_active_if_url_includes' => 'banks*',
-                ],
-                [
-                    'menu_name' => 'Deposito',
-                    'route_name' => 'bank-deposits.index',
-                    'icon' => 'fas fa-dollar',
-                    'permission' => 'Deposito Bank',
-                    'is_active_if_url_includes' => 'bank-deposits*',
-                ],
-                [
-                    'menu_name' => 'Riwayat Deposito',
-                    'route_name' => 'bank-deposit-histories.index',
-                    'icon' => 'fas fa-dollar',
-                    'permission' => 'Riwayat Deposito Bank',
-                    'is_active_if_url_includes' => 'bank-deposit-histories*',
+                    'permission' => null,
+                    'is_active_if_url_includes' => null,
+                    'childs' => [
+                        [
+                            'menu_name' => 'Bank',
+                            'route_name' => 'banks.index',
+                            'icon' => 'fas fa-university',
+                            'permission' => 'Bank',
+                            'is_active_if_url_includes' => 'banks*',
+                        ],
+                        [
+                            'menu_name' => 'Deposito',
+                            'route_name' => 'bank-deposits.index',
+                            'icon' => 'fas fa-dollar',
+                            'permission' => 'Deposito Bank',
+                            'is_active_if_url_includes' => 'bank-deposits*',
+                        ],
+                        [
+                            'menu_name' => 'Riwayat Deposito',
+                            'route_name' => 'bank-deposit-histories.index',
+                            'icon' => 'fas fa-dollar',
+                            'permission' => 'Riwayat Deposito Bank',
+                            'is_active_if_url_includes' => 'bank-deposit-histories*',
+                        ],
+                    ]
                 ],
                 [
                     'menu_name' => 'Stisla Example',
@@ -448,6 +457,11 @@ return [
         ],
         [
             'name' => 'Pengguna Force Login',
+            'roles' => ['superadmin'],
+            'group' => 'Pengguna'
+        ],
+        [
+            'name' => 'Pengguna Blokir',
             'roles' => ['superadmin'],
             'group' => 'Pengguna'
         ],

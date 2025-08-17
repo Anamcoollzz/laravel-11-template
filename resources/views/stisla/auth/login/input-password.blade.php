@@ -1,6 +1,6 @@
 <div class="form-group">
   <label for="password">Password
-    <span class="text-danger">*</span>
+    <span style="color: #dc3545;">*</span>
   </label>
   @if ($_is_forgot_password_send_to_email)
     <div class="float-right">
@@ -16,8 +16,7 @@
         <i class="fas fa-key"></i>
       </div>
     </div>
-    <input id="password" name="password" value="" required="" type="password"
-      class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" aria-autocomplete="list">
+    <input id="password" name="password" value="" required="" type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" aria-autocomplete="list">
   </div>
   @error('password')
     <div id="password-error-feedback" class="text-danger" for="password">

@@ -219,6 +219,7 @@ class StislaController extends Controller
         $canImportExcel = $user->can($permissionPrefix . ' Impor Excel');
         $canExport      = $user->can($permissionPrefix . ' Ekspor');
         $canForceLogin  = $user->can($permissionPrefix . ' Force Login');
+        $canBlock       = $user->can($permissionPrefix . ' Blokir');
 
         return [
             'canCreate'         => $canCreate,
@@ -228,6 +229,7 @@ class StislaController extends Controller
             'canImportExcel'    => $canImportExcel,
             'canExport'         => $canExport,
             'canForceLogin'     => $canForceLogin,
+            'canBlock'          => $canBlock,
             'title'             => $title,
             'moduleIcon'        => $this->icon,
             'route_create'      => $canCreate ? route($routePrefix . '.create') : null,

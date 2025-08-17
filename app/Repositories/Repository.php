@@ -179,7 +179,7 @@ class Repository extends RepositoryAbstract
             $model->update($data);
             return $this->find($id, $columns);
         }
-        return 0;
+        return $model;
     }
 
     /**
@@ -227,6 +227,20 @@ class Repository extends RepositoryAbstract
             return $model->delete();
         }
         return 0;
+    }
+
+    /**
+     * soft delete data by id
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function softDelete(int $id)
+    {
+        $model = $this->find($id);
+        if ($model)
+            $model->update(['deleted_at' => now()]);
+        return $model;
     }
 
     /**

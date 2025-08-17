@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Imports\UserImport;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -199,10 +200,10 @@ class UserManagementController extends StislaController
      */
     public function destroy(User $user)
     {
-        $this->userRepository->delete($user->id);
+        $this->userRepository->softDelete($user->id);
         logDelete('Pengguna', $user);
         $successMessage = successMessageDelete('Pengguna');
-        return redirect()->back()->with('successMessage', $successMessage);
+        return backSuccess($successMessage);
     }
 
     /**
@@ -215,6 +216,44 @@ class UserManagementController extends StislaController
     {
         $this->userRepository->login($user);
         return Helper::redirectSuccess(route('dashboard.index'), __('Berhasil masuk ke dalam sistem'));
+    }
+
+    /**
+     * block specific user
+     *
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
+    public function block(Request $request, User $user)
+    {
+        $request->validate([
+            'blocked_reason' => 'required|string|max:255',
+        ]);
+        $after = $this->userRepository->update([
+            'is_active'          => false,
+            'blocked_reason'     => $request->blocked_reason,
+            'last_updated_by_id' => auth_id()
+        ], $user->id);
+        logExecute('Blokir Pengguna', UPDATE, $user, $after);
+        return backSuccess('Pengguna ' . $user->email . ' berhasil diblokir');
+    }
+
+    /**
+     * unblock specific user
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function unblock(User $user)
+    {
+        $after = $this->userRepository->update([
+            'is_active'          => true,
+            'blocked_reason'     => null,
+            'last_updated_by_id' => auth_id()
+        ], $user->id);
+        logExecute('Buka Blokir Pengguna', UPDATE, $user, $after);
+        return backSuccess('Pengguna ' . $user->email . ' berhasil diaktifkan kembali');
     }
 
     /**
@@ -282,6 +321,6 @@ class UserManagementController extends StislaController
     public function pdf(): Response
     {
         $data  = $this->getExportData();
-        return $this->fileService->downloadPdfLetter('stisla.includes.others.export-pdf', $data, $data['pdf_name']);
+        return $this->fileService->downloadPdfA3('stisla.includes.others.export-pdf', $data, $data['pdf_name']);
     }
 }

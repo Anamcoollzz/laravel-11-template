@@ -52,6 +52,8 @@ Route::resource('persons', PersonController::class);
 
 # USER MANAGEMENT
 Route::prefix('user-management')->as('user-management.')->group(function () {
+    Route::post('users/block/{user}', [UserManagementController::class, 'block'])->name('users.block');
+    Route::post('users/unblock/{user}', [UserManagementController::class, 'unblock'])->name('users.unblock');
     Route::get('users/force-login/{user}', [UserManagementController::class, 'forceLogin'])->name('users.force-login');
     Route::get('users/pdf', [UserManagementController::class, 'pdf'])->name('users.pdf');
     Route::get('users/csv', [UserManagementController::class, 'csv'])->name('users.csv');

@@ -18,10 +18,10 @@
 
 @if (config('app.template') === 'stisla')
   @if ($icon ?? false)
-    <div class="form-group">
-      <label for="{{ $id ?? $name }}" class="{{ $has_error ? 'text-danger' : '' }}">{{ $label ?? $id }}
+    <div class="form-group is-invalid">
+      <label for="{{ $id ?? $name }}" style="{{ $has_error ? 'color: #dc3545' : '' }}" class="{{ $has_error ? '' : '' }}">{{ $label ?? $id }}
         @if ($required)
-          <span class="text-danger">*</span>
+          <span style="color: #dc3545;">*</span>
         @endif
       </label>
       <div class="input-group">
@@ -34,7 +34,7 @@
             @endif
           </div>
         </div>
-        <input {!! implode(' ', $props) !!} class="form-control {{ $has_error ? 'is-invalid' : '' }} {{ $addClass ?? '' }} {{ $is_valid ?? '' }}" step="any">
+        <input {!! implode(' ', $props) !!} class="form-control {{ $has_error ? 'is-invalid' : '' }} {{ $addClass ?? '' }} {{ $is_valid ?? '' }}" step="any" autocomplete="{{ $autocomplete ?? 'off' }}">
       </div>
       @if ($link_file ?? false)
         <small><a target="_blank" href="{{ $link_file }}">{{ $link_file_name }}</a></small>
@@ -42,11 +42,11 @@
       @if ($hint ?? false)
         <small class="form-text text-muted">{{ $hint }}</small>
       @endif
-      @error($name ?? $id)
-        <div id="{{ $name ?? $id }}-error-feedback" class="text-danger" for="{{ $name ?? $id }}">
-          {{ $message }}
+      @if ($has_error)
+        <div id="{{ $name ?? $id }}-error-feedback" style="display: block" class="invalid-feedback" for="{{ $name ?? $id }}">
+          {{ $errors->first($name ?? $id) }}
         </div>
-      @enderror
+      @endif
       @isset($is_valid)
         <div id="{{ $name ?? $id }}-valid-feedback" style="display: block;" class="valid-feedback" for="{{ $name ?? $id }}">
           {{ $has_error ? '' : $valid_feedback }}
@@ -55,9 +55,9 @@
     </div>
   @else
     <div class="form-group">
-      <label for="{{ $id ?? $name }}" class="{{ $has_error ? 'text-danger' : '' }}">{{ $label ?? $id }}
+      <label for="{{ $id ?? $name }}" style="{{ $has_error ? 'color: #dc3545' : '' }}" class="{{ $has_error ? '' : '' }}">{{ $label ?? $id }}
         @if ($required)
-          <span class="text-danger">*</span>
+          <span style="color: #dc3545;">*</span>
         @endif
       </label>
       <input {!! implode(' ', $props) !!} class="form-control {{ $has_error ? 'is-invalid' : '' }} {{ $addClass ?? '' }}" step="any" {{ $is_valid ?? '' }}>

@@ -18,12 +18,13 @@ function logExecute(string $title, string $activityType, $before = null, $after 
     $user   = auth_user();
 
     // override plain text password
-    request()->merge([
-        'new_password'              => bcrypt(request()->new_password),
-        'new_password_confirmation' => bcrypt(request()->new_password_confirmation),
-        'old_password'              => bcrypt(request()->old_password),
-        'password'                  => bcrypt(request()->password),
-    ]);
+    if (request('new_password'))
+        request()->merge([
+            'new_password'              => bcrypt(request()->new_password),
+            'new_password_confirmation' => bcrypt(request()->new_password_confirmation),
+            'old_password'              => bcrypt(request()->old_password),
+            'password'                  => bcrypt(request()->password),
+        ]);
 
     $generalService = new \App\Services\GeneralService;
     $browser = $generalService->getBrowser();

@@ -39,7 +39,7 @@ class ViewShare
     {
         if ($request->isMethod('GET')) {
             $user = Auth::user();
-            $totalDay = \Carbon\Carbon::parse($user->last_password_change)->diffInDays(now());
+            $totalDay = \Carbon\Carbon::parse($user->last_password_change ?? null)->diffInDays(now()) ?? 0;
             view()->share('_total_day_password', $totalDay);
             view()->share('_user', $user);
 

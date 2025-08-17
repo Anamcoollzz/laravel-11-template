@@ -41,6 +41,8 @@ class User extends Authenticatable implements JWTSubject
         'is_active',
         'created_by_id',
         'last_updated_by_id',
+        'blocked_reason',
+        'deleted_at',
     ];
 
     /**

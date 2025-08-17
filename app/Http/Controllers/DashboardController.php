@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Bank;
 use App\Models\BankDeposit;
+use App\Models\BankDepositHistory;
 use App\Models\CrudExample;
 use App\Models\LogRequest;
 use App\Models\Menu;
@@ -69,6 +70,24 @@ class DashboardController extends StislaController
                 'icon'  => 'dollar',
                 'route' => route('bank-deposits.index'),
                 'bg_color' => 'lightgreen'
+            ];
+        if ($user->can('Riwayat Deposito Bank'))
+            $widgets[] = (object)[
+                'title' => 'Riwayat Deposito Bank',
+                'count' => BankDepositHistory::count(),
+                'bg'    => 'primary',
+                'icon'  => 'dollar',
+                'route' => route('bank-deposit-histories.index'),
+                'bg_color' => 'cyan'
+            ];
+        if ($user->can('Riwayat Deposito Bank'))
+            $widgets[] = (object)[
+                'title' => 'Keuntungan Deposito',
+                'count' => rp(BankDepositHistory::sum('realization')),
+                'bg'    => 'primary',
+                'icon'  => 'dollar',
+                'route' => route('bank-deposit-histories.index'),
+                'bg_color' => '#8b743f'
             ];
         if ($user->can('Pengguna'))
             $widgets[] = (object)[

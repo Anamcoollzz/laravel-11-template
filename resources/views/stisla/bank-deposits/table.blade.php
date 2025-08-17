@@ -7,6 +7,7 @@
   $canUpdate = $canUpdate ?? false;
   $canDelete = $canDelete ?? false;
   $canDetail = $canDetail ?? false;
+  $statusExport = Route::is('bank-deposits.index') || Route::is('bank-deposits.pdf') || Route::is('bank-deposits.excel') || Route::is('bank-deposits.csv') || Route::is('bank-deposits.json');
 @endphp
 
 <table class="table table-striped @if ($isYajra || $isAjaxYajra) yajra-datatable @endif"
@@ -47,7 +48,7 @@
       <th>{{ __('Jenis') }}</th>
       <th>{{ __('Jangka Waktu') }}</th>
       <th>{{ __('Jatuh Tempo') }}</th>
-      @if (Route::is('bank-deposits.index'))
+      @if ($statusExport)
         <th>{{ __('Status') }}</th>
       @endif
       <th>{{ __('Per Anum (%)') }}</th>
@@ -146,8 +147,12 @@
           <td>{{ $item->bankdeposit->bank->bank_type ?? $item->bank->bank_type }}</td>
           <td>{{ $item->time_period }}</td>
           <td>{{ $item->due_date }}</td>
-          @if (Route::is('bank-deposits.index'))
-            <td>{{ $item->status }}</td>
+          @if ($statusExport)
+            @if ($isExport)
+              <td>{{ $item->status }}</td>
+            @else
+              <td><span class="badge badge-{{ $item->status === 'Aktif' ? 'success' : 'danger' }}">{{ $item->status }}</span></td>
+            @endif
           @endif
           <td>{{ $item->per_anum }}</td>
           <td>{{ rp($item->amount) }}</td>

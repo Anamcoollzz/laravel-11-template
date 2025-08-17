@@ -19,10 +19,17 @@
       @if ($roleCount > 1)
         <th>{{ __('Role') }}</th>
       @endif
+      <th>{{ __('Status') }}</th>
+      <th>{{ __('Alasan Diblokir') }}</th>
       <th>{{ __('Terakhir Masuk') }}</th>
       @if ($_is_login_must_verified)
         <th>{{ __('Waktu Verifikasi') }}</th>
       @endif
+      <th>{{ __('Deleted At') }}</th>
+
+      {{-- wajib --}}
+      <th>{{ __('Created At') }}</th>
+      <th>{{ __('Updated At') }}</th>
       <th>{{ __('Created By') }}</th>
       <th>{{ __('Last Updated By') }}</th>
       @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
@@ -54,19 +61,46 @@
             @endforeach
           </td>
         @endif
+        <td><span
+            class="badge badge-{{ $item->deleted_at !== null ? 'danger' : ($item->is_active == 1 ? 'success' : 'warning') }}">{{ $item->deleted_at !== null ? 'Dihapus' : ($item->is_active == 1 ? 'Aktif' : 'Tidak Aktif') }}</span>
+        </td>
+        <td>{{ $item->blocked_reason }}</td>
         <td>{{ $item->last_login ?? '-' }}</td>
         @if ($_is_login_must_verified)
           <td>{{ $item->email_verified_at ?? '-' }}</td>
         @endif
+        <td>{{ $item->deleted_at ?? '-' }}</td>
+
+        {{-- wajib --}}
+        <td>{{ $item->created_at ?? '-' }}</td>
+        <td>{{ $item->updated_at ?? '-' }}</td>
         <td>{{ $item->createdBy->name ?? '-' }}</td>
         <td>{{ $item->lastUpdatedBy->name ?? '-' }}</td>
         @if (($canUpdate || $canDelete || ($canForceLogin && $item->id != auth()->id())) && $isExport === false)
           <td style="width: 150px;">
-            @if ($canUpdate)
+            @if ($canUpdate && $item->deleted_at === null)
               @include('stisla.includes.forms.buttons.btn-edit', ['link' => route($routePrefix . '.edit', [$item->id])])
             @endif
-            @if ($canDelete)
+            @if ($canDelete && $item->deleted_at === null)
               @include('stisla.includes.forms.buttons.btn-delete', ['link' => route($routePrefix . '.destroy', [$item->id])])
+            @endif
+            @if ($canBlock && $item->deleted_at === null)
+              @if ($item->is_active == 1)
+                @include('stisla.includes.forms.buttons.btn-warning', [
+                    'link' => route($routePrefix . '.block', [$item->id]),
+                    'icon' => 'fa fa-ban',
+                    'title' => 'Blokir Pengguna',
+                    'onclick' => 'blockUser(event, \'' . route('user-management.users.block', [$item->id]) . '\')',
+                ])
+              @else
+                @include('stisla.includes.forms.buttons.btn-success', [
+                    'link' => route($routePrefix . '.unblock', [$item->id]),
+                    'icon' => 'fa fa-check',
+                    'title' => 'Buka Blokir Pengguna',
+                    'onclick' => 'unblockUser(event, \'' . route('user-management.users.unblock', [$item->id]) . '\')',
+                    'size' => 'sm',
+                ])
+              @endif
             @endif
             @if ($canDetail)
               @include('stisla.includes.forms.buttons.btn-detail', ['link' => route($routePrefix . '.show', [$item->id])])
