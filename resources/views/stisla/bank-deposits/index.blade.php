@@ -1,6 +1,7 @@
 @php
   $isAjax = $isAjax ?? false;
   $isAjaxYajra = $isAjaxYajra ?? false;
+  $isIndex = Route::is('bank-deposits.index');
 @endphp
 
 @extends('stisla.layouts.app-datatable')
@@ -10,8 +11,16 @@
 @endsection
 
 @section('filter_top')
-  @if (Route::is('bank-deposits.index'))
+  @if ($isIndex)
     @include('stisla.includes.others.filter-default', ['is_show' => false])
+  @endif
+@endsection
+
+@section('btn-action-header')
+  @if ($isIndex)
+    <a class="btn btn-primary  btn-icon icon-left " href="{{ route('bank-deposits.save-to-history') }}" data-toggle="tooltip" title="Simpan Ke Riwayat" data-original-title="Tambah">
+      <i class="fa fa-paper-plane"></i>
+    </a>
   @endif
 @endsection
 
@@ -38,13 +47,13 @@
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('estimation')) }}
-                    ({{ rp(($kon / $tot) * 100) }}%)
+                    {{ rp($kon = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Konvensional')->sum('estimation')) }}
+                    ({{ rp($tot == 0 ? 0 : ($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('estimation')) }}
-                    ({{ rp(($sya / $tot) * 100) }}%)
+                    {{ rp($sya = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Syariah')->sum('estimation')) }}
+                    ({{ rp($tot == 0 ? 0 : ($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
@@ -54,13 +63,13 @@
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('realization')) }}
-                    ({{ rp(($kon / $tot) * 100) }}%)
+                    {{ rp($kon = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Konvensional')->sum('realization')) }}
+                    ({{ rp($tot == 0 ? 0 : ($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('realization')) }}
-                    ({{ rp(($sya / $tot) * 100) }}%)
+                    {{ rp($sya = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Syariah')->sum('realization')) }}
+                    ({{ rp($tot == 0 ? 0 : ($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
@@ -70,13 +79,13 @@
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('amount')) }}
-                    ({{ rp(($kon / $tot) * 100) }}%)
+                    {{ rp($kon = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Konvensional')->sum('amount')) }}
+                    ({{ rp($tot == 0 ? 0 : ($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('amount')) }}
-                    ({{ rp(($sya / $tot) * 100) }}%)
+                    {{ rp($sya = $data->where($isIndex ? 'bank.bank_type' : 'bankdeposit.bank.bank_type', 'Syariah')->sum('amount')) }}
+                    ({{ rp($tot == 0 ? 0 : ($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
@@ -142,6 +151,17 @@
       <canvas id="myChart4"></canvas>
     </div>
   </div>
+  <div class="card">
+    <div class="card-header">
+      <h4><i class="fa fa-line-chart"></i> Statistik Realisasi</h4>
+      <div class="card-header-action">
+        @include('stisla.bank-deposits.btn-action-header')
+      </div>
+    </div>
+    <div class="card-body">
+      <canvas id="myChart5"></canvas>
+    </div>
+  </div>
 @endsection
 
 @push('scripts')
@@ -149,6 +169,7 @@
     $data2 = $data->sortByDesc('amount');
     $data3 = $data->sortByDesc('estimation');
     $data4 = $data->sortByDesc('per_anum');
+    $isHistory = Route::is('bank-deposit-histories.index');
   @endphp
   <script>
     var options = {
@@ -176,10 +197,11 @@
         }]
       },
     };
+    let labels = {{ Js::from($data2->pluck($isHistory ? 'bankdeposit.bank.name' : 'bank.name')) }}
     var myChart = new Chart(document.getElementById("myChart2").getContext('2d'), {
       type: 'bar',
       data: {
-        labels: {{ Js::from($data2->pluck('bank.name')) }},
+        labels: labels,
         datasets: [{
           label: 'Amount',
           data: {{ Js::from($data2->pluck('amount')) }},
@@ -196,7 +218,7 @@
     var myChart = new Chart(document.getElementById("myChart3").getContext('2d'), {
       type: 'bar',
       data: {
-        labels: {{ Js::from($data3->pluck('bank.name')) }},
+        labels: labels,
         datasets: [{
           label: 'Estimasi',
           data: {{ Js::from($data3->pluck('estimation')) }},
@@ -213,10 +235,27 @@
     var myChart = new Chart(document.getElementById("myChart4").getContext('2d'), {
       type: 'bar',
       data: {
-        labels: {{ Js::from($data4->pluck('bank.name')) }},
+        labels: labels,
         datasets: [{
           label: 'Per Anum',
           data: {{ Js::from($data4->pluck('per_anum')) }},
+          borderWidth: 2,
+          backgroundColor: '#6777ef',
+          borderColor: '#6777ef',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#ffffff',
+          pointRadius: 4
+        }]
+      },
+      options: options
+    });
+    var myChart = new Chart(document.getElementById("myChart5").getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Realisasi',
+          data: {{ Js::from($data4->pluck('realization')) }},
           borderWidth: 2,
           backgroundColor: '#6777ef',
           borderColor: '#6777ef',

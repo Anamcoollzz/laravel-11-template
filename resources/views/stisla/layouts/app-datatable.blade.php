@@ -50,6 +50,7 @@
                 @if ($canCreate)
                   @include('stisla.includes.forms.buttons.btn-add', ['link' => $route_create])
                 @endif
+                @yield('btn-action-header')
               </div>
             </div>
             <div class="card-body">

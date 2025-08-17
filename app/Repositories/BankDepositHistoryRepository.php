@@ -2,18 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\BankDeposit;
+use App\Models\BankDepositHistory;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
-class BankDepositRepository extends Repository
+class BankDepositHistoryRepository extends Repository
 {
-    /**
-     * bank deposit history repository
-     *
-     * @var BankDepositHistoryRepository
-     */
-    protected BankDepositHistoryRepository $modelHistoryRepo;
 
     /**
      * constructor method
@@ -22,8 +16,7 @@ class BankDepositRepository extends Repository
      */
     public function __construct()
     {
-        $this->model = new BankDeposit();
-        $this->modelHistoryRepo = new BankDepositHistoryRepository();
+        $this->model = new BankDepositHistory();
     }
 
     /**
@@ -39,22 +32,22 @@ class BankDepositRepository extends Repository
         })
             ->with(['createdBy', 'lastUpdatedBy']);
         $editColumns = [
-            'currency'         => fn(BankDeposit $item) => dollar($item->currency),
-            'currency_idr'     => fn(BankDeposit $item) => rp($item->currency_idr),
+            'currency'         => fn(BankDepositHistory $item) => dollar($item->currency),
+            'currency_idr'     => fn(BankDepositHistory $item) => rp($item->currency_idr),
             'select2_multiple' => '{{implode(", ", $select2_multiple)}}',
             'checkbox'         => '{{implode(", ", $checkbox)}}',
             'checkbox2'        => '{{implode(", ", $checkbox2)}}',
             'tags'             => 'stisla.crud-examples.tags',
             'file'             => 'stisla.crud-examples.file',
-            'image'            => fn(BankDeposit $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
-            'barcode'          => fn(BankDeposit $item) => \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10),
-            'qr_code'          => fn(BankDeposit $item) => \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3),
+            'image'            => fn(BankDepositHistory $item) => view('stisla.crud-examples.image', ['file' => $item->image, 'item' => $item]),
+            'barcode'          => fn(BankDepositHistory $item) => \Milon\Barcode\Facades\DNS1DFacade::getBarcodeHTML($item->barcode, 'C39', 1, 10),
+            'qr_code'          => fn(BankDepositHistory $item) => \Milon\Barcode\Facades\DNS2DFacade::getBarcodeHTML($item->qr_code, 'QRCODE', 3, 3),
             'color'            => 'stisla.crud-examples.color',
             'created_at'       => '{{\Carbon\Carbon::parse($created_at)->addHour(7)->format("Y-m-d H:i:s")}}',
             'updated_at'       => '{{\Carbon\Carbon::parse($updated_at)->addHour(7)->format("Y-m-d H:i:s")}}',
-            // 'created_by'       => fn(BankDeposit $crudExample) => $crudExample->createdBy ? $crudExample->createdBy->name : '-',
-            // 'last_updated_by'  => fn(BankDeposit $crudExample) => $crudExample->lastUpdatedBy ? $crudExample->lastUpdatedBy->name : '-',
-            'action'           => function (BankDeposit $crudExample) use ($additionalParams) {
+            // 'created_by'       => fn(BankDepositHistory $crudExample) => $crudExample->createdBy ? $crudExample->createdBy->name : '-',
+            // 'last_updated_by'  => fn(BankDepositHistory $crudExample) => $crudExample->lastUpdatedBy ? $crudExample->lastUpdatedBy->name : '-',
+            'action'           => function (BankDepositHistory $crudExample) use ($additionalParams) {
                 $isAjaxYajra = Route::is('crud-examples.index-ajax-yajra') || request('isAjaxYajra') == 1;
                 $data = array_merge($additionalParams ? $additionalParams : [], [
                     'item'        => $crudExample,
@@ -67,10 +60,10 @@ class BankDepositRepository extends Repository
             'editColumns' => $editColumns,
             'rawColumns'  => ['tags', 'file', 'color', 'action', 'image', 'barcode', 'qr_code'],
             'addColumns'  => [
-                'created_by' => function (BankDeposit $item) {
+                'created_by' => function (BankDepositHistory $item) {
                     return $item->createdBy ? $item->createdBy->name : '-';
                 },
-                'last_updated_by' => function (BankDeposit $item) {
+                'last_updated_by' => function (BankDepositHistory $item) {
                     return $item->lastUpdatedBy ? $item->lastUpdatedBy->name : '-';
                 }
             ]
@@ -123,31 +116,5 @@ class BankDepositRepository extends Repository
                 'searchable' => false
             ],
         ]);
-    }
-
-    /**
-     * save bank deposit to history
-     *
-     * @return void
-     */
-    public function saveToHistory()
-    {
-        $data = $this->query()->whereNotNull('realization')->orWhere('realization', '>', 0)->get();
-        foreach ($data as $i => $item) {
-            $d = collect($item)->except(['id', 'bank_id', 'status', 'bank_deposit_id', 'due_date'])->toArray();
-            $this->modelHistoryRepo->updateOrCreate([
-                'bank_deposit_id' => $item->id,
-                'due_date' => $item->due_date,
-            ], $d);
-            $this->update([
-                'amount'      => 0,
-                'tax'         => 0,
-                'estimation'  => 0,
-                'due_date'    => null,
-                'realization' => null,
-                'difference'  => 0,
-                'status'      => 'Tidak Aktif'
-            ], $item->id);
-        }
     }
 }

@@ -80,6 +80,13 @@ class StislaController extends Controller
     protected String $icon;
 
     /**
+     * can export
+     *
+     * @var String
+     */
+    protected String $canExport;
+
+    /**
      * prefix route of module
      *
      * @var String
@@ -331,7 +338,7 @@ class StislaController extends Controller
     protected function getExportData(): array
     {
         $times      = date('Y-m-d_H-i-s');
-        $moduleName = str_replace('-', '_', $this->prefixRoute);
+        $moduleName = str_replace('-', '_', $this->prefixRoute ?? $this->prefix);
         $data       = [
             'isExport'   => true,
             'pdf_name'   => $times . '_' . $moduleName . '.pdf',
@@ -340,7 +347,7 @@ class StislaController extends Controller
             'json_name'  => $times . '_' . $moduleName . '.json',
         ];
 
-        return array_merge($this->getIndexData(), $data, $this->getIndexDataFromParent());
+        return array_merge($data, $this->getIndexDataFromParent());
     }
 
     /**
@@ -433,6 +440,7 @@ class StislaController extends Controller
             'csv_name'     => $filename . '.csv',
             'json_name'    => $filename . '.json',
             'moduleIcon'   => $this->icon,
+            'canExport'    => $this->canExport ?? $defaultData['canExport'],
         ]);
     }
 
@@ -645,10 +653,9 @@ class StislaController extends Controller
      * @param array $data
      * @return Response
      */
-    protected function prepareIndex(Request $request, array $data = [])
+    protected function prepareIndex(Request $request, array $data2 = [])
     {
-        $data = array_merge($this->getIndexDataFromParent($data), $data);
-
+        $data = array_merge($this->getIndexDataFromParent($data2), $data2);
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,

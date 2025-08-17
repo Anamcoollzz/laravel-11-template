@@ -47,7 +47,9 @@
       <th>{{ __('Jenis') }}</th>
       <th>{{ __('Jangka Waktu') }}</th>
       <th>{{ __('Jatuh Tempo') }}</th>
-      <th>{{ __('Status') }}</th>
+      @if (Route::is('bank-deposits.index'))
+        <th>{{ __('Status') }}</th>
+      @endif
       <th>{{ __('Per Anum (%)') }}</th>
       <th>{{ __('Amount') }}</th>
       <th>{{ __('Pajak (%)') }}</th>
@@ -140,11 +142,13 @@
             <td>{{ $item->summernote }}</td>
           @endif --}}
 
-          <td>{{ $item->bank->name }}</td>
-          <td>{{ $item->bank->bank_type }}</td>
+          <td>{{ $item->bankdeposit->bank->name ?? $item->bank->name }}</td>
+          <td>{{ $item->bankdeposit->bank->bank_type ?? $item->bank->bank_type }}</td>
           <td>{{ $item->time_period }}</td>
           <td>{{ $item->due_date }}</td>
-          <td>{{ $item->status }}</td>
+          @if (Route::is('bank-deposits.index'))
+            <td>{{ $item->status }}</td>
+          @endif
           <td>{{ $item->per_anum }}</td>
           <td>{{ rp($item->amount) }}</td>
           <td>{{ $item->tax_percentage }}%</td>

@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BackupDatabaseController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BankDepositController;
+use App\Http\Controllers\BankDepositHistoryController;
 use App\Http\Controllers\CrudExampleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DropboxController;
@@ -186,6 +187,7 @@ Route::post('banks/import-excel', [BankController::class, 'importExcel'])->name(
 Route::resource('banks', BankController::class);
 
 # DEPOSITO BANK
+Route::get('save-to-history-bank-deposits', [BankDepositController::class, 'saveToHistory'])->name('bank-deposits.save-to-history');
 Route::get('yajra-bank-deposits', [BankDepositController::class, 'index'])->name('bank-deposits.index-yajra');
 Route::get('yajra-bank-deposits/ajax', [BankDepositController::class, 'yajraAjax'])->name('bank-deposits.ajax-yajra');
 Route::get('ajax-bank-deposits', [BankDepositController::class, 'index'])->name('bank-deposits.index-ajax');
@@ -197,6 +199,19 @@ Route::get('bank-deposits/json', [BankDepositController::class, 'exportJson'])->
 Route::get('bank-deposits/import-excel-example', [BankDepositController::class, 'importExcelExample'])->name('bank-deposits.import-excel-example');
 Route::post('bank-deposits/import-excel', [BankDepositController::class, 'importExcel'])->name('bank-deposits.import-excel');
 Route::resource('bank-deposits', BankDepositController::class);
+
+# RIWAYAT DEPOSITO BANK
+Route::get('yajra-bank-deposit-histories', [BankDepositHistoryController::class, 'index'])->name('bank-deposit-histories.index-yajra');
+Route::get('yajra-bank-deposit-histories/ajax', [BankDepositHistoryController::class, 'yajraAjax'])->name('bank-deposit-histories.ajax-yajra');
+Route::get('ajax-bank-deposit-histories', [BankDepositHistoryController::class, 'index'])->name('bank-deposit-histories.index-ajax');
+Route::get('yajra-ajax-bank-deposit-histories', [BankDepositHistoryController::class, 'index'])->name('bank-deposit-histories.index-ajax-yajra');
+Route::get('bank-deposit-histories/pdf', [BankDepositHistoryController::class, 'exportPdf'])->name('bank-deposit-histories.pdf');
+Route::get('bank-deposit-histories/csv', [BankDepositHistoryController::class, 'exportCsv'])->name('bank-deposit-histories.csv');
+Route::get('bank-deposit-histories/excel', [BankDepositHistoryController::class, 'exportExcel'])->name('bank-deposit-histories.excel');
+Route::get('bank-deposit-histories/json', [BankDepositHistoryController::class, 'exportJson'])->name('bank-deposit-histories.json');
+Route::get('bank-deposit-histories/import-excel-example', [BankDepositHistoryController::class, 'importExcelExample'])->name('bank-deposit-histories.import-excel-example');
+Route::post('bank-deposit-histories/import-excel', [BankDepositHistoryController::class, 'importExcel'])->name('bank-deposit-histories.import-excel');
+Route::resource('bank-deposit-histories', BankDepositHistoryController::class);
 
 Route::get('testing/datatable', [TestingController::class, 'datatable']);
 Route::get('testing/send-email', [TestingController::class, 'sendEmail']);

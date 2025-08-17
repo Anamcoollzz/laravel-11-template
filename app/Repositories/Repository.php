@@ -423,4 +423,16 @@ class Repository extends RepositoryAbstract
     {
         return $this->queryFullData()->with(array_merge(['createdBy', 'lastUpdatedBy'], $relations))->latest()->get();
     }
+
+    /**
+     * update or create model
+     *
+     * @param array $attributes
+     * @param array $values
+     * @return Model
+     */
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->query()->updateOrCreate($attributes, $values);
+    }
 }

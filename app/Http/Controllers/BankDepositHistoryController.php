@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BankDepositRequest;
+use App\Http\Requests\BankDepositHistoryRequest;
 use App\Imports\GeneralImport;
-use App\Models\BankDeposit;
-use App\Repositories\BankDepositRepository;
+use App\Models\BankDepositHistory;
+use App\Repositories\BankDepositHistoryRepository;
 use App\Repositories\BankRepository;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class BankDepositController extends StislaController
+class BankDepositHistoryController extends StislaController
 {
     /**
      * bank deposit repository
@@ -31,22 +30,22 @@ class BankDepositController extends StislaController
         parent::__construct();
 
         $this->icon           = 'fa fa-dollar';
-        $this->repository     = new BankDepositRepository;
+        $this->repository     = new BankDepositHistoryRepository;
         $this->bankRepository = new BankRepository;
-        $this->prefix         = $this->viewFolder = 'bank-deposits';
+        $this->prefix         = $this->viewFolder = 'bank-deposit-histories';
         $this->pdfPaperSize   = 'A3';
         // $this->import     = new GeneralImport;
 
-        $this->defaultMiddleware($this->title = 'Deposito Bank');
+        $this->defaultMiddleware($this->title = 'Riwayat Deposito Bank');
     }
 
     /**
      * prepare store data
      *
-     * @param BankDepositRequest $request
+     * @param BankDepositHistoryRequest $request
      * @return array
      */
-    public function getStoreData(BankDepositRequest $request)
+    public function getStoreData(BankDepositHistoryRequest $request)
     {
         $data = $request->only([
             'bank_id',
@@ -81,10 +80,10 @@ class BankDepositController extends StislaController
         // $data['currency_idr'] = rp_to_double($request->currency_idr);
 
         // if ($request->hasFile('file'))
-        //     $data['file'] = $this->fileService->uploadBankDepositFile($request->file('file'));
+        //     $data['file'] = $this->fileService->uploadBankDepositHistoryFile($request->file('file'));
 
         // if ($request->hasFile('image'))
-        //     $data['image'] = $this->fileService->uploadBankDepositFile($request->file('image'));
+        //     $data['image'] = $this->fileService->uploadBankDepositHistoryFile($request->file('image'));
 
         return $data;
     }
@@ -97,8 +96,8 @@ class BankDepositController extends StislaController
      */
     public function index(Request $request)
     {
-        $this->canExport = true;
-        return $this->prepareIndex($request, ['data' => $this->repository->getFullDataWith(['bank:id,name,bank_type'])]);
+        // return $this->repository->getFullDataWith(['bankdeposit:id,bank_id', 'bankdeposit.bank']);
+        return $this->prepareIndex($request, ['data' => ($this->repository->getFullDataWith(['bankdeposit:id,bank_id', 'bankdeposit.bank:id,name,bank_type']))]);
     }
 
     /**
@@ -116,10 +115,10 @@ class BankDepositController extends StislaController
     /**
      * save new bank deposit to db
      *
-     * @param BankDepositRequest $request
+     * @param BankDepositHistoryRequest $request
      * @return Response
      */
-    public function store(BankDepositRequest $request)
+    public function store(BankDepositHistoryRequest $request)
     {
         return $this->executeStore($request);
     }
@@ -128,10 +127,10 @@ class BankDepositController extends StislaController
      * showing edit bank deposit page
      *
      * @param Request $request
-     * @param BankDeposit $bankDeposit
+     * @param BankDepositHistory $bankDeposit
      * @return Response
      */
-    public function edit(Request $request, BankDeposit $bankDeposit)
+    public function edit(Request $request, BankDepositHistory $bankDeposit)
     {
         $bank_options = $this->bankRepository->getSelectOptions();
         return $this->prepareDetailForm($request, $bankDeposit, false, ['bank_options' => $bank_options]);
@@ -140,11 +139,11 @@ class BankDepositController extends StislaController
     /**
      * update data to db
      *
-     * @param BankDepositRequest $request
-     * @param BankDeposit $bankDeposit
+     * @param BankDepositHistoryRequest $request
+     * @param BankDepositHistory $bankDeposit
      * @return Response
      */
-    public function update(BankDepositRequest $request, BankDeposit $bankDeposit)
+    public function update(BankDepositHistoryRequest $request, BankDepositHistory $bankDeposit)
     {
         return $this->executeUpdate($request, $bankDeposit);
     }
@@ -153,10 +152,10 @@ class BankDepositController extends StislaController
      * show detail page
      *
      * @param Request $request
-     * @param BankDeposit $bankDeposit
+     * @param BankDepositHistory $bankDeposit
      * @return Response
      */
-    public function show(Request $request, BankDeposit $bankDeposit)
+    public function show(Request $request, BankDepositHistory $bankDeposit)
     {
         return $this->prepareDetailForm($request, $bankDeposit, true);
     }
@@ -164,12 +163,12 @@ class BankDepositController extends StislaController
     /**
      * delete bank deposit from db
      *
-     * @param BankDeposit $bankDeposit
+     * @param BankDepositHistory $bankDeposit
      * @return Response
      */
-    public function destroy(BankDeposit $bankDeposit)
+    public function destroy(BankDepositHistory $bankDeposit)
     {
-        // $this->fileService->deleteBankDepositFile($bankDeposit);
+        // $this->fileService->deleteBankDepositHistoryFile($bankDeposit);
         return $this->executeDestroy($bankDeposit);
     }
 
@@ -185,16 +184,5 @@ class BankDepositController extends StislaController
         // return response()->download($filepath);
 
         return $this->executeImportExcelExample();
-    }
-
-    /**
-     * save bank deposit to history
-     *
-     * @return RedirectResponse
-     */
-    public function saveToHistory(): RedirectResponse
-    {
-        $this->repository->saveToHistory();
-        return backSuccess('Berhasil menyimpan data ke riwayat deposito bank');
     }
 }

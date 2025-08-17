@@ -59,6 +59,13 @@ return [
                     'is_active_if_url_includes' => 'bank-deposits*',
                 ],
                 [
+                    'menu_name' => 'Riwayat Deposito',
+                    'route_name' => 'bank-deposit-histories.index',
+                    'icon' => 'fas fa-dollar',
+                    'permission' => 'Riwayat Deposito Bank',
+                    'is_active_if_url_includes' => 'bank-deposit-histories*',
+                ],
+                [
                     'menu_name' => 'Stisla Example',
                     'route_name' => null,
                     'icon' => 'fas fa-caret-square-down',
@@ -686,6 +693,53 @@ return [
         // ],
         // [
         //     'name' => 'Deposito Bank Ajax Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ]
+
+        // riwayat deposito bank
+        [
+            'name' => 'Riwayat Deposito Bank',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Riwayat Deposito Bank'
+        ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Tambah',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Riwayat Deposito Bank'
+        // ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Impor Excel',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Riwayat Deposito Bank'
+        // ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Ubah',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Riwayat Deposito Bank'
+        // ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Detail',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Riwayat Deposito Bank'
+        // ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Hapus',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Riwayat Deposito Bank'
+        // ],
+        [
+            'name' => 'Riwayat Deposito Bank Ekspor',
+            'roles' => ['superadmin', 'admin', 'banker'],
+            'group' => 'Riwayat Deposito Bank'
+        ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Yajra',
+        //     'roles' => ['superadmin', 'admin', 'banker'],
+        //     'group' => 'Bank'
+        // ],
+        // [
+        //     'name' => 'Riwayat Deposito Bank Ajax Yajra',
         //     'roles' => ['superadmin', 'admin', 'banker'],
         //     'group' => 'Bank'
         // ]
