@@ -34,43 +34,49 @@
                 <tr>
                   <td style="font-weight: bold;">Total Estimasi</td>
                   <td>
-                    {{ rp($data->sum('estimation')) }}
+                    {{ rp($tot = $data->sum('estimation')) }}
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Konvensional')->sum('estimation')) }}
+                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('estimation')) }}
+                    ({{ rp(($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Syariah')->sum('estimation')) }}
+                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('estimation')) }}
+                    ({{ rp(($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
                   <td style="font-weight: bold;">Total Realisasi</td>
                   <td>
-                    {{ rp($data->sum('realization')) }}
+                    {{ rp($tot = $data->sum('realization')) }}
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Konvensional')->sum('realization')) }}
+                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('realization')) }}
+                    ({{ rp(($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Syariah')->sum('realization')) }}
+                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('realization')) }}
+                    ({{ rp(($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
                   <td style="font-weight: bold;">Total Amount</td>
                   <td>
-                    {{ rp($data->sum('amount')) }}
+                    {{ rp($tot = $data->sum('amount')) }}
                   </td>
                   <td style="font-weight: bold;">Konvensional</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Konvensional')->sum('amount')) }}
+                    {{ rp($kon = $data->where('bank.bank_type', 'Konvensional')->sum('amount')) }}
+                    ({{ rp(($kon / $tot) * 100) }}%)
                   </td>
                   <td style="font-weight: bold;">Syariah</td>
                   <td>
-                    {{ rp($data->where('bank.bank_type', 'Syariah')->sum('amount')) }}
+                    {{ rp($sya = $data->where('bank.bank_type', 'Syariah')->sum('amount')) }}
+                    ({{ rp(($sya / $tot) * 100) }}%)
                   </td>
                 </tr>
                 <tr>
