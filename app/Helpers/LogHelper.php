@@ -15,7 +15,7 @@ function logExecute(string $title, string $activityType, $before = null, $after 
 {
     $before = is_string($before) ? $before : json_encode($before);
     $after  = is_string($after) ? $after : json_encode($after);
-    $user   = auth()->user() ?? auth('api')->user();
+    $user   = auth_user();
 
     // override plain text password
     request()->merge([

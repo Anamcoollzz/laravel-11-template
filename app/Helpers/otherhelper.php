@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Repositories\SettingRepository;
+use Illuminate\Support\Facades\Auth;
 
 function active_template()
 {
@@ -94,4 +96,14 @@ function idr_to_double($value)
 function rp_to_double($value)
 {
     return str_replace('.', '', $value);
+}
+
+/**
+ * get user login model
+ *
+ * @return User
+ */
+function auth_user()
+{
+    return Auth::user() ?? auth('api')->user();
 }

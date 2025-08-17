@@ -203,7 +203,7 @@ class StislaController extends Controller
      */
     public function getDefaultDataIndex(string $title, string $permissionPrefix, string $routePrefix)
     {
-        $user = auth()->user();
+        $user = auth_user();
 
         $canCreate      = $user->can($permissionPrefix . ' Tambah');
         $canUpdate      = $user->can($permissionPrefix . ' Ubah');

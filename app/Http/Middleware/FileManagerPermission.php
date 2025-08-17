@@ -16,7 +16,7 @@ class FileManagerPermission
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->can('Manajemen File')) {
+        if (auth_user()->can('Manajemen File')) {
             return $next($request);
         }
         abort(403);

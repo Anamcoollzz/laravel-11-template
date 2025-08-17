@@ -142,7 +142,7 @@
                 </div>
             </div>
         </li> --}}
-    @if (auth()->user()->can('Notifikasi'))
+    @if (auth_user()->can('Notifikasi'))
       <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg {{ $_my_notifications->count() ? 'beep' : '' }}"><i
             class="far fa-bell"></i></a>
         <div class="dropdown-menu dropdown-list dropdown-menu-right">
@@ -199,7 +199,7 @@
             <br>{{ Auth::user()->last_login }}
           </div>
 
-          @if (auth()->user()->can('Profil'))
+          @if (auth_user()->can('Profil'))
             <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
               <i class="far fa-user"></i> {{ __('Profil') }}
             </a>

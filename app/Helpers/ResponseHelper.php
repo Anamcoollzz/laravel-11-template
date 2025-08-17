@@ -74,5 +74,5 @@ function response500($data = null, string $message = null)
  */
 function backSuccess($successMessage)
 {
-    return back()->with('successMessage', $successMessage);
+    return back()->with('successMessage', __($successMessage));
 }

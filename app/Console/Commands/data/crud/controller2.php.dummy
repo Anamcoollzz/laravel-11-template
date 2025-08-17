@@ -53,7 +53,7 @@ class CONTROLLERNAME extends Controller
      * @var FileService
      */
     private EmailService $emailService;
-    
+
     /**
      * exportable
      *
@@ -96,7 +96,7 @@ class CONTROLLERNAME extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = auth_user();
         return view('stisla.FOLDERVIEW.index', [
             'data'             => $this->VARREPOSITORYNAME->getLatest(),
             'canCreate'        => $user->can('TITLE Tambah'),

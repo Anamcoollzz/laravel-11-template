@@ -42,7 +42,7 @@ class DashboardController extends StislaController
     public function index()
     {
         $widgets = [];
-        $user = auth()->user();
+        $user = auth_user();
 
         if ($user->can('Contoh CRUD'))
             $widgets[] = (object)[
@@ -187,7 +187,7 @@ class DashboardController extends StislaController
             'file_upload' => 'required|file|max:102048',
         ]);
         $link = $this->fileService->uploadFile($request->file('file_upload'), 'file_upload');
-        auth()->user()->update(['file_upload' => $link]);
+        auth_user()->update(['file_upload' => $link]);
         return redirect()->back()->with('successMessage', 'File berhasil diupload');
     }
 

@@ -12,7 +12,7 @@
     ])
   </div>
 
-
+  @include('stisla.includes.others.alert-password')
   <div class="section-body">
     <h2 class="section-title">{{ $fullTitle }}</h2>
     <p class="section-lead">{{ __('Menampilkan halaman ' . $fullTitle) }}.</p>

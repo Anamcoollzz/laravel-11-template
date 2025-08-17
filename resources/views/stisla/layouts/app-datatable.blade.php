@@ -12,7 +12,7 @@
 
 @section('content')
   @include('stisla.includes.breadcrumbs.breadcrumb-table')
-
+  @include('stisla.includes.others.alert-password')
   <div class="section-body">
     <h2 class="section-title">{{ $title }}</h2>
     <p class="section-lead">{{ __('Menampilkan halaman ' . $title) }}.</p>

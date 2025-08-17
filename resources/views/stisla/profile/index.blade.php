@@ -101,7 +101,11 @@
                   </div>
                 @endif
                 <div class="col-md-6">
-                  @include('stisla.includes.forms.inputs.input-email', ['value' => $user->email])
+                  @include('stisla.includes.forms.inputs.input-email', [
+                      'value' => $user->email,
+                      'is_valid' => ($eva = Auth::user()->email_verified_at ? 'is-valid' : ''),
+                      'valid_feedback' => $eva ? 'Email sudah diverifikasi' : '',
+                  ])
                 </div>
 
                 @if (!($_is_superadmin && config('app.is_demo')))
@@ -119,9 +123,9 @@
 
       <div class="col-12">
         <div class="alert alert-{{ $totalDay > 30 ? 'danger' : 'info' }} alert-has-icon">
-          <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+          <div class="alert-icon"><i class="{{ $totalDay > 30 ? 'fa fa-warning' : 'far fa-lightbulb' }}"></i></div>
           <div class="alert-body">
-            <div class="alert-title">{{ __('Informasi') }}</div>
+            <div class="alert-title">{{ $totalDay > 30 ? __('Peringatan') : __('Informasi') }}</div>
             {{ __('Password terakhir kali diperbarui pada ') . $user->last_password_change }}
             @if ($totalDay > 30)
               <br>
@@ -130,7 +134,7 @@
           </div>
         </div>
         <form action="{{ route('profile.update-password') }}" method="post" class="needs-validation" id="formPassword">
-          <div class="card">
+          <div class="card" id="update-password">
             <div class="card-header">
               <h4> <i class="fa fa-key"></i> {{ __('Perbarui Password') }}</h4>
             </div>

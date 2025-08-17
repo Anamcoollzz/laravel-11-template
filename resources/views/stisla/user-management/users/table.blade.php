@@ -46,7 +46,7 @@
         @if ($roleCount > 1)
           <td>
             @foreach ($item->roles as $role)
-              @if (auth()->user()->can('Role Ubah'))
+              @if (auth_user()->can('Role Ubah'))
                 <a class="badge badge-primary mb-1" href="{{ route('user-management.roles.edit', $role->id) }}">{{ $role->name }}</a>
               @else
                 <span class="badge badge-primary mb-1">{{ $role->name }}</span>

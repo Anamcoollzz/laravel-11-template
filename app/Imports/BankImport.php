@@ -22,7 +22,7 @@ class BankImport implements ToCollection, WithHeadingRow
             $insertData = $chunkData->transform(function ($item) use ($dateTime) {
                 $item->put('created_at', $dateTime);
                 $item->put('updated_at', $dateTime);
-                $item->put('created_by_id', auth()->user()->id);
+                $item->put('created_by_id', auth_user()->id);
                 return $item;
             })->toArray();
             Bank::insert($insertData);

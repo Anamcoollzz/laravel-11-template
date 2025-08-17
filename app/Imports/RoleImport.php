@@ -25,7 +25,7 @@ class RoleImport implements ToCollection, WithHeadingRow
                     'guard_name'    => 'web',
                     'created_at'    => $dateTime,
                     'updated_at'    => $dateTime,
-                    'created_by_id' => auth()->user()->id,
+                    'created_by_id' => auth_user()->id,
                 ];
             })->toArray();
             Role::insert($insertData);

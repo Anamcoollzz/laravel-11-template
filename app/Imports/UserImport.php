@@ -46,7 +46,7 @@ class UserImport implements ToCollection, WithHeadingRow
                     'address'       => $item['alamat'],
                     'created_at'    => $dateTime,
                     'updated_at'    => $dateTime,
-                    'created_by_id' => auth()->user()->id,
+                    'created_by_id' => auth_user()->id,
                     // 'avatar',
                     // 'email_verified_at',
                     // 'last_login',

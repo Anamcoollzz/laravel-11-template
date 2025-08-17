@@ -6,6 +6,7 @@ use App\Repositories\MenuRepository;
 use App\Repositories\SettingRepository;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ViewShare
 {
@@ -37,6 +38,11 @@ class ViewShare
     public function handle(Request $request, Closure $next)
     {
         if ($request->isMethod('GET')) {
+            $user = Auth::user();
+            $totalDay = \Carbon\Carbon::parse($user->last_password_change)->diffInDays(now());
+            view()->share('_total_day_password', $totalDay);
+            view()->share('_user', $user);
+
             // default value
             view()->share('_logo_url', asset('assets/images/logo.png'));
             view()->share('_company_name', "Nama Perusahaan");

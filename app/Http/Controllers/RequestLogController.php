@@ -30,7 +30,7 @@ class RequestLogController extends StislaController
      */
     public function index()
     {
-        $user            = auth()->user();
+        $user            = auth_user();
         $user            = $this->userRepository->find($user->id);
         $queryString     = request()->query();
         $data            = $this->requestLogRepository->getFilter();

@@ -19,7 +19,7 @@
         <li class="menu-header">{{ __($_group->group_name) }}</li>
 
         @php
-          $_user = auth()->user();
+          $_user = auth_user();
         @endphp
         @foreach ($_group->menus as $_menu)
           {{-- if single menu --}}

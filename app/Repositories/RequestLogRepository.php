@@ -44,8 +44,8 @@ class RequestLogRepository extends Repository
             ->when(request('filter_browser'), function ($query) {
                 $query->whereBrowser(request('filter_browser'));
             })
-            ->when(!auth()->user()->hasRole('superadmin'), function ($query) {
-                $query->where('user_id', auth()->user()->id);
+            ->when(!auth_user()->hasRole('superadmin'), function ($query) {
+                $query->where('user_id', auth_user()->id);
             })
             ->with([
                 'user',

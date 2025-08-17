@@ -20,7 +20,7 @@ class LogRequestMiddleware
         if ($request->path() !== 'serviceworker.js') {
             $roles = [];
             if (auth()->check()) {
-                $roles = auth()->user()->roles->pluck('name')->toArray();
+                $roles = auth_user()->roles->pluck('name')->toArray();
             } else if (config('jwt.secret') && auth('api')->check()) {
                 $roles = auth('api')->user()->roles->pluck('name')->toArray();
             }

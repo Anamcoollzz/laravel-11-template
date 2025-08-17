@@ -9,13 +9,17 @@
     <h1>{{ __('Dashboard') }}</h1>
   </div>
   <div class="row">
+    <div class="col-12">
+      @include('stisla.includes.others.alert-password')
+    </div>
+
     <div class="col-12 mb-4">
       <div class="hero text-white hero-bg-image" data-background="{{ $_stisla_bg_home }}">
         <div class="hero-inner">
           <h2>{{ __('Selamat Datang') }}, {{ Auth::user()->name ?? 'Your Name' }}</h2>
           <p class="lead">{{ $_app_description }}</p>
 
-          @if (auth()->user()->can('Profil'))
+          @if (auth_user()->can('Profil'))
             <div class="mt-4">
               <a href="{{ route('profile.index') }}" class="btn btn-outline-white btn-lg btn-icon icon-left">
                 <i class="far fa-user"></i> {{ __('Lihat Profil') }}

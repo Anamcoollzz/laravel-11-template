@@ -135,7 +135,7 @@ class RoleController extends StislaController
     {
         $data   = $this->getStoreData($request);
         $result = $this->userRepository->createRole($request->name, $data);
-        $result->created_by_id = auth()->user()->id;
+        $result->created_by_id = auth_user()->id;
         $result->save();
 
         logCreate('Role', $result);
@@ -169,7 +169,7 @@ class RoleController extends StislaController
 
         $before = $this->userRepository->findRole($role->id);
         $data   = $this->getStoreData($request);
-        $data['last_updated_by_id'] = auth()->user()->id;
+        $data['last_updated_by_id'] = auth_user()->id;
         $after  = $this->userRepository->updateRole($role->id, $data);
 
         logUpdate('Role', $before, $after);
